@@ -18,7 +18,7 @@ import javax.swing.JFrame
 import javax.swing.JPanel
 
 /**
- * Core of the installer.
+ * Core of the Minecraft Mod Installer.
  */
 object MinecraftModInstaller
 {
