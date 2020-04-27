@@ -1,9 +1,9 @@
 package net.inceptioncloud.installer.frontend.objects
 
-import dev.bytenet.lib.graphics.transitions.color.ColorTransition
-import dev.bytenet.lib.graphics.transitions.supplier.ForwardBackward
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.Screen
+import net.inceptioncloud.installer.frontend.transition.color.ColorTransition
+import net.inceptioncloud.installer.frontend.transition.supplier.ForwardBackward
 import java.awt.Color
 import java.awt.GradientPaint
 import java.awt.Graphics2D

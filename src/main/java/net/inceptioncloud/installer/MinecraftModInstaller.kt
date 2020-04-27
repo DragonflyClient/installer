@@ -1,18 +1,17 @@
 package net.inceptioncloud.installer
 
-import dev.bytenet.lib.graphics.GraphicsLibrary
-import dev.bytenet.lib.graphics.transitions.number.SmoothDoubleTransition
-import dev.bytenet.lib.graphics.transitions.supplier.ForwardNothing
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.FontManager.registerFonts
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.ScreenIndexManager
 import net.inceptioncloud.installer.frontend.screens.WelcomeScreen
+import net.inceptioncloud.installer.frontend.transition.Transition
+import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition
+import net.inceptioncloud.installer.frontend.transition.supplier.ForwardNothing
 import java.awt.*
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.event.MouseMotionAdapter
-import java.io.File
 import javax.imageio.ImageIO
 import javax.swing.JFrame
 import javax.swing.JPanel
@@ -50,26 +49,36 @@ object MinecraftModInstaller
     /**
      * Current screen with paint() method that is called whenever the main container is repainted.
      */
-    var screen: Screen = WelcomeScreen()
+    lateinit var screen: Screen
+
+    /**
+     * A list with all transitions.
+     */
+    val transitions = mutableListOf<Transition>()
 
     /**
      * Screen that was shown before the current one.
      */
-    private var previousScreen: Screen = screen
+    private lateinit var previousScreen: Screen
 
     /**
      * Transition that switches to the next screen.
      */
-    private var screenSwitch = SmoothDoubleTransition.builder()
-            .start(WINDOW_WIDTH.toDouble()).end(0.0)
-            .fadeIn(ScreenIndexManager.FADE_IN).stay(ScreenIndexManager.STAY).fadeOut(ScreenIndexManager.FADE_OUT)
-            .autoTransformator(ForwardNothing { screen != previousScreen }).build()
+    private lateinit var screenSwitch: SmoothDoubleTransition
 
     /**
      * Called when starting the installer.
      */
     fun init()
     {
+        screen = WelcomeScreen()
+        previousScreen = screen
+
+        screenSwitch = SmoothDoubleTransition.builder()
+            .start(WINDOW_WIDTH.toDouble()).end(0.0)
+            .fadeIn(ScreenIndexManager.FADE_IN).stay(ScreenIndexManager.STAY).fadeOut(ScreenIndexManager.FADE_OUT)
+            .autoTransformator(ForwardNothing { screen != previousScreen }).build()
+
         window = JFrame()
 
         window.isResizable = false
@@ -122,7 +131,7 @@ object MinecraftModInstaller
             while (true)
             {
                 container.repaint()
-                GraphicsLibrary.tickTransitions()
+                ArrayList(transitions).forEach { it.tick() }
                 Thread.sleep(10)
             }
         }.start()
@@ -163,9 +172,9 @@ object MinecraftModInstaller
             {
                 previousScreen = screen
                 screenSwitch = SmoothDoubleTransition.builder()
-                        .start(WINDOW_WIDTH.toDouble()).end(0.0)
-                        .fadeIn(ScreenIndexManager.FADE_IN).stay(ScreenIndexManager.STAY).fadeOut(ScreenIndexManager.FADE_OUT)
-                        .autoTransformator(ForwardNothing { screen != previousScreen }).build()
+                    .start(WINDOW_WIDTH.toDouble()).end(0.0)
+                    .fadeIn(ScreenIndexManager.FADE_IN).stay(ScreenIndexManager.STAY).fadeOut(ScreenIndexManager.FADE_OUT)
+                    .autoTransformator(ForwardNothing { screen != previousScreen }).build()
             }
         } else
         {

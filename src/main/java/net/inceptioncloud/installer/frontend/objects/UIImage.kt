@@ -1,8 +1,8 @@
 package net.inceptioncloud.installer.frontend.objects
 
-import dev.bytenet.lib.graphics.transitions.number.SmoothDoubleTransition
-import dev.bytenet.lib.graphics.transitions.supplier.ForwardBackward
 import net.inceptioncloud.installer.frontend.Screen
+import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition
+import net.inceptioncloud.installer.frontend.transition.supplier.ForwardBackward
 import java.awt.Graphics2D
 import java.awt.Image
 import java.awt.event.MouseEvent
@@ -26,7 +26,10 @@ open class UIImage(private val image: Image) : Screen()
     /**
      * Transition that changes the size of the image on hover.
      */
-    private var sizeTransition = SmoothDoubleTransition.builder().start(2.0).end(-2.0).fadeIn(5).stay(5).fadeOut(5).autoTransformator(ForwardBackward { hovered }).build()
+    private var sizeTransition = SmoothDoubleTransition.builder()
+        .start(2.0).end(-2.0)
+        .fadeIn(5).stay(5).fadeOut(5)
+        .autoTransformator(ForwardBackward { hovered }).build()
 
     /**
      * Called when painting the screen.

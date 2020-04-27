@@ -1,14 +1,14 @@
 package net.inceptioncloud.installer.frontend.screens
 
-import dev.bytenet.lib.graphics.transitions.number.SmoothDoubleTransition
-import dev.bytenet.lib.graphics.transitions.supplier.AlwaysForward
-import dev.bytenet.lib.graphics.transitions.supplier.ForwardNothing
 import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.MinecraftModInstaller.WINDOW_HEIGHT
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.objects.UIButton
 import net.inceptioncloud.installer.frontend.objects.UIImage
+import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition
+import net.inceptioncloud.installer.frontend.transition.supplier.AlwaysForward
+import net.inceptioncloud.installer.frontend.transition.supplier.ForwardNothing
 import java.awt.Color
 import java.awt.Desktop
 import java.awt.Graphics2D

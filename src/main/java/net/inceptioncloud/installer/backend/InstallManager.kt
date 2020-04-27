@@ -6,8 +6,6 @@ import org.jsoup.select.Elements
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
-import kotlin.system.exitProcess
-
 
 /**
  * Manages important variables and functions for the Installing Process.
@@ -102,12 +100,12 @@ object InstallManager
      */
     fun getVersionURL(): String
     {
-        val versionInfo = URL("http://inceptioncloud.net/cdn/minecraftmod/current-version")
+        val versionInfo = URL("https://inceptioncloud.net/cdn/minecraftmod/current-version")
         val version = InputStreamReader(versionInfo.openConnection().getInputStream()).readText()
 
         println("Current Version is $version")
 
-        return "http://inceptioncloud.net/cdn/minecraftmod/$version/"
+        return "https://inceptioncloud.net/cdn/minecraftmod/$version/"
     }
 
     /**

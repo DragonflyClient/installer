@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="graphics-lib">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../byteNET/Libraries/graphics-lib/out/artifacts/graphics_lib_jar/graphics-lib.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

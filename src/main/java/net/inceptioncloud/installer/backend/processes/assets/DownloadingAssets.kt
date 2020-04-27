@@ -21,6 +21,6 @@ class DownloadingAssets : InstallationProcess("Downloading Assets")
      */
     override fun execute()
     {
-        status = if(InstallManager.saveFolder(destination, "http://inceptioncloud.net/cdn/minecraftmod/assets/")) 1 else -1
+        status = if(InstallManager.saveFolder(destination, "https://inceptioncloud.net/cdn/minecraftmod/assets/")) 1 else -1
     }
 }

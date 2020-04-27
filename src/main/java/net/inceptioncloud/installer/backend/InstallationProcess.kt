@@ -1,11 +1,11 @@
 package net.inceptioncloud.installer.backend
 
-import dev.bytenet.lib.graphics.transitions.color.ColorTransition
-import dev.bytenet.lib.graphics.transitions.number.DoubleTransition
-import dev.bytenet.lib.graphics.transitions.number.SmoothDoubleTransition
-import dev.bytenet.lib.graphics.transitions.supplier.AlwaysForward
-import dev.bytenet.lib.graphics.transitions.supplier.ForwardNothing
 import net.inceptioncloud.installer.frontend.FontManager
+import net.inceptioncloud.installer.frontend.transition.color.ColorTransition
+import net.inceptioncloud.installer.frontend.transition.number.DoubleTransition
+import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition
+import net.inceptioncloud.installer.frontend.transition.supplier.AlwaysForward
+import net.inceptioncloud.installer.frontend.transition.supplier.ForwardNothing
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.geom.Arc2D

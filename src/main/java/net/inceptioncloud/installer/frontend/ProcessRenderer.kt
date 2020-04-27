@@ -1,9 +1,9 @@
 package net.inceptioncloud.installer.frontend
 
-import dev.bytenet.lib.graphics.transitions.number.SmoothDoubleTransition
-import dev.bytenet.lib.graphics.transitions.supplier.ForwardNothing
 import net.inceptioncloud.installer.MinecraftModInstaller.WINDOW_WIDTH
 import net.inceptioncloud.installer.backend.InstallationProcess
+import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition
+import net.inceptioncloud.installer.frontend.transition.supplier.ForwardNothing
 import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics2D
