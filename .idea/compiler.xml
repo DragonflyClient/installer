@@ -20,6 +20,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Minecraft Mod Installer" />
+        <module name="Inception Cloud Minecraft Mod Installer" />
       </profile>
     </annotationProcessing>
   </component>

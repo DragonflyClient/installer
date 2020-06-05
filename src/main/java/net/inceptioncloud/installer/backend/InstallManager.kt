@@ -100,12 +100,12 @@ object InstallManager
      */
     fun getVersionURL(): String
     {
-        val versionInfo = URL("https://inceptioncloud.net/cdn/minecraftmod/current-version")
+        val versionInfo = URL("https://cdn.icnet.dev/minecraftmod/current-version")
         val version = InputStreamReader(versionInfo.openConnection().getInputStream()).readText()
 
         println("Current Version is $version")
 
-        return "https://inceptioncloud.net/cdn/minecraftmod/$version/"
+        return "https://cdn.icnet.dev/minecraftmod/$version/"
     }
 
     /**
