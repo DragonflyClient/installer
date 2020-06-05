@@ -70,7 +70,7 @@ object InstallManager
             {
                 val target = link.attr("href").toString()
 
-                if (target.startsWith("?") || target.startsWith("/cdn/"))
+                if (target.startsWith("?") || target.startsWith("/minecraftmod/"))
                     continue
 
                 val remoteTarget = "$urlString$target"
