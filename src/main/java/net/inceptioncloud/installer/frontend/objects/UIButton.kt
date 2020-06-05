@@ -21,7 +21,7 @@ open class UIButton(var text: String) : Screen()
     private var height: Int = 0
 
     /**
-     * Whether the buton is currently hovered.
+     * Whether the button is currently hovered.
      */
     private var hovered: Boolean = false
 

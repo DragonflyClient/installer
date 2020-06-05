@@ -34,7 +34,7 @@ class WelcomeScreen : Screen(0)
     {
         override fun buttonClicked()
         {
-            MinecraftModInstaller.screen = PreparingSetupScreen()
+            MinecraftModInstaller.screen = EarlyAccessScreen()
         }
     }
 

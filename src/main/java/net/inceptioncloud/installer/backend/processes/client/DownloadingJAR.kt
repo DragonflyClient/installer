@@ -4,12 +4,13 @@ import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.backend.InstallationProcess
 import java.io.File
 
-class DownloadingJAR : InstallationProcess("Downloading JAR")
-{
+class DownloadingJAR : InstallationProcess("Downloading JAR") {
+
     /**
      * Destination for the JAR file.
      */
-    private val destination = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\ICMinecraftMod\\ICMinecraftMod.jar")
+    private val destination =
+        File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\ICMinecraftMod\\ICMinecraftMod.jar")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.
@@ -19,8 +20,12 @@ class DownloadingJAR : InstallationProcess("Downloading JAR")
     /**
      * Executes the download / installation that the process is responsible for.
      */
-    override fun execute()
-    {
-        status = if(InstallManager.saveFile(destination, "${InstallManager.getVersionURL()}ICMinecraftMod.jar")) 1 else -1
+    override fun execute() {
+
+        status = if (InstallManager.saveFile(
+                destination,
+                "${InstallManager.getVersionURL()}ICMinecraftMod.jar"
+            )
+        ) 1 else -1
     }
 }

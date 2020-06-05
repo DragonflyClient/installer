@@ -9,8 +9,7 @@ import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.event.MouseEvent
 
-class PreparingSetupScreen : Screen(1)
-{
+class PreparingSetupScreen : Screen(2) {
     /**
      * Process Renderer for the current screen.
      */
@@ -19,7 +18,13 @@ class PreparingSetupScreen : Screen(1)
     /**
      * All processes that can potentially be executed here.
      */
-    private val potentialProcesses = listOf(StoringOptions(), UninstallingOldClient(), UninstallingOldAssets(), CreatingClientFolder(), CreatingAssetsFolder())
+    private val potentialProcesses = listOf(
+        StoringOptions(),
+        UninstallingOldClient(),
+        UninstallingOldAssets(),
+        CreatingClientFolder(),
+        CreatingAssetsFolder()
+    )
 
     /**
      * Called when switching to the screen.

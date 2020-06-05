@@ -19,7 +19,7 @@ open class UIImage(private val image: Image) : Screen()
     private var height: Int = 0
 
     /**
-     * Whether the buton is currently hovered.
+     * Whether the image is currently hovered.
      */
     private var hovered: Boolean = false
 

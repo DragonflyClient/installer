@@ -8,13 +8,12 @@ import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.event.MouseEvent
 import java.io.File
-import java.lang.Exception
 import kotlin.system.exitProcess
 
 /**
  * First Screen that is shown when opening the installer.
  */
-class FinishedScreen : Screen(5) {
+class FinishedScreen : Screen(6) {
 
     /**
      * File of the minecraft launcher

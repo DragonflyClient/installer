@@ -33,11 +33,18 @@ object ScreenIndexManager
      * List with all transitions for the different index switches.
      */
     private val allTransitions = listOf(
-            SmoothDoubleTransition.builder().start(0.0).end(1.0).fadeIn(FADE_IN).stay(STAY).fadeOut(FADE_OUT).autoTransformator(ForwardNothing { currentIndex == 1 }).build(),
-            SmoothDoubleTransition.builder().start(0.0).end(1.0).fadeIn(FADE_IN).stay(STAY).fadeOut(FADE_OUT).autoTransformator(ForwardNothing { currentIndex == 2 }).build(),
-            SmoothDoubleTransition.builder().start(0.0).end(1.0).fadeIn(FADE_IN).stay(STAY).fadeOut(FADE_OUT).autoTransformator(ForwardNothing { currentIndex == 3 }).build(),
-            SmoothDoubleTransition.builder().start(0.0).end(1.0).fadeIn(FADE_IN).stay(STAY).fadeOut(FADE_OUT).autoTransformator(ForwardNothing { currentIndex == 4 }).build(),
-            SmoothDoubleTransition.builder().start(0.0).end(1.0).fadeIn(FADE_IN).stay(STAY).fadeOut(FADE_OUT).autoTransformator(ForwardNothing { currentIndex == 5 }).build()
+        SmoothDoubleTransition.builder().start(0.0).end(1.0).fadeIn(FADE_IN).stay(STAY).fadeOut(FADE_OUT)
+            .autoTransformator(ForwardNothing { currentIndex == 1 }).build(),
+        SmoothDoubleTransition.builder().start(0.0).end(1.0).fadeIn(FADE_IN).stay(STAY).fadeOut(FADE_OUT)
+            .autoTransformator(ForwardNothing { currentIndex == 2 }).build(),
+        SmoothDoubleTransition.builder().start(0.0).end(1.0).fadeIn(FADE_IN).stay(STAY).fadeOut(FADE_OUT)
+            .autoTransformator(ForwardNothing { currentIndex == 3 }).build(),
+        SmoothDoubleTransition.builder().start(0.0).end(1.0).fadeIn(FADE_IN).stay(STAY).fadeOut(FADE_OUT)
+            .autoTransformator(ForwardNothing { currentIndex == 4 }).build(),
+        SmoothDoubleTransition.builder().start(0.0).end(1.0).fadeIn(FADE_IN).stay(STAY).fadeOut(FADE_OUT)
+            .autoTransformator(ForwardNothing { currentIndex == 5 }).build(),
+        SmoothDoubleTransition.builder().start(0.0).end(1.0).fadeIn(FADE_IN).stay(STAY).fadeOut(FADE_OUT)
+            .autoTransformator(ForwardNothing { currentIndex == 6 }).build()
     )
 
     /**
@@ -66,16 +73,22 @@ object ScreenIndexManager
     fun drawStepIndex(graphics2D: Graphics2D)
     {
         val center = WINDOW_WIDTH / 2
-        val startX = (center - OUTER_CIRCLE * 3 - DISTANCE * 2.5).toInt()
+        val startX = (center - OUTER_CIRCLE * 3.5 - DISTANCE * 3).toInt()
         val borderRadius = (OUTER_CIRCLE - INNER_CIRCLE) / 2
         val width = OUTER_CIRCLE * 6 + DISTANCE * 5
         val y = (WINDOW_HEIGHT - 40) + WelcomeScreen.buttonFlyIn.castToInt()
 
         var currentCircleX = startX
 
-        for (index in 0..5)
-        {
-            graphics2D.paint = GradientPaint(startX.toFloat(), y.toFloat(), Color(0xA55EEA), (startX + width).toFloat(), y.toFloat(), Color(0x4B7BEC))
+        for (index in 0..6) {
+            graphics2D.paint = GradientPaint(
+                startX.toFloat(),
+                y.toFloat(),
+                Color(0xA55EEA),
+                (startX + width).toFloat(),
+                y.toFloat(),
+                Color(0x4B7BEC)
+            )
             graphics2D.fillOval(currentCircleX, y, OUTER_CIRCLE, OUTER_CIRCLE)
 
             graphics2D.color = Color.WHITE

@@ -9,8 +9,7 @@ import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.event.MouseEvent
 
-class CreatingLauncherProfileScreen : Screen(4)
-{
+class CreatingLauncherProfileScreen : Screen(5) {
     /**
      * Process Renderer for the current screen.
      */
@@ -19,7 +18,8 @@ class CreatingLauncherProfileScreen : Screen(4)
     /**
      * All processes that can potentially be executed here.
      */
-    private val potentialProcesses = listOf(ClosingLauncher(), CheckingRam(), AccessingJVMArguments(), OpeningProfiles(), AddingProfile())
+    private val potentialProcesses =
+        listOf(ClosingLauncher(), CheckingRam(), AccessingJVMArguments(), OpeningProfiles(), AddingProfile())
 
     /**
      * Called when switching to the screen.
