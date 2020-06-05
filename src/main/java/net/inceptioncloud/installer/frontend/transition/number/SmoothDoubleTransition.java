@@ -1,5 +1,7 @@
 package net.inceptioncloud.installer.frontend.transition.number;
 
+import net.inceptioncloud.installer.Logger;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Objects;

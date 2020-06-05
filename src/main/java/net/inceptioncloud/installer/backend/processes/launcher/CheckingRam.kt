@@ -1,6 +1,7 @@
 package net.inceptioncloud.installer.backend.processes.launcher
 
 import com.sun.management.OperatingSystemMXBean
+import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.backend.InstallationProcess
 import java.lang.Exception
 import java.lang.management.ManagementFactory
@@ -24,7 +25,7 @@ class CheckingRam : InstallationProcess("Checking RAM")
             val memorySize = (ManagementFactory.getOperatingSystemMXBean() as OperatingSystemMXBean).totalPhysicalMemorySize
             val gbytes = (memorySize / (1024 * 1024 * 1024F)).roundToInt()
 
-            println("System has ${gbytes}gb of RAM")
+            Logger.log("System has ${gbytes}gb of RAM")
             LauncherProfile.ram = gbytes
 
             1

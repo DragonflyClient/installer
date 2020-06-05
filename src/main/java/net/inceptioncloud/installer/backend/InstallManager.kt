@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.backend
 
+import net.inceptioncloud.installer.Logger
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
@@ -22,7 +23,7 @@ object InstallManager
      */
     fun saveFile(file: File, urlString: String): Boolean
     {
-        println("Saving $urlString to file $file")
+        Logger.log("Saving $urlString to file $file")
 
         var `in`: InputStream? = null
         var out: FileOutputStream? = null
@@ -58,7 +59,7 @@ object InstallManager
      */
     fun saveFolder(folder: File, urlString: String): Boolean
     {
-        println("Saving $urlString to folder $folder")
+        Logger.log("Saving $urlString to folder $folder")
 
         try
         {
@@ -103,7 +104,7 @@ object InstallManager
         val versionInfo = URL("https://cdn.icnet.dev/minecraftmod/current-version")
         val version = InputStreamReader(versionInfo.openConnection().getInputStream()).readText()
 
-        println("Current Version is $version")
+        Logger.log("Current Version is $version")
 
         return "https://cdn.icnet.dev/minecraftmod/$version/"
     }

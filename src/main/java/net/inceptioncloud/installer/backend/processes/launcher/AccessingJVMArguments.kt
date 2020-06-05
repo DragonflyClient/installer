@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.backend.processes.launcher
 
+import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.backend.InstallationProcess
 import java.io.File
@@ -20,7 +21,7 @@ class AccessingJVMArguments : InstallationProcess("Accessing JVM Arguments")
         status = try
         {
             LauncherProfile.jvmArguments = FileReader(getArgumentsFile()).readText()
-            println(LauncherProfile.jvmArguments)
+            Logger.log(LauncherProfile.jvmArguments)
             1
         }
         catch (ex: Exception)

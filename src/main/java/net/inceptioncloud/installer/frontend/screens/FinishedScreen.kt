@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.frontend.screens
 
+import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.objects.UIButton
@@ -38,6 +39,7 @@ class FinishedScreen : Screen(5)
     init
     {
         childs.add(button)
+        Logger.log("Installation successful!")
     }
 
     /**

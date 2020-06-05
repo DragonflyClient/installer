@@ -71,6 +71,9 @@ object MinecraftModInstaller
      */
     fun init()
     {
+
+        Logger.createFile()
+
         screen = WelcomeScreen()
         previousScreen = screen
 
