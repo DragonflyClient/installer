@@ -7,7 +7,7 @@ import java.io.File
 class DownloadingAssets : InstallationProcess("Downloading Assets")
 {
     /**
-     * Destination for the JAR file.
+     * Destination for the assets folder.
      */
     private val destination = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\inceptioncloud\\")
 
