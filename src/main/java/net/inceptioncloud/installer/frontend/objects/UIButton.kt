@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent
 /**
  * A simple user interface button that can be used as a screen-child.
  */
-open class UIButton(private val text: String) : Screen()
+open class UIButton(var text: String) : Screen()
 {
     // The bounds in which the button was painted the last time.
     private var x: Int = 0
