@@ -45,7 +45,7 @@ class WelcomeScreen : Screen(0)
     {
         override fun buttonClicked()
         {
-            Desktop.getDesktop().browse(URI("https://twitter.com/InceptionCloud"))
+            Desktop.getDesktop().browse(URI("https://icnet.dev/twitter"))
         }
     }
 
@@ -56,7 +56,7 @@ class WelcomeScreen : Screen(0)
     {
         override fun buttonClicked()
         {
-            Desktop.getDesktop().browse(URI("https://www.instagram.com/inceptioncloud/"))
+            Desktop.getDesktop().browse(URI("https://icnet.dev/insta"))
         }
     }
 
@@ -67,7 +67,7 @@ class WelcomeScreen : Screen(0)
     {
         override fun buttonClicked()
         {
-            Desktop.getDesktop().browse(URI("https://discord.gg/DJRb4fF"))
+            Desktop.getDesktop().browse(URI("https://icnet.dev/discord"))
         }
     }
 
