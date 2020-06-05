@@ -52,7 +52,7 @@ class EarlyAccessScreen : Screen(1) {
         val offset = 4
 
         graphics2D.color = Color(50, 50, 50)
-        FontManager.drawCenteredString("Downlaod Channel", x + width / 2, y + 160, 0, 30, graphics2D)
+        FontManager.drawCenteredString("Download Channel", x + width / 2, y + 160, 0, 30, graphics2D)
 
         FontManager.drawCenteredString(
             "Lorem ipsum dolor sit amet, consetetur",
