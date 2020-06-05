@@ -16,16 +16,22 @@ import kotlin.system.exitProcess
  */
 class FinishedScreen : Screen(5) {
 
+    /**
+     * File of the minecraft launcher
+     */
     private lateinit var launcher: File
 
     /**
      * Button that is clicked to start the setup.
      */
-    private val button: UIButton = object : UIButton("Finish!") {
+    private val button: UIButton = object : UIButton("Close!") {
         override fun buttonClicked() {
 
             if (this.text == "Play now!") {
                 ProcessBuilder(launcher.absolutePath).start()
+                Logger.log("Closing wizard and starting minecraft launcher...")
+            }else  {
+                Logger.log("Closing wizard...")
             }
 
             exitProcess(0)
