@@ -14,50 +14,84 @@ import kotlin.system.exitProcess
 /**
  * First Screen that is shown when opening the installer.
  */
-class FinishedScreen : Screen(5)
-{
+class FinishedScreen : Screen(5) {
+
+    /**
+     * File of the minecraft launcher
+     */
+    private lateinit var launcher: File
+
     /**
      * Button that is clicked to start the setup.
      */
-    private val button: UIButton = object : UIButton("Play now!")
-    {
-        override fun buttonClicked()
-        {
-            try
-            {
-                val launcher = File("${System.getenv("ProgramFiles")} (x86)\\Minecraft Launcher\\MinecraftLauncher.exe")
+    private val button: UIButton = object : UIButton("Close!") {
+        override fun buttonClicked() {
+
+            if (this.text == "Play now!") {
                 ProcessBuilder(launcher.absolutePath).start()
-            } catch (ex: Exception)
-            {
-                ex.printStackTrace()
+                Logger.log("Closing wizard and starting minecraft launcher...")
+            }else  {
+                Logger.log("Closing wizard...")
             }
 
             exitProcess(0)
         }
     }
 
-    init
-    {
+    init {
         childs.add(button)
         Logger.log("Installation successful!")
+
+        launcher = File("${System.getenv("ProgramFiles")} (x86)\\Minecraft Launcher\\MinecraftLauncher.exe")
+
+        if (launcher.exists()) {
+            button.text = "Play now!"
+        }
     }
 
     /**
      * Called when painting the screen.
      */
-    override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int)
-    {
+    override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int) {
         val offset = 4
 
         // Paragraph
         graphics2D.color = Color(50, 50, 50)
         FontManager.drawCenteredString("Finished", x + width / 2 - offset, y + 160, 0, 30, graphics2D)
 
-        FontManager.drawCenteredString("The Inception Cloud Minecraft Mod", x + width / 2 - offset, y + 205, 2, 22, graphics2D)
-        FontManager.drawCenteredString("has been successfully installed!", x + width / 2 - offset, y + 233, 2, 22, graphics2D)
+        FontManager.drawCenteredString(
+            "The Inception Cloud Minecraft Mod",
+            x + width / 2 - offset,
+            y + 205,
+            2,
+            22,
+            graphics2D
+        )
+        FontManager.drawCenteredString(
+            "has been successfully installed!",
+            x + width / 2 - offset,
+            y + 233,
+            2,
+            22,
+            graphics2D
+        )
 
-        FontManager.drawCenteredString("Open your Minecraft Launcher and", x + width / 2 - offset, y + 280, 2, 22, graphics2D)
-        FontManager.drawCenteredString("select the \"IC Minecraft Mod\"", x + width / 2 - offset, y + 308, 2, 22, graphics2D)
+        FontManager.drawCenteredString(
+            "Open your Minecraft Launcher and",
+            x + width / 2 - offset,
+            y + 280,
+            2,
+            22,
+            graphics2D
+        )
+        FontManager.drawCenteredString(
+            "select the \"IC Minecraft Mod\"",
+            x + width / 2 - offset,
+            y + 308,
+            2,
+            22,
+            graphics2D
+        )
         FontManager.drawCenteredString("profile to run the client.", x + width / 2 - offset, y + 336, 2, 22, graphics2D)
 
         // Button
@@ -69,16 +103,14 @@ class FinishedScreen : Screen(5)
     /**
      * Called when the mouse clicks on the screen.
      */
-    override fun mouseClicked(event: MouseEvent?)
-    {
+    override fun mouseClicked(event: MouseEvent?) {
         childs.forEach { it.mouseClicked(event) }
     }
 
     /**
      * Called when the mouse moves.
      */
-    override fun mouseMoved(event: MouseEvent?)
-    {
+    override fun mouseMoved(event: MouseEvent?) {
         childs.forEach { it.mouseMoved(event) }
     }
 }
