@@ -130,9 +130,23 @@ class WelcomeScreen : Screen(0)
 
         // Paragraph
         graphics2D.color = Color(50, 50, 50)
-        FontManager.drawCenteredString("Welcome",                           x + width / 2 + contentFlyIn.castToInt(), y + 160, 0 , 30, graphics2D)
-        FontManager.drawCenteredString("to the Inception Cloud Minecraft",  x + width / 2 + contentFlyIn.castToInt(), y + 195, 2, 24, graphics2D)
-        FontManager.drawCenteredString("Mod Installation Wizard!",          x + width / 2 + contentFlyIn.castToInt(), y + 225, 2, 24, graphics2D)
+        FontManager.drawCenteredString("Welcome", x + width / 2 + contentFlyIn.castToInt(), y + 160, 0, 30, graphics2D)
+        FontManager.drawCenteredString(
+            "to the Inception Cloud Dragonfly",
+            x + width / 2 + contentFlyIn.castToInt(),
+            y + 195,
+            2,
+            24,
+            graphics2D
+        )
+        FontManager.drawCenteredString(
+            "Mod Installation Wizard!",
+            x + width / 2 + contentFlyIn.castToInt(),
+            y + 225,
+            2,
+            24,
+            graphics2D
+        )
         FontManager.drawCenteredString("Press the button below to",         x + width / 2 + contentFlyIn.castToInt(), y + 270, 2, 24, graphics2D)
         FontManager.drawCenteredString("download and install the",          x + width / 2 + contentFlyIn.castToInt(), y + 300, 2, 24, graphics2D)
         FontManager.drawCenteredString("Minecraft Mod.",                    x + width / 2 + contentFlyIn.castToInt(), y + 330, 2, 24, graphics2D)

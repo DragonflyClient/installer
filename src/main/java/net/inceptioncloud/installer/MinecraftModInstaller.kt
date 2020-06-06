@@ -85,7 +85,7 @@ object MinecraftModInstaller
         window = JFrame()
 
         window.isResizable = false
-        window.title = "Inception Cloud Minecraft Mod Installer"
+        window.title = "Dragonfly Mod Installer"
         window.iconImage = ImageIO.read(javaClass.getResourceAsStream("/icon_32x.png"))
         window.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 

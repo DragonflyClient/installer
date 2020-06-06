@@ -84,10 +84,10 @@ object ScreenIndexManager
             graphics2D.paint = GradientPaint(
                 startX.toFloat(),
                 y.toFloat(),
-                Color(0xA55EEA),
+                COLORS.RED,
                 (startX + width).toFloat(),
                 y.toFloat(),
-                Color(0x4B7BEC)
+                COLORS.ORANGE
             )
             graphics2D.fillOval(currentCircleX, y, OUTER_CIRCLE, OUTER_CIRCLE)
 
@@ -101,7 +101,14 @@ object ScreenIndexManager
             selectedX += ((currentIndex - 1) * (OUTER_CIRCLE + DISTANCE) + it.get() * (OUTER_CIRCLE + DISTANCE)).toInt()
         }
 
-        graphics2D.paint = GradientPaint(startX.toFloat(), y.toFloat(), Color(0xA55EEA), (startX + width).toFloat(), y.toFloat(), Color(0x4B7BEC))
+        graphics2D.paint = GradientPaint(
+            startX.toFloat(),
+            y.toFloat(),
+            COLORS.RED,
+            (startX + width).toFloat(),
+            y.toFloat(),
+            COLORS.ORANGE
+        )
         graphics2D.fillOval(selectedX - 2, y + borderRadius - 2, INNER_CIRCLE + 4, INNER_CIRCLE + 4)
     }
 

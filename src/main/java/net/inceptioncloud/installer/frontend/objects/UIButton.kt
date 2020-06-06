@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.frontend.objects
 
+import net.inceptioncloud.installer.frontend.COLORS
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.transition.color.ColorTransition
@@ -26,22 +27,22 @@ open class UIButton(var text: String) : Screen()
     private var hovered: Boolean = false
 
     private var secondaryStart = ColorTransition.builder()
-            .start(Color(0xFFFFFF)).end(Color(0xa55eea))
+        .start(Color(0xFFFFFF)).end(COLORS.RED)
             .amountOfSteps(50).autoTransformator(ForwardBackward { hovered })
             .build()
 
     private var secondaryEnd = ColorTransition.builder()
-            .start(Color(0xFFFFFF)).end(Color(0x4b7bec))
+        .start(Color(0xFFFFFF)).end(COLORS.ORANGE)
             .amountOfSteps(50).autoTransformator(ForwardBackward { hovered })
             .build()
 
     private var primaryStart = ColorTransition.builder()
-            .start(Color(0xa55eea)).end(Color(0xFFFFFF))
+        .start(COLORS.RED).end(Color(0xFFFFFF))
             .amountOfSteps(20).autoTransformator(ForwardBackward { hovered })
             .build()
 
     private var primaryEnd = ColorTransition.builder()
-            .start(Color(0x4b7bec)).end(Color(0xFFFFFF))
+        .start(COLORS.ORANGE).end(Color(0xFFFFFF))
             .amountOfSteps(20).autoTransformator(ForwardBackward { hovered })
             .build()
 
