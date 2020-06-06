@@ -55,43 +55,74 @@ class EarlyAccessScreen : Screen(1) {
         FontManager.drawCenteredString("Download Channel", x + width / 2, y + 160, 0, 30, graphics2D)
 
         FontManager.drawCenteredString(
-            "Lorem ipsum dolor sit amet, consetetur",
+            "To always have access to the latest",
             x + width / 2 - offset,
-            y + 245,
+            y + 205,
             2,
             22,
             graphics2D
         )
         FontManager.drawCenteredString(
-            "tempor invidunt ut labore et dolore",
+            "state of the art features, join our",
             x + width / 2 - offset,
-            y + 273,
+            y + 230,
             2,
             22,
             graphics2D
         )
         FontManager.drawCenteredString(
-            "sadipscing elitr, sed diam nonumy",
+            "Early Access Program. Please note that",
             x + width / 2 - offset,
-            y + 303,
+            y + 255,
             2,
             22,
             graphics2D
         )
         FontManager.drawCenteredString(
-            "magna aliquyam erat, sed diam.",
+            "these versions can contain several",
             x + width / 2 - offset,
-            y + 333,
+            y + 280,
             2,
             22,
             graphics2D
         )
-        FontManager.drawCenteredString("At vero eos et accusam et", x + width / 2 - offset, y + 363, 2, 22, graphics2D)
+        FontManager.drawCenteredString(
+            "bugs and are not always stable ",
+            x + width / 2 - offset,
+            y + 305,
+            2,
+            22,
+            graphics2D
+        )
+        FontManager.drawCenteredString(
+            "while the Stable Channel delivers",
+            x + width / 2 - offset,
+            y + 330,
+            2,
+            22,
+            graphics2D
+        )
+        FontManager.drawCenteredString(
+            "only safe and production-ready",
+            x + width / 2 - offset,
+            y + 355,
+            2,
+            22,
+            graphics2D
+        )
+        FontManager.drawCenteredString(
+            "Channel versions of the client.",
+            x + width / 2 - offset,
+            y + 380,
+            2,
+            22,
+            graphics2D
+        )
 
         val buttonWidth = (width / 2)
         val buttonHeight = buttonWidth / 5.1
-        stable.paint(graphics2D, x + width / 2 - buttonWidth / 2, y + 435, buttonWidth, buttonHeight.toInt())
-        earlyAccess.paint(graphics2D, x + width / 2 - buttonWidth / 2, y + 485, buttonWidth, buttonHeight.toInt())
+        earlyAccess.paint(graphics2D, x + width / 2 - buttonWidth / 2, y + 450, buttonWidth, buttonHeight.toInt())
+        stable.paint(graphics2D, x + width / 2 - buttonWidth / 2, y + 500, buttonWidth, buttonHeight.toInt())
     }
 
     override fun mouseClicked(event: MouseEvent?) {
