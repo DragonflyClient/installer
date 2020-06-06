@@ -1,6 +1,7 @@
 package net.inceptioncloud.installer.backend
 
 import net.inceptioncloud.installer.Logger
+import net.inceptioncloud.installer.frontend.screens.EarlyAccessScreen
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
@@ -11,8 +12,7 @@ import java.net.URL
 /**
  * Manages important variables and functions for the Installing Process.
  */
-object InstallManager
-{
+object InstallManager {
     /**
      * Path to the .minecraft/ folder.
      */
@@ -21,34 +21,27 @@ object InstallManager
     /**
      * Saves a file from a web server to the local machine.
      */
-    fun saveFile(file: File, urlString: String): Boolean
-    {
+    fun saveFile(file: File, urlString: String): Boolean {
         Logger.log("Saving $urlString to file $file")
 
         var `in`: InputStream? = null
         var out: FileOutputStream? = null
 
-        try
-        {
+        try {
             val con: HttpURLConnection = URL(urlString).openConnection() as HttpURLConnection
             `in` = con.inputStream
             out = FileOutputStream(file)
             val data = ByteArray(1024)
             var count: Int
-            while (`in`.read(data, 0, 1024).also { count = it } != -1)
-            {
+            while (`in`.read(data, 0, 1024).also { count = it } != -1) {
                 out.write(data, 0, count)
             }
 
             return true
-        }
-        catch (e: Exception)
-        {
+        } catch (e: Exception) {
             e.printStackTrace()
             return false
-        }
-        finally
-        {
+        } finally {
             `in`?.close()
             out?.close()
         }
@@ -57,18 +50,15 @@ object InstallManager
     /**
      * Saves a folder from a web server to the local machine.
      */
-    fun saveFolder(folder: File, urlString: String): Boolean
-    {
+    fun saveFolder(folder: File, urlString: String): Boolean {
         Logger.log("Saving $urlString to folder $folder")
 
-        try
-        {
+        try {
             val doc: Document = Jsoup.connect(urlString).get()
             val links: Elements = doc.getElementsByTag("a")
             var failed = false
 
-            for (link in links)
-            {
+            for (link in links) {
                 val target = link.attr("href").toString()
 
                 if (target.startsWith("?") || target.startsWith("/minecraftmod/"))
@@ -76,21 +66,17 @@ object InstallManager
 
                 val remoteTarget = "$urlString$target"
 
-                if (target.endsWith("/"))
-                {
+                if (target.endsWith("/")) {
                     val localFolderTarget = "$folder\\$target\\"
                     if (!File(localFolderTarget).mkdirs() || !saveFolder(File(localFolderTarget), remoteTarget))
                         failed = true
-                } else if (!saveFile(File("$folder\\$target".replace("%20", " ")), remoteTarget))
-                {
+                } else if (!saveFile(File("$folder\\$target".replace("%20", " ")), remoteTarget)) {
                     failed = true
                 }
             }
 
             return !failed
-        }
-        catch (ex: IOException)
-        {
+        } catch (ex: IOException) {
             ex.printStackTrace()
             return false
         }
@@ -99,11 +85,15 @@ object InstallManager
     /**
      * Requests the version info to generate an URL to the folder with the current version files.
      */
-    fun getVersionURL(): String
-    {
-        val versionInfo = URL("https://cdn.icnet.dev/minecraftmod/current-version")
-        val version = InputStreamReader(versionInfo.openConnection().getInputStream()).readText()
+    fun getVersionURL(): String {
 
+        val versionInfo = if (EarlyAccessScreen.downloadEAP) {
+            URL("https://cdn.icnet.dev/minecraftmod/eap-version")
+        } else {
+            URL("https://cdn.icnet.dev/minecraftmod/stable-version")
+        }
+
+        val version = InputStreamReader(versionInfo.openConnection().getInputStream()).readText()
         Logger.log("Current Version is $version")
 
         return "https://cdn.icnet.dev/minecraftmod/$version/"
@@ -112,15 +102,13 @@ object InstallManager
     /**
      * Checks if a certain process is running on the windows machine.
      */
-    fun isProcessRunning(processName: String): Boolean
-    {
+    fun isProcessRunning(processName: String): Boolean {
         var line = ""
         var pidInfo = ""
         val process = Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\" + "tasklist.exe")
         val input = BufferedReader(InputStreamReader(process.inputStream))
 
-        while (input.readLine().also { if (it != null) line = it } != null)
-        {
+        while (input.readLine().also { if (it != null) line = it } != null) {
             pidInfo += line
         }
 
@@ -132,14 +120,11 @@ object InstallManager
     /**
      * Kills a certain process on the window.
      */
-    fun killProcess (processName: String): Boolean
-    {
-        return try
-        {
+    fun killProcess(processName: String): Boolean {
+        return try {
             Runtime.getRuntime().exec("taskkill /F /IM $processName")
             true
-        } catch (ex: java.lang.Exception)
-        {
+        } catch (ex: java.lang.Exception) {
             ex.printStackTrace()
             false
         }
