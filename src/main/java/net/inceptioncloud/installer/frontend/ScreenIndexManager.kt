@@ -84,10 +84,10 @@ object ScreenIndexManager
             graphics2D.paint = GradientPaint(
                 startX.toFloat(),
                 y.toFloat(),
-                COLORS.RED,
+                Colors.RED,
                 (startX + width).toFloat(),
                 y.toFloat(),
-                COLORS.ORANGE
+                Colors.ORANGE
             )
             graphics2D.fillOval(currentCircleX, y, OUTER_CIRCLE, OUTER_CIRCLE)
 
@@ -104,10 +104,10 @@ object ScreenIndexManager
         graphics2D.paint = GradientPaint(
             startX.toFloat(),
             y.toFloat(),
-            COLORS.RED,
+            Colors.RED,
             (startX + width).toFloat(),
             y.toFloat(),
-            COLORS.ORANGE
+            Colors.ORANGE
         )
         graphics2D.fillOval(selectedX - 2, y + borderRadius - 2, INNER_CIRCLE + 4, INNER_CIRCLE + 4)
     }
