@@ -75,7 +75,8 @@ object MinecraftModInstaller
 
         Logger.createFile()
 
-        screen = WelcomeScreen()
+        //screen = WelcomeScreen()
+        screen = ErrorScreen()
         previousScreen = screen
 
         screenSwitch = SmoothDoubleTransition.builder()
