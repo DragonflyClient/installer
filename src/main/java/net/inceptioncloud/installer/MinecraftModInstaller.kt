@@ -4,6 +4,7 @@ import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.FontManager.registerFonts
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.ScreenIndexManager
+import net.inceptioncloud.installer.frontend.screens.ErrorScreen
 import net.inceptioncloud.installer.frontend.screens.WelcomeScreen
 import net.inceptioncloud.installer.frontend.transition.Transition
 import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition

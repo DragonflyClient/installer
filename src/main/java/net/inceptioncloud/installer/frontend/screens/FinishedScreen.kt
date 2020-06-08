@@ -23,13 +23,13 @@ class FinishedScreen : Screen(6) {
     /**
      * Button that is clicked to start the setup.
      */
-    private val button: UIButton = object : UIButton("Close!") {
+    private val button: UIButton = object : UIButton("Close") {
         override fun buttonClicked() {
 
             if (this.text == "Play now!") {
                 ProcessBuilder(launcher.absolutePath).start()
                 Logger.log("Closing wizard and starting minecraft launcher...")
-            }else  {
+            } else {
                 Logger.log("Closing wizard...")
             }
 

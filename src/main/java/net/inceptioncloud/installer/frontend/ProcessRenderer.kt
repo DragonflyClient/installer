@@ -51,7 +51,12 @@ class ProcessRenderer : ArrayList<InstallationProcess>()
 
             graphics2D.color = Color(0xD11F1F)
             graphics2D.font = FontManager.loadFont(1, 24)
-            FontManager.drawCenteredString("Installation failed!", x + (WINDOW_WIDTH - 40) / 2 - (failedTransition.get() * WINDOW_WIDTH).toInt(), failedY + 5, graphics2D)
+            FontManager.drawCenteredString(
+                "Installation failed",
+                x + (WINDOW_WIDTH - 40) / 2 - (failedTransition.get() * WINDOW_WIDTH).toInt(),
+                failedY + 5,
+                graphics2D
+            )
         }
     }
 

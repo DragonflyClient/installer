@@ -1,12 +1,11 @@
 package net.inceptioncloud.installer.frontend
 
-import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics2D
 import java.awt.GraphicsEnvironment
 import java.awt.font.FontRenderContext
 import java.awt.font.TextAttribute
-import java.util.HashMap
+import java.util.*
 
 
 /**
@@ -35,7 +34,7 @@ object FontManager
      * styles: <br>
      *  0 - Regular <br>
      *  1 - Medium <br>
-     *  1 - Light <br>
+     *  2 - Light <br>
      */
     fun loadFont(style: Int, size: Int): Font
     {
