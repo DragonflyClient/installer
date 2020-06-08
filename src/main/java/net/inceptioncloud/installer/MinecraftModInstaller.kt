@@ -68,7 +68,7 @@ object MinecraftModInstaller
     /**
      * Transition that switches to the next screen.
      */
-    private lateinit var screenSwitch: SmoothDoubleTransition
+    lateinit var screenSwitch: SmoothDoubleTransition
 
     /**
      * Called when starting the installer.
