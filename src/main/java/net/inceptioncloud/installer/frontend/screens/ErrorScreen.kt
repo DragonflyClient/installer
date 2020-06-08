@@ -1,12 +1,15 @@
 package net.inceptioncloud.installer.frontend.screens
 
 import net.inceptioncloud.installer.Logger
+import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.objects.UIButton
 import java.awt.Color
+import java.awt.Desktop
 import java.awt.Graphics2D
 import java.awt.event.MouseEvent
+import java.net.URI
 import kotlin.system.exitProcess
 
 class ErrorScreen : Screen(7) {
@@ -19,7 +22,7 @@ class ErrorScreen : Screen(7) {
     /**
      * Button that is clicked to start the setup for the stable version.
      */
-    private val button: UIButton = object : UIButton("Close!") {
+    private val button: UIButton = object : UIButton("Close") {
 
         override fun buttonClicked() {
             Logger.log("Closing wizard...")
@@ -33,6 +36,11 @@ class ErrorScreen : Screen(7) {
     }
 
     override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int) {
+
+
+        MinecraftModInstaller.errorPaintX = x
+        MinecraftModInstaller.errorPaintY = y
+
         val offset = 4
 
         graphics2D.color = Color(50, 50, 50)
@@ -55,7 +63,7 @@ class ErrorScreen : Screen(7) {
             graphics2D
         )
         FontManager.drawCenteredString(
-            "Dragonfly please click here for",
+            "Dragonfly please click <click>here</click> for",
             x + width / 2 - offset,
             y + 325,
             2,
@@ -77,6 +85,17 @@ class ErrorScreen : Screen(7) {
     }
 
     override fun mouseClicked(event: MouseEvent?) {
+        if (event != null) {
+            if (event.y > FontManager.linkStartY && event.y < (FontManager.linkStartY + FontManager.linkHeight)) {
+                if (event.x > FontManager.linkStartX && event.x < (FontManager.linkStartX + FontManager.linkWidth)) {
+
+                    Desktop.getDesktop().browse(URI("https://icnet.dev/dragonfly/installer/error-$currentErrorCode"))
+
+                    Logger.log("User clicked at \"here\" of error-$currentErrorCode")
+                }
+            }
+        }
+
         childs.forEach { it.mouseClicked(event) }
     }
 

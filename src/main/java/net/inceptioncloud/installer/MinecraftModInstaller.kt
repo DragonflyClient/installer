@@ -4,7 +4,6 @@ import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.FontManager.registerFonts
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.ScreenIndexManager
-import net.inceptioncloud.installer.frontend.screens.ErrorScreen
 import net.inceptioncloud.installer.frontend.screens.WelcomeScreen
 import net.inceptioncloud.installer.frontend.transition.Transition
 import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition
@@ -22,6 +21,10 @@ import javax.swing.JPanel
  */
 object MinecraftModInstaller
 {
+
+    var errorPaintX = 0
+    var errorPaintY = 0
+
     /**
      * Constant for the width of the window.
      */
@@ -75,8 +78,7 @@ object MinecraftModInstaller
 
         Logger.createFile()
 
-        //screen = WelcomeScreen()
-        screen = ErrorScreen()
+        screen = WelcomeScreen()
         previousScreen = screen
 
         screenSwitch = SmoothDoubleTransition.builder()
@@ -188,5 +190,6 @@ object MinecraftModInstaller
 
         ScreenIndexManager.currentIndex = screen.stepIndex
         ScreenIndexManager.drawStepIndex(graphics2D)
+
     }
 }

@@ -1,7 +1,9 @@
 package net.inceptioncloud.installer.frontend
 
+import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.MinecraftModInstaller.WINDOW_HEIGHT
 import net.inceptioncloud.installer.MinecraftModInstaller.WINDOW_WIDTH
+import net.inceptioncloud.installer.frontend.screens.ErrorScreen
 import net.inceptioncloud.installer.frontend.screens.WelcomeScreen
 import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition
 import net.inceptioncloud.installer.frontend.transition.supplier.ForwardNothing
@@ -12,8 +14,7 @@ import java.awt.Graphics2D
 /**
  * Manages the handling of screen indexes.
  */
-object ScreenIndexManager
-{
+object ScreenIndexManager {
     /**
      * Constant for fade-in duration.
      */
@@ -70,8 +71,8 @@ object ScreenIndexManager
     /**
      * Draws the points at the bottom that indicate the screen index.
      */
-    fun drawStepIndex(graphics2D: Graphics2D)
-    {
+    fun drawStepIndex(graphics2D: Graphics2D) {
+
         val center = WINDOW_WIDTH / 2
         val startX = (center - OUTER_CIRCLE * 3.5 - DISTANCE * 3).toInt()
         val borderRadius = (OUTER_CIRCLE - INNER_CIRCLE) / 2
@@ -110,13 +111,24 @@ object ScreenIndexManager
             Colors.ORANGE
         )
         graphics2D.fillOval(selectedX - 2, y + borderRadius - 2, INNER_CIRCLE + 4, INNER_CIRCLE + 4)
+
+        if (MinecraftModInstaller.screen.javaClass == ErrorScreen().javaClass) {
+
+            graphics2D.color = Color.decode("#FFFFFF")
+            graphics2D.fillRect(
+                MinecraftModInstaller.errorPaintX + 107,
+                MinecraftModInstaller.errorPaintX + 560,
+                186,
+                12
+            )
+        }
+
     }
 
     /**
      * Returns the current transition based on the current index.
      */
-    private fun getCurrentTransition(): SmoothDoubleTransition?
-    {
+    private fun getCurrentTransition(): SmoothDoubleTransition? {
         return allTransitions.firstOrNull { it.autoTransformator.asInt == 1 }
     }
 }

@@ -22,6 +22,7 @@ import javax.imageio.ImageIO
  */
 class WelcomeScreen : Screen(0)
 {
+
     /**
      * Image that is used for the background wave.
      */
@@ -32,9 +33,9 @@ class WelcomeScreen : Screen(0)
      */
     private val button: UIButton = object : UIButton("Let's go!")
     {
-        override fun buttonClicked()
-        {
-            MinecraftModInstaller.screen = EarlyAccessScreen()
+        override fun buttonClicked() {
+            //MinecraftModInstaller.screen = EarlyAccessScreen()
+            MinecraftModInstaller.screen = ErrorScreen()
         }
     }
 
@@ -119,6 +120,7 @@ class WelcomeScreen : Screen(0)
      */
     override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int)
     {
+
         if (!titleFlyIn.isAtEnd)
         {
             // Background
