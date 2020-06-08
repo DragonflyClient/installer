@@ -19,11 +19,7 @@ import javax.swing.JPanel
 /**
  * Core of the Minecraft Mod Installer.
  */
-object MinecraftModInstaller
-{
-
-    var errorPaintX = 0
-    var errorPaintY = 0
+object MinecraftModInstaller {
 
     /**
      * Constant for the width of the window.
@@ -73,8 +69,7 @@ object MinecraftModInstaller
     /**
      * Called when starting the installer.
      */
-    fun init()
-    {
+    fun init() {
 
         Logger.createFile()
 
@@ -95,31 +90,46 @@ object MinecraftModInstaller
 
         container = object : JPanel() // Override the paint() method in order to draw custom shapes
         {
-            override fun paint(graphics: Graphics?)
-            {
+            override fun paint(graphics: Graphics?) {
                 graphics?.let {
                     callPaint(it)
                 }
             }
         }
 
-        container.addMouseListener(object : MouseAdapter()
-        {
-            override fun mouseClicked(e: MouseEvent?)
-            {
+        container.addMouseListener(object : MouseAdapter() {
+            override fun mouseClicked(e: MouseEvent?) {
                 e?.let {
-                    val otherEvent = MouseEvent(e.component, e.id, e.`when`, e.modifiers, e.x, e.y, e.clickCount, e.isPopupTrigger, e.button)
+                    val otherEvent = MouseEvent(
+                        e.component,
+                        e.id,
+                        e.`when`,
+                        e.modifiers,
+                        e.x,
+                        e.y,
+                        e.clickCount,
+                        e.isPopupTrigger,
+                        e.button
+                    )
                     screen.mouseClicked(otherEvent)
                 }
             }
         })
 
-        container.addMouseMotionListener(object : MouseMotionAdapter()
-        {
-            override fun mouseMoved(e: MouseEvent?)
-            {
+        container.addMouseMotionListener(object : MouseMotionAdapter() {
+            override fun mouseMoved(e: MouseEvent?) {
                 e?.let {
-                    val otherEvent = MouseEvent(e.component, e.id, e.`when`, e.modifiers, e.x, e.y, e.clickCount, e.isPopupTrigger, e.button)
+                    val otherEvent = MouseEvent(
+                        e.component,
+                        e.id,
+                        e.`when`,
+                        e.modifiers,
+                        e.x,
+                        e.y,
+                        e.clickCount,
+                        e.isPopupTrigger,
+                        e.button
+                    )
                     screen.mouseMoved(otherEvent)
                 }
             }
@@ -135,8 +145,7 @@ object MinecraftModInstaller
         registerFonts()
 
         Thread {
-            while (true)
-            {
+            while (true) {
                 container.repaint()
                 ArrayList(transitions).forEach { it.tick() }
                 Thread.sleep(10)
@@ -147,8 +156,7 @@ object MinecraftModInstaller
     /**
      * Calls the paint method on the current screen.
      */
-    fun callPaint(graphics: Graphics)
-    {
+    fun callPaint(graphics: Graphics) {
         val graphics2D = graphics as Graphics2D
 
         graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
@@ -161,8 +169,7 @@ object MinecraftModInstaller
         graphics.color = Color(0xFFFFFF)
         graphics.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
 
-        if (!(screen.stepIndex == 0 && !WelcomeScreen.titleFlyIn.isAtEnd))
-        {
+        if (!(screen.stepIndex == 0 && !WelcomeScreen.titleFlyIn.isAtEnd)) {
             // Background
             graphics2D.drawImage(background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, null)
 
@@ -170,21 +177,20 @@ object MinecraftModInstaller
             FontManager.drawCenteredString("Installation Wizard", WINDOW_WIDTH / 2, 55, 1, 36, graphics2D)
         }
 
-        if (previousScreen != screen)
-        {
+        if (previousScreen != screen) {
             previousScreen.paint(graphics2D, -WINDOW_WIDTH + screenSwitch.castToInt(), 0, WINDOW_WIDTH, WINDOW_HEIGHT)
             screen.paint(graphics2D, screenSwitch.castToInt(), 0, WINDOW_WIDTH, WINDOW_HEIGHT)
 
-            if (screenSwitch.isAtEnd)
-            {
+            if (screenSwitch.isAtEnd) {
                 previousScreen = screen
+
                 screenSwitch = SmoothDoubleTransition.builder()
                     .start(WINDOW_WIDTH.toDouble()).end(0.0)
-                    .fadeIn(ScreenIndexManager.FADE_IN).stay(ScreenIndexManager.STAY).fadeOut(ScreenIndexManager.FADE_OUT)
+                    .fadeIn(ScreenIndexManager.FADE_IN).stay(ScreenIndexManager.STAY)
+                    .fadeOut(ScreenIndexManager.FADE_OUT)
                     .autoTransformator(ForwardNothing { screen != previousScreen }).build()
             }
-        } else
-        {
+        } else {
             screen.paint(graphics2D, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
         }
 

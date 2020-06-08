@@ -77,9 +77,9 @@ object ScreenIndexManager {
         var currentFloat = (transition / 400).toFloat()
 
         if (MinecraftModInstaller.screen is ErrorScreen) {
-            if(transition == 400.0)
+            if (transition == 400.0) {
                 currentFloat = 0.0F
-
+            }
             graphics2D.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, currentFloat)
         }
 
@@ -121,8 +121,8 @@ object ScreenIndexManager {
             y.toFloat(),
             Colors.ORANGE
         )
-        graphics2D.fillOval(selectedX - 2, y + borderRadius - 2, INNER_CIRCLE + 4, INNER_CIRCLE + 4)
 
+        graphics2D.fillOval(selectedX - 2, y + borderRadius - 2, INNER_CIRCLE + 4, INNER_CIRCLE + 4)
         graphics2D.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0F)
     }
 

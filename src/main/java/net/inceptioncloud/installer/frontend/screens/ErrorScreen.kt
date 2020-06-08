@@ -1,7 +1,6 @@
 package net.inceptioncloud.installer.frontend.screens
 
 import net.inceptioncloud.installer.Logger
-import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.objects.UIButton
@@ -36,11 +35,6 @@ class ErrorScreen : Screen(7) {
     }
 
     override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int) {
-
-
-        MinecraftModInstaller.errorPaintX = x
-        MinecraftModInstaller.errorPaintY = y
-
         val offset = 4
 
         graphics2D.color = Color(50, 50, 50)

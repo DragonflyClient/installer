@@ -34,8 +34,7 @@ class WelcomeScreen : Screen(0)
     private val button: UIButton = object : UIButton("Let's go!")
     {
         override fun buttonClicked() {
-            //MinecraftModInstaller.screen = EarlyAccessScreen()
-            MinecraftModInstaller.screen = ErrorScreen()
+            MinecraftModInstaller.screen = EarlyAccessScreen()
         }
     }
 
