@@ -74,9 +74,12 @@ object ScreenIndexManager {
      */
     fun drawStepIndex(graphics2D: Graphics2D) {
         val transition = MinecraftModInstaller.screenSwitch.get()
-        val currentFloat = (1 - (transition / 400)).toFloat()
+        var currentFloat = (transition / 400).toFloat()
 
         if (MinecraftModInstaller.screen is ErrorScreen) {
+            if(transition == 400.0)
+                currentFloat = 0.0F
+
             graphics2D.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, currentFloat)
         }
 
@@ -120,7 +123,7 @@ object ScreenIndexManager {
         )
         graphics2D.fillOval(selectedX - 2, y + borderRadius - 2, INNER_CIRCLE + 4, INNER_CIRCLE + 4)
 
-        graphics2D.composite = AlphaComposite.getInstance(AlphaComposite.CLEAR)
+        graphics2D.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0F)
     }
 
     /**
