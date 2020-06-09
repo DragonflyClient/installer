@@ -40,7 +40,7 @@ object Logger {
 
         if (!file.createNewFile()) {
             fileCreationFailed = true
-            CustomError("001", "Creation of log file (${file.absolutePath}) failed!").printStackTrace()
+            CustomError("001", "Creation of log file (${file.absolutePath}) failed").printStackTrace()
         } else {
             file.appendText("This is log started at: ${SimpleDateFormat("HH:mm:ss dd.MM.yyyy").format(System.currentTimeMillis())}\n")
         }

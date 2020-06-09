@@ -88,12 +88,12 @@ object MinecraftModInstaller {
         window.isResizable = false
         window.title = "Dragonfly Mod Installer"
 
-        if (!errorTypes.contains("windowIcon")) {
+        if (!errorTypes.contains("imageMissing/icon_32x.png")) {
             try {
                 window.iconImage = ImageIO.read(javaClass.getResourceAsStream("/icon_32x.png"))
             } catch (e: Exception) {
-                errorTypes.add("windowIcon")
-                CustomError("201", "Image (resources/icon32x.png) not found!").printStackTrace()
+                errorTypes.add("imageMissing/icon_32x.png")
+                CustomError("201", "Image (resources/icon32x.png) not found").printStackTrace()
             }
         }
 
@@ -190,7 +190,7 @@ object MinecraftModInstaller {
 
         if (!(screen.stepIndex == 0 && !WelcomeScreen.titleFlyIn.isAtEnd)) {
 
-            if (!errorTypes.contains("backgroundImage")) {
+            if (!errorTypes.contains("imageMissing/background.png")) {
                 try {
                     // Background
                     graphics2D.drawImage(
@@ -202,8 +202,8 @@ object MinecraftModInstaller {
                         null
                     )
                 } catch (e: Exception) {
-                    errorTypes.add("backgroundImage")
-                    CustomError("202", "Image (resources/background.png) not found").printStackTrace()
+                    errorTypes.add("imageMissing/background.png")
+                    CustomError("201", "Image (resources/background.png) not found").printStackTrace()
                 }
             }
 

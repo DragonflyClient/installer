@@ -20,8 +20,7 @@ import javax.imageio.ImageIO
 /**
  * First Screen that is shown when opening the installer.
  */
-class WelcomeScreen : Screen(0)
-{
+class WelcomeScreen : Screen(0) {
 
     /**
      * Image that is used for the background wave.
@@ -31,8 +30,7 @@ class WelcomeScreen : Screen(0)
     /**
      * Button that is clicked to start the setup.
      */
-    private val button: UIButton = object : UIButton("Let's go!")
-    {
+    private val button: UIButton = object : UIButton("Let's go!") {
         override fun buttonClicked() {
             MinecraftModInstaller.screen = EarlyAccessScreen()
         }
@@ -41,10 +39,8 @@ class WelcomeScreen : Screen(0)
     /**
      * Social Media Icon for Twitter
      */
-    private val twitter = object : UIImage(ImageIO.read(javaClass.getResourceAsStream("/social_media/twitter.png")))
-    {
-        override fun buttonClicked()
-        {
+    private val twitter = object : UIImage("/social_media/twitter.png") {
+        override fun buttonClicked() {
             Desktop.getDesktop().browse(URI("https://icnet.dev/twitter"))
         }
     }
@@ -52,21 +48,18 @@ class WelcomeScreen : Screen(0)
     /**
      * Social Media Icon for Instagram
      */
-    private val instagram = object : UIImage(ImageIO.read(javaClass.getResourceAsStream("/social_media/instagram.png")))
-    {
-        override fun buttonClicked()
-        {
-            Desktop.getDesktop().browse(URI("https://icnet.dev/insta"))
+    private val instagram =
+        object : UIImage("/social_media/instagram.png") {
+            override fun buttonClicked() {
+                Desktop.getDesktop().browse(URI("https://icnet.dev/insta"))
+            }
         }
-    }
 
     /**
      * Social Media Icon for Discord
      */
-    private val discord = object : UIImage(ImageIO.read(javaClass.getResourceAsStream("/social_media/discord.png")))
-    {
-        override fun buttonClicked()
-        {
+    private val discord = object : UIImage("/social_media/discord.png") {
+        override fun buttonClicked() {
             Desktop.getDesktop().browse(URI("https://icnet.dev/discord"))
         }
     }
@@ -75,39 +68,37 @@ class WelcomeScreen : Screen(0)
      * Transition for the title to fly in.
      */
     private val contentFlyIn = SmoothDoubleTransition.builder()
-            .start(WINDOW_HEIGHT / 1.5).end(0.0)
-            .fadeIn(0).stay(25).fadeOut(25)
-            .autoTransformator(ForwardNothing { titleFlyIn.isAtEnd }).build()
+        .start(WINDOW_HEIGHT / 1.5).end(0.0)
+        .fadeIn(0).stay(25).fadeOut(25)
+        .autoTransformator(ForwardNothing { titleFlyIn.isAtEnd }).build()
 
-    companion object
-    {
+    companion object {
         /**
          * Transition for the title to fly in.
          */
         val titleFlyIn: SmoothDoubleTransition = SmoothDoubleTransition.builder()
-                .start(-WINDOW_HEIGHT.toDouble() / 6).end(0.0)
-                .fadeIn(25).stay(25).fadeOut(25)
-                .autoTransformator(AlwaysForward()).build()
+            .start(-WINDOW_HEIGHT.toDouble() / 6).end(0.0)
+            .fadeIn(25).stay(25).fadeOut(25)
+            .autoTransformator(AlwaysForward()).build()
 
         /**
          * Transition for the background to fly in.
          */
         private val backgroundFlyIn = SmoothDoubleTransition.builder()
-                .start(-WINDOW_HEIGHT.toDouble() / 6).end(0.0)
-                .fadeIn(0).stay(30).fadeOut(30)
-                .autoTransformator(AlwaysForward()).build()
+            .start(-WINDOW_HEIGHT.toDouble() / 6).end(0.0)
+            .fadeIn(0).stay(30).fadeOut(30)
+            .autoTransformator(AlwaysForward()).build()
 
         /**
          * Transition for the button to fly in.
          */
         val buttonFlyIn: SmoothDoubleTransition = SmoothDoubleTransition.builder()
-                .start(WINDOW_HEIGHT.toDouble() / 6).end(0.0)
-                .fadeIn(0).stay(30).fadeOut(30)
-                .autoTransformator(AlwaysForward()).build()
+            .start(WINDOW_HEIGHT.toDouble() / 6).end(0.0)
+            .fadeIn(0).stay(30).fadeOut(30)
+            .autoTransformator(AlwaysForward()).build()
     }
 
-    init
-    {
+    init {
         childs.add(button)
         childs.add(twitter)
         childs.add(instagram)
@@ -117,16 +108,21 @@ class WelcomeScreen : Screen(0)
     /**
      * Called when painting the screen.
      */
-    override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int)
-    {
+    override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int) {
 
-        if (!titleFlyIn.isAtEnd)
-        {
+        if (!titleFlyIn.isAtEnd) {
             // Background
             graphics2D.drawImage(background, x + 0, y + backgroundFlyIn.castToInt(), width, height, null)
 
             // Title
-            FontManager.drawCenteredString("Installation Wizard", x + width / 2, y + 55 + titleFlyIn.castToInt(), 1, 36, graphics2D)
+            FontManager.drawCenteredString(
+                "Installation Wizard",
+                x + width / 2,
+                y + 55 + titleFlyIn.castToInt(),
+                1,
+                36,
+                graphics2D
+            )
         }
 
         // Paragraph
@@ -148,36 +144,79 @@ class WelcomeScreen : Screen(0)
             24,
             graphics2D
         )
-        FontManager.drawCenteredString("Press the button below to",         x + width / 2 + contentFlyIn.castToInt(), y + 270, 2, 24, graphics2D)
-        FontManager.drawCenteredString("download and install the",          x + width / 2 + contentFlyIn.castToInt(), y + 300, 2, 24, graphics2D)
-        FontManager.drawCenteredString("Minecraft Mod.",                    x + width / 2 + contentFlyIn.castToInt(), y + 330, 2, 24, graphics2D)
+        FontManager.drawCenteredString(
+            "Press the button below to",
+            x + width / 2 + contentFlyIn.castToInt(),
+            y + 270,
+            2,
+            24,
+            graphics2D
+        )
+        FontManager.drawCenteredString(
+            "download and install the",
+            x + width / 2 + contentFlyIn.castToInt(),
+            y + 300,
+            2,
+            24,
+            graphics2D
+        )
+        FontManager.drawCenteredString(
+            "Minecraft Mod.",
+            x + width / 2 + contentFlyIn.castToInt(),
+            y + 330,
+            2,
+            24,
+            graphics2D
+        )
 
         // Social Media
         val iconY = y + 360
         val iconWidth = 37
-        twitter.paint(graphics2D, (x + (width / 2) - iconWidth * 1.5 - 20 + contentFlyIn.castToInt()).toInt(),    iconY, iconWidth, iconWidth)
-        instagram.paint(graphics2D, x + (width / 2) - iconWidth / 2 + contentFlyIn.castToInt(),                iconY, iconWidth, iconWidth)
-        discord.paint(graphics2D, x + (width / 2) + iconWidth / 2 + 20 + contentFlyIn.castToInt(),             iconY, iconWidth, iconWidth)
+        twitter.paint(
+            graphics2D,
+            (x + (width / 2) - iconWidth * 1.5 - 20 + contentFlyIn.castToInt()).toInt(),
+            iconY,
+            iconWidth,
+            iconWidth
+        )
+        instagram.paint(
+            graphics2D,
+            x + (width / 2) - iconWidth / 2 + contentFlyIn.castToInt(),
+            iconY,
+            iconWidth,
+            iconWidth
+        )
+        discord.paint(
+            graphics2D,
+            x + (width / 2) + iconWidth / 2 + 20 + contentFlyIn.castToInt(),
+            iconY,
+            iconWidth,
+            iconWidth
+        )
 
         // Button
         val buttonWidth = (width / 2)
         val buttonHeight = buttonWidth / 5.1
-        button.paint(graphics2D, x + width / 2 - buttonWidth / 2, y + 500 + buttonFlyIn.castToInt(), buttonWidth, buttonHeight.toInt())
+        button.paint(
+            graphics2D,
+            x + width / 2 - buttonWidth / 2,
+            y + 500 + buttonFlyIn.castToInt(),
+            buttonWidth,
+            buttonHeight.toInt()
+        )
     }
 
     /**
      * Called when the mouse clicks on the screen.
      */
-    override fun mouseClicked(event: MouseEvent?)
-    {
+    override fun mouseClicked(event: MouseEvent?) {
         childs.forEach { it.mouseClicked(event) }
     }
 
     /**
      * Called when the mouse moves.
      */
-    override fun mouseMoved(event: MouseEvent?)
-    {
+    override fun mouseMoved(event: MouseEvent?) {
         childs.forEach { it.mouseMoved(event) }
     }
 }

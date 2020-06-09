@@ -1,17 +1,18 @@
 package net.inceptioncloud.installer.frontend.objects
 
+import net.inceptioncloud.installer.MinecraftModInstaller
+import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition
 import net.inceptioncloud.installer.frontend.transition.supplier.ForwardBackward
 import java.awt.Graphics2D
-import java.awt.Image
 import java.awt.event.MouseEvent
+import javax.imageio.ImageIO
 
 /**
  * A simple clickable image in an UI.
  */
-open class UIImage(private val image: Image) : Screen()
-{
+open class UIImage(val pathInResources: String) : Screen() {
     // The bounds in which the button was painted the last time.
     private var x: Int = 0
     private var y: Int = 0
@@ -34,26 +35,30 @@ open class UIImage(private val image: Image) : Screen()
     /**
      * Called when painting the screen.
      */
-    override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int)
-    {
+    override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int) {
         this.x = x
         this.y = y
         this.width = width
         this.height = height
 
         val sizeMod = sizeTransition.castToInt()
-
-        graphics2D.drawImage(image, x + sizeMod, y + sizeMod, width - sizeMod * 2, height - sizeMod * 2, null)
+        if (!MinecraftModInstaller.errorTypes.contains("imageMissing${pathInResources}")) {
+            try {
+                val image = ImageIO.read(javaClass.getResourceAsStream(pathInResources))
+                graphics2D.drawImage(image, x + sizeMod, y + sizeMod, width - sizeMod * 2, height - sizeMod * 2, null)
+            } catch (e: Exception) {
+                MinecraftModInstaller.errorTypes.add("imageMissing${pathInResources}")
+                CustomError("201", "Image (resources$pathInResources) not found").printStackTrace()
+            }
+        }
     }
 
     /**
      * Called when the mouse clicks on the screen.
      */
-    override fun mouseClicked(event: MouseEvent?)
-    {
+    override fun mouseClicked(event: MouseEvent?) {
         event?.let {
-            if (event.x >= x && event.x <= x + width && event.y >= y && event.y <= y + height)
-            {
+            if (event.x >= x && event.x <= x + width && event.y >= y && event.y <= y + height) {
                 buttonClicked()
             }
         }
@@ -62,8 +67,7 @@ open class UIImage(private val image: Image) : Screen()
     /**
      * Called when the mouse moves.
      */
-    override fun mouseMoved(event: MouseEvent?)
-    {
+    override fun mouseMoved(event: MouseEvent?) {
         event?.let {
             hovered = it.x >= x && it.x <= x + width && it.y >= y && it.y <= y + height
         }
@@ -72,7 +76,6 @@ open class UIImage(private val image: Image) : Screen()
     /**
      * An empty on-click function that can be overwritten.
      */
-    open fun buttonClicked()
-    {
+    open fun buttonClicked() {
     }
 }

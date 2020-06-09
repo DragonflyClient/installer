@@ -77,7 +77,7 @@ class ErrorScreen(val currentErrorCode: Int) : Screen(7) {
         if (event != null) {
             if (event.y > FontManager.linkStartY && event.y < (FontManager.linkStartY + FontManager.linkHeight)) {
                 if (event.x > FontManager.linkStartX && event.x < (FontManager.linkStartX + FontManager.linkWidth)) {
-                    Desktop.getDesktop().browse(URI("https://icnet.dev/dragonfly/installer/error-$currentErrorCode"))
+                    Desktop.getDesktop().browse(URI("https://icnet.dev/dragonfly/installer/errors#$currentErrorCode"))
                 }
             }
         }
