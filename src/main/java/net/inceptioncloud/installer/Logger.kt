@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer
 
+import net.inceptioncloud.installer.backend.CustomError
 import java.io.File
 import java.text.SimpleDateFormat
 
@@ -24,8 +25,9 @@ object Logger {
 
         if (!fileCreationFailed) {
             writeToFile(prefix + text)
-            println(prefix + text)
         }
+
+        println(prefix + text)
     }
 
     /**
@@ -33,15 +35,15 @@ object Logger {
      * It is used to create the .log file of the current logger session
      */
     fun createFile() {
-        val fileName = "${SimpleDateFormat("HH_mm-dd_MM_yyyy").format(System.currentTimeMillis())}.log"
+        val fileName = "${SimpleDateFormat("HH_mm_ss-dd_MM_yyyy").format(System.currentTimeMillis())}.log"
         file = File(fileName)
 
         if (!file.createNewFile()) {
             fileCreationFailed = true
-            println("Creation of log-file (${file.absolutePath}) failed!")
+            CustomError("001", "Creation of log file (${file.absolutePath}) failed!").printStackTrace()
+        } else {
+            file.appendText("This is log started at: ${SimpleDateFormat("HH:mm:ss dd.MM.yyyy").format(System.currentTimeMillis())}\n")
         }
-
-        file.appendText("This is log started at: ${SimpleDateFormat("HH:mm dd.MM.yyyy").format(System.currentTimeMillis())}\n")
     }
 
     /**

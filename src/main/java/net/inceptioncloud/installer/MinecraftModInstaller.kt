@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer
 
+import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.FontManager.registerFonts
 import net.inceptioncloud.installer.frontend.Screen
@@ -42,11 +43,6 @@ object MinecraftModInstaller {
     private lateinit var container: JPanel
 
     /**
-     * Image that is used for the background wave.
-     */
-    private val background: Image = ImageIO.read(javaClass.getResource("/background.png"))
-
-    /**
      * Current screen with paint() method that is called whenever the main container is repainted.
      */
     lateinit var screen: Screen
@@ -67,6 +63,11 @@ object MinecraftModInstaller {
     lateinit var screenSwitch: SmoothDoubleTransition
 
     /**
+     * String to store the type of an error
+     */
+    var errorTypes = arrayListOf<String>()
+
+    /**
      * Called when starting the installer.
      */
     fun init() {
@@ -85,7 +86,15 @@ object MinecraftModInstaller {
 
         window.isResizable = false
         window.title = "Dragonfly Mod Installer"
-        window.iconImage = ImageIO.read(javaClass.getResourceAsStream("/icon_32x.png"))
+
+        if (!errorTypes.contains("windowIcon")) {
+            try {
+                window.iconImage = ImageIO.read(javaClass.getResourceAsStream("/icon_32x.png"))
+            } catch (e: Exception) {
+                errorTypes.add("windowIcon")
+                CustomError("201", "Image (resources/icon32x.png) not found!").printStackTrace()
+            }
+        }
         window.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
         container = object : JPanel() // Override the paint() method in order to draw custom shapes
@@ -170,8 +179,23 @@ object MinecraftModInstaller {
         graphics.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
 
         if (!(screen.stepIndex == 0 && !WelcomeScreen.titleFlyIn.isAtEnd)) {
-            // Background
-            graphics2D.drawImage(background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, null)
+
+            if (!errorTypes.contains("backgroundImage")) {
+                try {
+                    // Background
+                    graphics2D.drawImage(
+                        ImageIO.read(javaClass.getResource("/background.png")),
+                        0,
+                        0,
+                        WINDOW_WIDTH,
+                        WINDOW_HEIGHT,
+                        null
+                    )
+                } catch (e: Exception) {
+                    errorTypes.add("backgroundImage")
+                    CustomError("202", "Image (resources/background.png) not found").printStackTrace()
+                }
+            }
 
             // Title
             FontManager.drawCenteredString("Installation Wizard", WINDOW_WIDTH / 2, 55, 1, 36, graphics2D)
