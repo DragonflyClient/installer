@@ -46,7 +46,11 @@ object MinecraftModInstaller {
     /**
      * Current screen with paint() method that is called whenever the main container is repainted.
      */
-    lateinit var screen: Screen
+    var screen: Screen? = null
+        set(value)
+        {
+            // custom setter
+        }
 
     /**
      * A list with all transitions.
@@ -76,7 +80,7 @@ object MinecraftModInstaller {
         Logger.createFile()
 
         screen = WelcomeScreen()
-        previousScreen = screen
+        previousScreen = screen!!
 
         screenSwitch = SmoothDoubleTransition.builder()
             .start(WINDOW_WIDTH.toDouble()).end(0.0)
