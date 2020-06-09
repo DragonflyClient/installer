@@ -152,10 +152,10 @@ abstract class InstallationProcess(private val name: String) {
                 CustomError("201", "Image (resources/finish.png) not found").printStackTrace()
             }
             try {
-                errorIcon = ImageIO.read(javaClass.getResourceAsStream("/status/errorIcon.png"))
+                errorIcon = ImageIO.read(javaClass.getResourceAsStream("/status/error.png"))
             } catch (e: Exception) {
-                MinecraftModInstaller.errorTypes.add("imageMissing/errorIcon.png")
-                CustomError("201", "Image (resources/errorIcon.png) not found").printStackTrace()
+                MinecraftModInstaller.errorTypes.add("imageMissing/error.png")
+                CustomError("201", "Image (resources/error.png) not found").printStackTrace()
             }
 
             graphics2D.drawImage(

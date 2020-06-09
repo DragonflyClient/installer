@@ -6,6 +6,7 @@ import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.FontManager.registerFonts
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.ScreenIndexManager
+import net.inceptioncloud.installer.frontend.screens.ErrorScreen
 import net.inceptioncloud.installer.frontend.screens.WelcomeScreen
 import net.inceptioncloud.installer.frontend.transition.Transition
 import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition
@@ -47,9 +48,14 @@ object MinecraftModInstaller {
      * Current screen with paint() method that is called whenever the main container is repainted.
      */
     var screen: Screen? = null
-        set(value)
-        {
-            // custom setter
+        set(value) {
+            if (value is ErrorScreen) {
+                field = value
+            } else {
+                if (errorTypes.size < 1) {
+                    field = value
+                }
+            }
         }
 
     /**
@@ -126,7 +132,7 @@ object MinecraftModInstaller {
                         e.isPopupTrigger,
                         e.button
                     )
-                    screen.mouseClicked(otherEvent)
+                    screen!!.mouseClicked(otherEvent)
                 }
             }
         })
@@ -145,7 +151,7 @@ object MinecraftModInstaller {
                         e.isPopupTrigger,
                         e.button
                     )
-                    screen.mouseMoved(otherEvent)
+                    screen!!.mouseMoved(otherEvent)
                 }
             }
         })
@@ -192,7 +198,7 @@ object MinecraftModInstaller {
         graphics.color = Color(0xFFFFFF)
         graphics.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
 
-        if (!(screen.stepIndex == 0 && !WelcomeScreen.titleFlyIn.isAtEnd)) {
+        if (!(screen!!.stepIndex == 0 && !WelcomeScreen.titleFlyIn.isAtEnd)) {
 
             if (!errorTypes.contains("imageMissing/background.png")) {
                 try {
@@ -217,10 +223,10 @@ object MinecraftModInstaller {
 
         if (previousScreen != screen) {
             previousScreen.paint(graphics2D, -WINDOW_WIDTH + screenSwitch.castToInt(), 0, WINDOW_WIDTH, WINDOW_HEIGHT)
-            screen.paint(graphics2D, screenSwitch.castToInt(), 0, WINDOW_WIDTH, WINDOW_HEIGHT)
+            screen!!.paint(graphics2D, screenSwitch.castToInt(), 0, WINDOW_WIDTH, WINDOW_HEIGHT)
 
             if (screenSwitch.isAtEnd) {
-                previousScreen = screen
+                previousScreen = screen!!
 
                 screenSwitch = SmoothDoubleTransition.builder()
                     .start(WINDOW_WIDTH.toDouble()).end(0.0)
@@ -229,10 +235,10 @@ object MinecraftModInstaller {
                     .autoTransformator(ForwardNothing { screen != previousScreen }).build()
             }
         } else {
-            screen.paint(graphics2D, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
+            screen!!.paint(graphics2D, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
         }
 
-        ScreenIndexManager.currentIndex = screen.stepIndex
+        ScreenIndexManager.currentIndex = screen!!.stepIndex
         ScreenIndexManager.drawStepIndex(graphics2D)
 
     }

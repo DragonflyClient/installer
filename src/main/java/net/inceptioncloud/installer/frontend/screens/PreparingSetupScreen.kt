@@ -29,33 +29,32 @@ class PreparingSetupScreen : Screen(2) {
     /**
      * Called when switching to the screen.
      */
-    init
-    {
-        Thread {
-            Thread.sleep(500)
-            potentialProcesses.forEach {
-                if (it.test())
-                {
-                    processRenderer.add(it)
-                    Thread.sleep(300)
+    init {
+        if (MinecraftModInstaller.screen !is ErrorScreen) {
+            Thread {
+                Thread.sleep(500)
+                potentialProcesses.forEach {
+                    if (it.test()) {
+                        processRenderer.add(it)
+                        Thread.sleep(300)
+                    }
                 }
-            }
-            processRenderer.forEach {
-                it.execute()
-                Thread.sleep(100)
-            }
-            processRenderer.investigateExecution()
+                processRenderer.forEach {
+                    it.execute()
+                    Thread.sleep(100)
+                }
+                processRenderer.investigateExecution()
 
-            Thread.sleep(1000)
-            MinecraftModInstaller.screen = InstallingClientScreen()
-        }.start()
+                Thread.sleep(1000)
+                MinecraftModInstaller.screen = InstallingClientScreen()
+            }.start()
+        }
     }
 
     /**
      * Called when painting the screen.
      */
-    override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int)
-    {
+    override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int) {
         // Paragraph
         graphics2D.color = Color(50, 50, 50)
         FontManager.drawCenteredString("Preparing Setup", x + width / 2, y + 160, 0, 30, graphics2D)
@@ -66,14 +65,12 @@ class PreparingSetupScreen : Screen(2) {
     /**
      * Called when the mouse clicks on the screen.
      */
-    override fun mouseClicked(event: MouseEvent?)
-    {
+    override fun mouseClicked(event: MouseEvent?) {
     }
 
     /**
      * Called when the mouse moves.
      */
-    override fun mouseMoved(event: MouseEvent?)
-    {
+    override fun mouseMoved(event: MouseEvent?) {
     }
 }
