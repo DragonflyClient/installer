@@ -13,8 +13,7 @@ import java.awt.event.MouseEvent
 /**
  * A simple user interface button that can be used as a screen-child.
  */
-open class UIButton(var text: String) : Screen()
-{
+open class UIButton(var text: String) : Screen() {
     // The bounds in which the button was painted the last time.
     private var x: Int = 0
     private var y: Int = 0
@@ -28,29 +27,28 @@ open class UIButton(var text: String) : Screen()
 
     private var secondaryStart = ColorTransition.builder()
         .start(Color(0xFFFFFF)).end(Colors.RED)
-            .amountOfSteps(50).autoTransformator(ForwardBackward { hovered })
-            .build()
+        .amountOfSteps(50).autoTransformator(ForwardBackward { hovered })
+        .build()
 
     private var secondaryEnd = ColorTransition.builder()
         .start(Color(0xFFFFFF)).end(Colors.ORANGE)
-            .amountOfSteps(50).autoTransformator(ForwardBackward { hovered })
-            .build()
+        .amountOfSteps(50).autoTransformator(ForwardBackward { hovered })
+        .build()
 
     private var primaryStart = ColorTransition.builder()
         .start(Colors.RED).end(Color(0xFFFFFF))
-            .amountOfSteps(20).autoTransformator(ForwardBackward { hovered })
-            .build()
+        .amountOfSteps(20).autoTransformator(ForwardBackward { hovered })
+        .build()
 
     private var primaryEnd = ColorTransition.builder()
         .start(Colors.ORANGE).end(Color(0xFFFFFF))
-            .amountOfSteps(20).autoTransformator(ForwardBackward { hovered })
-            .build()
+        .amountOfSteps(20).autoTransformator(ForwardBackward { hovered })
+        .build()
 
     /**
      * Called when painting the screen.
      */
-    override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int)
-    {
+    override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int) {
         val startX = x.toFloat()
         val startY = (y + height).toFloat()
         val endX = (x + width).toFloat()
@@ -67,7 +65,12 @@ open class UIButton(var text: String) : Screen()
         // Text
         graphics2D.paint = GradientPaint(startX, startY, secondaryStart.get(), endX, endY, secondaryEnd.get())
         graphics2D.font = FontManager.loadFont(0, (height / 1.7).toInt())
-        FontManager.drawCenteredString(text, x + width / 2, y + height / 2 + graphics2D.fontMetrics.height / 4 + 2, graphics2D)
+        FontManager.drawCenteredString(
+            text,
+            x + width / 2,
+            y + height / 2 + graphics2D.fontMetrics.height / 4 + 2,
+            graphics2D
+        )
 
         this.x = x
         this.y = y
@@ -78,18 +81,15 @@ open class UIButton(var text: String) : Screen()
     /**
      * An empty on-click function that can be overwritten.
      */
-    open fun buttonClicked()
-    {
+    open fun buttonClicked() {
     }
 
     /**
      * Called when the mouse clicks on the screen.
      */
-    override fun mouseClicked(event: MouseEvent?)
-    {
+    override fun mouseClicked(event: MouseEvent?) {
         event?.let {
-            if (event.x >= x && event.x <= x + width && event.y >= y && event.y <= y + height)
-            {
+            if (event.x >= x && event.x <= x + width && event.y >= y && event.y <= y + height) {
                 buttonClicked()
             }
         }
@@ -98,8 +98,7 @@ open class UIButton(var text: String) : Screen()
     /**
      * Called when the mouse moves.
      */
-    override fun mouseMoved(event: MouseEvent?)
-    {
+    override fun mouseMoved(event: MouseEvent?) {
         event?.let {
             hovered = it.x >= x && it.x <= x + width && it.y >= y && it.y <= y + height
         }

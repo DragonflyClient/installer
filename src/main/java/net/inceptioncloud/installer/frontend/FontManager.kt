@@ -1,5 +1,7 @@
 package net.inceptioncloud.installer.frontend
 
+import net.inceptioncloud.installer.MinecraftModInstaller
+import net.inceptioncloud.installer.backend.CustomError
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics2D
@@ -7,6 +9,7 @@ import java.awt.GraphicsEnvironment
 import java.awt.font.FontRenderContext
 import java.awt.font.TextAttribute
 import java.util.*
+import kotlin.system.exitProcess
 
 
 /**
@@ -44,7 +47,16 @@ object FontManager {
         fonts.forEach {
             val resourceName = "/$it.ttf"
 
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, javaClass.getResourceAsStream(resourceName)))
+
+            if (!MinecraftModInstaller.errorTypes.contains("font")) {
+                try {
+                    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, javaClass.getResourceAsStream(resourceName)))
+                } catch (e: Exception) {
+                    MinecraftModInstaller.errorTypes.add("font")
+                    CustomError("203", "Font (resources/$it.ttf) not found").printStackTrace()
+                    exitProcess(203)
+                }
+            }
         }
     }
 

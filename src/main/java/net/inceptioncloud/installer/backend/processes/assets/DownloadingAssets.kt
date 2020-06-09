@@ -4,8 +4,7 @@ import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.backend.InstallationProcess
 import java.io.File
 
-class DownloadingAssets : InstallationProcess("Downloading Assets")
-{
+class DownloadingAssets : InstallationProcess("Downloading Assets") {
     /**
      * Destination for the assets folder.
      */
@@ -19,8 +18,7 @@ class DownloadingAssets : InstallationProcess("Downloading Assets")
     /**
      * Executes the download / installation that the process is responsible for.
      */
-    override fun execute()
-    {
-        status = if(InstallManager.saveFolder(destination, "https://cdn.icnet.dev/minecraftmod/assets/")) 1 else -1
+    override fun execute() {
+        status = if (InstallManager.saveFolder(destination, "https://cdn.icnet.dev/minecraftmod/assets/")) 1 else -1
     }
 }

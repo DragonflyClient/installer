@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.frontend
 
+import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.MinecraftModInstaller.WINDOW_WIDTH
 import net.inceptioncloud.installer.backend.InstallationProcess
 import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition
@@ -7,7 +8,6 @@ import net.inceptioncloud.installer.frontend.transition.supplier.ForwardNothing
 import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics2D
-import kotlin.system.exitProcess
 
 /**
  * List of all installation processes that are rendered.
@@ -70,8 +70,7 @@ class ProcessRenderer : ArrayList<InstallationProcess>()
 
         if (error)
         {
-            for (process in this)
-            {
+            for (process in this) {
                 if (process.status == -1)
                     failed = true
                 else if (failed)
@@ -79,10 +78,14 @@ class ProcessRenderer : ArrayList<InstallationProcess>()
             }
 
             Thread.sleep(10_000)
-            exitProcess(0)
         }
 
-        if (!finished)
-            throw IllegalStateException("Each process should either end with status code -1 or 1!")
+        if (!finished) {
+            if (MinecraftModInstaller.errorTypes.isEmpty()) {
+                throw IllegalStateException("Each process should either end with status code -1 or 1!")
+            } else {
+                throw InterruptedException("An custom error occurred!")
+            }
+        }
     }
 }

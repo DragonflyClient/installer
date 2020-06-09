@@ -1,6 +1,7 @@
 package net.inceptioncloud.installer
 
 import net.inceptioncloud.installer.backend.CustomError
+import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.FontManager.registerFonts
 import net.inceptioncloud.installer.frontend.Screen
@@ -95,6 +96,7 @@ object MinecraftModInstaller {
                 CustomError("201", "Image (resources/icon32x.png) not found!").printStackTrace()
             }
         }
+
         window.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
         container = object : JPanel() // Override the paint() method in order to draw custom shapes
@@ -160,6 +162,14 @@ object MinecraftModInstaller {
                 Thread.sleep(10)
             }
         }.start()
+
+        val minecraftFolder = InstallManager.MINECRAFT_PATH
+
+        if (!minecraftFolder.exists()) {
+            errorTypes.add("folderMissing")
+            CustomError("101", "Minecraft folder (${minecraftFolder.absolutePath}) not found").printStackTrace()
+        }
+
     }
 
     /**

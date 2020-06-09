@@ -1,6 +1,7 @@
 package net.inceptioncloud.installer.backend
 
 import net.inceptioncloud.installer.Logger
+import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.frontend.screens.EarlyAccessScreen
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -28,16 +29,19 @@ object InstallManager {
         var out: FileOutputStream? = null
 
         try {
-            val con: HttpURLConnection = URL(urlString).openConnection() as HttpURLConnection
-            `in` = con.inputStream
-            out = FileOutputStream(file)
-            val data = ByteArray(1024)
-            var count: Int
-            while (`in`.read(data, 0, 1024).also { count = it } != -1) {
-                out.write(data, 0, count)
-            }
+            if (!MinecraftModInstaller.errorTypes.contains("versionURL")) {
 
-            return true
+                val con: HttpURLConnection = URL(urlString).openConnection() as HttpURLConnection
+                `in` = con.inputStream
+                out = FileOutputStream(file)
+                val data = ByteArray(1024)
+                var count: Int
+                while (`in`.read(data, 0, 1024).also { count = it } != -1) {
+                    out.write(data, 0, count)
+                }
+
+                return true
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             return false
@@ -45,6 +49,7 @@ object InstallManager {
             `in`?.close()
             out?.close()
         }
+        return false
     }
 
     /**
@@ -87,16 +92,25 @@ object InstallManager {
      */
     fun getVersionURL(): String {
 
-        val versionInfo = if (EarlyAccessScreen.downloadEAP) {
-            URL("https://cdn.icnet.dev/minecraftmod/eap-version")
-        } else {
-            URL("https://cdn.icnet.dev/minecraftmod/stable-version")
+        try {
+            val versionInfo = if (EarlyAccessScreen.downloadEAP) {
+                URL("https://cdn.icnet.dev/minecraftmod/eap-version")
+            } else {
+                URL("https://cdn.icnet.dev/minecraftmod/stable-version")
+            }
+
+            val version = InputStreamReader(versionInfo.openConnection().getInputStream()).readText()
+            Logger.log("Current Version is $version")
+
+            return "https://cdn.icnet.dev/minecraftmod/$version/"
+        } catch (e: Exception) {
+            MinecraftModInstaller.errorTypes.add("versionURL")
+            CustomError(
+                "301",
+                "Version file on server (\"https://cdn.icnet.dev/minecraftmod/?-version\") not found"
+            ).printStackTrace()
         }
-
-        val version = InputStreamReader(versionInfo.openConnection().getInputStream()).readText()
-        Logger.log("Current Version is $version")
-
-        return "https://cdn.icnet.dev/minecraftmod/$version/"
+        return ""
     }
 
     /**
