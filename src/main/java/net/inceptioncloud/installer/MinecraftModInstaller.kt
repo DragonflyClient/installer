@@ -175,8 +175,8 @@ object MinecraftModInstaller {
 
         val minecraftFolder = InstallManager.MINECRAFT_PATH
 
-        if (!minecraftFolder.exists()) {
-            occurredErrors.add("folderMissing")
+        if (!minecraftFolder.exists() && !occurredErrors.contains("folderMissing/.minecraft")) {
+            occurredErrors.add("folderMissing/.minecraft")
             CustomError("101", "Minecraft folder (${minecraftFolder.absolutePath}) not found").printStackTrace()
         }
 

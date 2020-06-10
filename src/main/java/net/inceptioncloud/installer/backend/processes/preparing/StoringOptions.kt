@@ -1,5 +1,7 @@
 package net.inceptioncloud.installer.backend.processes.preparing
 
+import net.inceptioncloud.installer.MinecraftModInstaller
+import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.backend.InstallationProcess
 import java.io.File
@@ -29,11 +31,15 @@ class StoringOptions : InstallationProcess("Storing Options") {
      * Executes the download / installation that the process is responsible for.
      */
     override fun execute() {
-        try {
-            content = target.readText(Charset.defaultCharset())
-            status = if (content != null) 1 else 0
-        } catch (ex: Exception) {
-            status = -1
+        if (!MinecraftModInstaller.occurredErrors.contains("fileReading/options")) {
+            try {
+                content = target.readText(Charset.defaultCharset())
+                status = if (content != null) 1 else 0
+            } catch (ex: Exception) {
+                status = -1
+                MinecraftModInstaller.occurredErrors.add("fileReading/options")
+                CustomError("103", "File (${target.absolutePath}) not accessible").printStackTrace()
+            }
         }
     }
 }
