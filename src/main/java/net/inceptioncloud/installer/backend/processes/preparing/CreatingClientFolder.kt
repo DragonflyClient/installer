@@ -23,7 +23,7 @@ class CreatingClientFolder : InstallationProcess("Creating Client Folder")
      */
     override fun execute() {
         status = if (folder.mkdirs()) 1 else (-1).also {
-            MinecraftModInstaller.occurredErrors.add("folderCreation/versions-icminecraftmod")
+            MinecraftModInstaller.occurredErrors.add("folderCreation/versions")
             CustomError("102", "Folder (${folder.absolutePath}) creation failed").printStackTrace()
         }
     }
