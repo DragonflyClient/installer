@@ -2,15 +2,11 @@ package net.inceptioncloud.installer.backend.processes.preparing
 
 import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.backend.InstallationProcess
-import org.apache.commons.io.FileUtils
 import java.io.File
-import java.lang.Exception
 import java.nio.charset.Charset
 
-class StoringOptions : InstallationProcess("Storing Options")
-{
-    companion object
-    {
+class StoringOptions : InstallationProcess("Storing Options") {
+    companion object {
         /**
          * Content of the options file.
          */
@@ -25,22 +21,18 @@ class StoringOptions : InstallationProcess("Storing Options")
     /**
      * Called when showing the corresponding screen in order to check if the process is required.
      */
-    override fun test(): Boolean
-    {
+    override fun test(): Boolean {
         return target.exists()
     }
 
     /**
      * Executes the download / installation that the process is responsible for.
      */
-    override fun execute()
-    {
+    override fun execute() {
         try {
-
-            content = FileUtils.readFileToString(target, Charset.defaultCharset())
+            content = target.readText(Charset.defaultCharset())
             status = if (content != null) 1 else 0
-        } catch (ex: Exception)
-        {
+        } catch (ex: Exception) {
             status = -1
         }
     }

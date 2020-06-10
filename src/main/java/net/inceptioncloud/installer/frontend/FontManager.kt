@@ -48,11 +48,11 @@ object FontManager {
             val resourceName = "/$it.ttf"
 
 
-            if (!MinecraftModInstaller.errorTypes.contains("fontMissing/$it.ttf")) {
+            if (!MinecraftModInstaller.occurredErrors.contains("fontMissing/$it.ttf")) {
                 try {
                     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, javaClass.getResourceAsStream(resourceName)))
                 } catch (e: Exception) {
-                    MinecraftModInstaller.errorTypes.add("fontMissing/$it.ttf")
+                    MinecraftModInstaller.occurredErrors.add("fontMissing/$it.ttf")
                     CustomError("202", "Font (resources/$it.ttf) not found").printStackTrace()
                     exitProcess(202)
                 }

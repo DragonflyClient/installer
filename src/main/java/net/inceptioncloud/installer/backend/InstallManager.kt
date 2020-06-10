@@ -29,7 +29,7 @@ object InstallManager {
         var out: FileOutputStream? = null
 
         try {
-            if (!MinecraftModInstaller.errorTypes.contains("versionURL")) {
+            if (!MinecraftModInstaller.occurredErrors.contains("versionURL")) {
 
                 val con: HttpURLConnection = URL(urlString).openConnection() as HttpURLConnection
                 `in` = con.inputStream
@@ -104,7 +104,7 @@ object InstallManager {
 
             return "https://cdn.icnet.dev/minecraftmod/$version/"
         } catch (e: Exception) {
-            MinecraftModInstaller.errorTypes.add("versionURL")
+            MinecraftModInstaller.occurredErrors.add("versionURL")
             CustomError(
                 "301",
                 "Version file on server (\"https://cdn.icnet.dev/minecraftmod/?-version\") not found"

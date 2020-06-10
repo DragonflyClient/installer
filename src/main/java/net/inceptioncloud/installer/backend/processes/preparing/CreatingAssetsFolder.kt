@@ -1,11 +1,12 @@
 package net.inceptioncloud.installer.backend.processes.preparing
 
+import net.inceptioncloud.installer.MinecraftModInstaller
+import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.backend.InstallationProcess
 import java.io.File
 
-class CreatingAssetsFolder : InstallationProcess("Creating Assets Folder")
-{
+class CreatingAssetsFolder : InstallationProcess("Creating Assets Folder") {
     /**
      * Folder in which the old assets would be installed.
      */
@@ -19,8 +20,10 @@ class CreatingAssetsFolder : InstallationProcess("Creating Assets Folder")
     /**
      * Executes the download / installation that the process is responsible for.
      */
-    override fun execute()
-    {
-        status = if(folder.mkdirs()) 1 else -1
+    override fun execute() {
+        status = if (folder.mkdirs()) 1 else (-1).also {
+            MinecraftModInstaller.occurredErrors.add("folderCreation/inceptioncloud")
+            CustomError("102", "Folder (${folder.absolutePath}) creation failed").printStackTrace()
+        }
     }
 }

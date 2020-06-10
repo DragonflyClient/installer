@@ -52,7 +52,7 @@ object MinecraftModInstaller {
             if (value is ErrorScreen) {
                 field = value
             } else {
-                if (errorTypes.size < 1) {
+                if (occurredErrors.size < 1) {
                     field = value
                 }
             }
@@ -76,7 +76,7 @@ object MinecraftModInstaller {
     /**
      * String to store the type of an error
      */
-    var errorTypes = arrayListOf<String>()
+    var occurredErrors = arrayListOf<String>()
 
     /**
      * Called when starting the installer.
@@ -98,11 +98,11 @@ object MinecraftModInstaller {
         window.isResizable = false
         window.title = "Dragonfly Mod Installer"
 
-        if (!errorTypes.contains("imageMissing/icon_32x.png")) {
+        if (!occurredErrors.contains("imageMissing/icon_32x.png")) {
             try {
                 window.iconImage = ImageIO.read(javaClass.getResourceAsStream("/icon_32x.png"))
             } catch (e: Exception) {
-                errorTypes.add("imageMissing/icon_32x.png")
+                occurredErrors.add("imageMissing/icon_32x.png")
                 CustomError("201", "Image (resources/icon32x.png) not found").printStackTrace()
             }
         }
@@ -176,7 +176,7 @@ object MinecraftModInstaller {
         val minecraftFolder = InstallManager.MINECRAFT_PATH
 
         if (!minecraftFolder.exists()) {
-            errorTypes.add("folderMissing")
+            occurredErrors.add("folderMissing")
             CustomError("101", "Minecraft folder (${minecraftFolder.absolutePath}) not found").printStackTrace()
         }
 
@@ -200,7 +200,7 @@ object MinecraftModInstaller {
 
         if (!(screen!!.stepIndex == 0 && !WelcomeScreen.titleFlyIn.isAtEnd)) {
 
-            if (!errorTypes.contains("imageMissing/background.png")) {
+            if (!occurredErrors.contains("imageMissing/background.png")) {
                 try {
                     // Background
                     graphics2D.drawImage(
@@ -212,7 +212,7 @@ object MinecraftModInstaller {
                         null
                     )
                 } catch (e: Exception) {
-                    errorTypes.add("imageMissing/background.png")
+                    occurredErrors.add("imageMissing/background.png")
                     CustomError("201", "Image (resources/background.png) not found").printStackTrace()
                 }
             }

@@ -140,7 +140,7 @@ abstract class InstallationProcess(private val name: String) {
         val centerY = y - 8
         val size = (iconTransition.get() * 16).toInt()
 
-        if (!MinecraftModInstaller.errorTypes.contains("imageMissing/finish.png") && !MinecraftModInstaller.errorTypes.contains(
+        if (!MinecraftModInstaller.occurredErrors.contains("imageMissing/finish.png") && !MinecraftModInstaller.occurredErrors.contains(
                 "imageMissing/error.png"
             )
         ) {
@@ -148,13 +148,13 @@ abstract class InstallationProcess(private val name: String) {
             try {
                 finishIcon = ImageIO.read(javaClass.getResourceAsStream("/status/finish.png"))
             } catch (e: Exception) {
-                MinecraftModInstaller.errorTypes.add("imageMissing/finish.png")
+                MinecraftModInstaller.occurredErrors.add("imageMissing/finish.png")
                 CustomError("201", "Image (resources/finish.png) not found").printStackTrace()
             }
             try {
                 errorIcon = ImageIO.read(javaClass.getResourceAsStream("/status/error.png"))
             } catch (e: Exception) {
-                MinecraftModInstaller.errorTypes.add("imageMissing/error.png")
+                MinecraftModInstaller.occurredErrors.add("imageMissing/error.png")
                 CustomError("201", "Image (resources/error.png) not found").printStackTrace()
             }
 

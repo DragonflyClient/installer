@@ -42,12 +42,12 @@ open class UIImage(val pathInResources: String) : Screen() {
         this.height = height
 
         val sizeMod = sizeTransition.castToInt()
-        if (!MinecraftModInstaller.errorTypes.contains("imageMissing${pathInResources}")) {
+        if (!MinecraftModInstaller.occurredErrors.contains("imageMissing${pathInResources}")) {
             try {
                 val image = ImageIO.read(javaClass.getResourceAsStream(pathInResources))
                 graphics2D.drawImage(image, x + sizeMod, y + sizeMod, width - sizeMod * 2, height - sizeMod * 2, null)
             } catch (e: Exception) {
-                MinecraftModInstaller.errorTypes.add("imageMissing${pathInResources}")
+                MinecraftModInstaller.occurredErrors.add("imageMissing${pathInResources}")
                 CustomError("201", "Image (resources$pathInResources) not found").printStackTrace()
             }
         }
