@@ -92,23 +92,25 @@ object InstallManager {
      */
     fun getVersionURL(): String {
 
-        try {
-            val versionInfo = if (EarlyAccessScreen.downloadEAP) {
-                URL("https://cdn.icnet.dev/minecraftmod/eap-version")
-            } else {
-                URL("https://cdn.icnet.dev/minecraftmod/stable-version")
+        if (!MinecraftModInstaller.occurredErrors.contains("url/?-version")) {
+            try {
+                val versionInfo = if (EarlyAccessScreen.downloadEAP) {
+                    URL("https://cdn.icnet.dev/minecraftmod/eap-version")
+                } else {
+                    URL("https://cdn.icnet.dev/minecraftmod/stable-version")
+                }
+
+                val version = InputStreamReader(versionInfo.openConnection().getInputStream()).readText()
+                Logger.log("Current Version is $version")
+
+                return "https://cdn.icnet.dev/minecraftmod/$version/"
+            } catch (e: Exception) {
+                MinecraftModInstaller.occurredErrors.add("url/?-version")
+                CustomError(
+                    "301",
+                    "File on server (\"https://cdn.icnet.dev/minecraftmod/?-version\") not found"
+                ).printStackTrace()
             }
-
-            val version = InputStreamReader(versionInfo.openConnection().getInputStream()).readText()
-            Logger.log("Current Version is $version")
-
-            return "https://cdn.icnet.dev/minecraftmod/$version/"
-        } catch (e: Exception) {
-            MinecraftModInstaller.occurredErrors.add("versionURL")
-            CustomError(
-                "301",
-                "Version file on server (\"https://cdn.icnet.dev/minecraftmod/?-version\") not found"
-            ).printStackTrace()
         }
         return ""
     }
