@@ -26,7 +26,7 @@ class AccessingJVMArguments : InstallationProcess("Accessing JVM Arguments") {
             } catch (ex: Exception) {
                 (-1).also {
                     MinecraftModInstaller.occurredErrors.add("fileReading/jvm")
-                    CustomError("103", "File (${getArgumentsFile()}) not accessible").printStackTrace()
+                    CustomError("103", "File (${getArgumentsFile().absolutePath}) not accessible").printStackTrace()
                 }
             }
         }
