@@ -22,10 +22,10 @@ class CreatingClientFolder : InstallationProcess("Creating Client Folder")
      * Executes the download / installation that the process is responsible for.
      */
     override fun execute() {
-        if (!MinecraftModInstaller.occurredErrors.contains("folderCreation/versions")) {
+        if (!MinecraftModInstaller.occurredErrors.contains("fileCreation/versions")) {
             status = if (folder.mkdirs()) 1 else (-1).also {
-                MinecraftModInstaller.occurredErrors.add("folderCreation/versions")
-                CustomError("102", "Folder (${folder.absolutePath}) creation failed").printStackTrace()
+                MinecraftModInstaller.occurredErrors.add("fileCreation/versions")
+                CustomError("102", "File (${folder.absolutePath}) creation failed").printStackTrace()
             }
         }
     }

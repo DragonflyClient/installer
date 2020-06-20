@@ -21,10 +21,10 @@ class CreatingAssetsFolder : InstallationProcess("Creating Assets Folder") {
      * Executes the download / installation that the process is responsible for.
      */
     override fun execute() {
-        if (!MinecraftModInstaller.occurredErrors.contains("folderCreation/inceptioncloud")) {
+        if (!MinecraftModInstaller.occurredErrors.contains("fileCreation/inceptioncloud")) {
             status = if (folder.mkdirs()) 1 else (-1).also {
-                MinecraftModInstaller.occurredErrors.add("folderCreation/inceptioncloud")
-                CustomError("102", "Folder (${folder.absolutePath}) creation failed").printStackTrace()
+                MinecraftModInstaller.occurredErrors.add("fileCreation/inceptioncloud")
+                CustomError("102", "File (${folder.absolutePath}) creation failed").printStackTrace()
             }
         }
     }
