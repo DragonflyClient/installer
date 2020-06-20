@@ -11,7 +11,7 @@ class DownloadingJSON : InstallationProcess("Downloading JSON") {
      * Destination for the JAR file.
      */
     private val destination =
-        File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\ICMinecraftMod\\ICMinecraftMod.json")
+        File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly\\Dragonfly.json")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.
@@ -26,13 +26,13 @@ class DownloadingJSON : InstallationProcess("Downloading JSON") {
             status =
                 if (InstallManager.saveFile(
                         destination,
-                        "${InstallManager.getVersionURL()}ICMinecraftMod.json"
+                        "${InstallManager.getVersionURL()}Dragonfly.json"
                     )
                 ) 1 else (-1).also {
                     MinecraftModInstaller.occurredErrors.add("url/json")
                     CustomError(
                         "301",
-                        "File on server (\"https://cdn.icnet.dev/minecraftmod/${InstallManager.getVersionURL()}ICMinecraftMod.json\") not found"
+                        "File on server (\"https://cdn.icnet.dev/dragonfly/${InstallManager.getVersionURL()}Dragonfly.json\") not found"
                     ).printStackTrace()
                 }
         }

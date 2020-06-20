@@ -45,6 +45,6 @@ class AccessingJVMArguments : InstallationProcess("Accessing JVM Arguments") {
             LauncherProfile.ram >= 0 -> i = 2
         }
 
-        return File("${InstallManager.MINECRAFT_PATH}\\inceptioncloud\\jvm\\${i}_gb.jvm")
+        return File("${InstallManager.MINECRAFT_PATH}\\dragonfly\\jvm\\${i}_gb.jvm")
     }
 }

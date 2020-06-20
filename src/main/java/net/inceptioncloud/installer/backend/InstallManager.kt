@@ -95,20 +95,20 @@ object InstallManager {
         if (!MinecraftModInstaller.occurredErrors.contains("url/?-version")) {
             try {
                 val versionInfo = if (EarlyAccessScreen.downloadEAP) {
-                    URL("https://cdn.icnet.dev/minecraftmod/eap-version")
+                    URL("https://cdn.icnet.dev/dragonfly/eap-version")
                 } else {
-                    URL("https://cdn.icnet.dev/minecraftmod/stable-version")
+                    URL("https://cdn.icnet.dev/dragonfly/stable-version")
                 }
 
                 val version = InputStreamReader(versionInfo.openConnection().getInputStream()).readText()
                 Logger.log("Current Version is $version")
 
-                return "https://cdn.icnet.dev/minecraftmod/$version/"
+                return "https://cdn.icnet.dev/dragonfly/$version/"
             } catch (e: Exception) {
                 MinecraftModInstaller.occurredErrors.add("url/?-version")
                 CustomError(
                     "301",
-                    "File on server (\"https://cdn.icnet.dev/minecraftmod/?-version\") not found"
+                    "File on server (\"https://cdn.icnet.dev/dragonfly/?-version\") not found"
                 ).printStackTrace()
             }
         }
