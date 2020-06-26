@@ -12,7 +12,7 @@ class InsertingOptions : InstallationProcess("Inserting Options") {
     /**
      * Folder in which the old assets would be installed.
      */
-    private val target = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\inceptioncloud\\options.json")
+    private val target = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly\\options.json")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.

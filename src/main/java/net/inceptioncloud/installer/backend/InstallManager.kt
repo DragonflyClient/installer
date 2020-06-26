@@ -23,31 +23,37 @@ object InstallManager {
      * Saves a file from a web server to the local machine.
      */
     fun saveFile(file: File, urlString: String): Boolean {
-        Logger.log("Saving $urlString to file $file")
+        val splitTemp = urlString.replace("https://", "").split("/")
+        if (!MinecraftModInstaller.occurredErrors.contains("url/${splitTemp[splitTemp.size - 1]}")) {
+            Logger.log("Saving $urlString to file $file")
+            var `in`: InputStream? = null
+            var out: FileOutputStream? = null
 
-        var `in`: InputStream? = null
-        var out: FileOutputStream? = null
+            try {
+                if (!MinecraftModInstaller.occurredErrors.contains("versionURL")) {
 
-        try {
-            if (!MinecraftModInstaller.occurredErrors.contains("versionURL")) {
+                    val con: HttpURLConnection = URL(urlString).openConnection() as HttpURLConnection
+                    `in` = con.inputStream
+                    out = FileOutputStream(file)
+                    val data = ByteArray(1024)
+                    var count: Int
+                    while (`in`.read(data, 0, 1024).also { count = it } != -1) {
+                        out.write(data, 0, count)
+                    }
 
-                val con: HttpURLConnection = URL(urlString).openConnection() as HttpURLConnection
-                `in` = con.inputStream
-                out = FileOutputStream(file)
-                val data = ByteArray(1024)
-                var count: Int
-                while (`in`.read(data, 0, 1024).also { count = it } != -1) {
-                    out.write(data, 0, count)
+                    return true
                 }
-
-                return true
+            } catch (e: Exception) {
+                MinecraftModInstaller.occurredErrors.add("url/${splitTemp[splitTemp.size - 1]}")
+                CustomError(
+                    "301",
+                    "File on server (\"$urlString\") not found"
+                ).printStackTrace()
+                return false
+            } finally {
+                `in`?.close()
+                out?.close()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return false
-        } finally {
-            `in`?.close()
-            out?.close()
         }
         return false
     }
@@ -56,35 +62,43 @@ object InstallManager {
      * Saves a folder from a web server to the local machine.
      */
     fun saveFolder(folder: File, urlString: String): Boolean {
-        Logger.log("Saving $urlString to folder $folder")
+        val splitTemp = urlString.replace("https://", "").split("/")
+        if (!MinecraftModInstaller.occurredErrors.contains("url/${splitTemp[splitTemp.size - 1]}")) {
+            Logger.log("Saving $urlString to folder $folder")
 
-        try {
-            val doc: Document = Jsoup.connect(urlString).get()
-            val links: Elements = doc.getElementsByTag("a")
-            var failed = false
+            try {
+                val doc: Document = Jsoup.connect(urlString).get()
+                val links: Elements = doc.getElementsByTag("a")
+                var failed = false
 
-            for (link in links) {
-                val target = link.attr("href").toString()
+                for (link in links) {
+                    val target = link.attr("href").toString()
 
-                if (target.startsWith("?") || target.startsWith("/minecraftmod/"))
-                    continue
+                    if (target.startsWith("?") || target.startsWith("/dragonfly/"))
+                        continue
 
-                val remoteTarget = "$urlString$target"
+                    val remoteTarget = "$urlString$target"
 
-                if (target.endsWith("/")) {
-                    val localFolderTarget = "$folder\\$target\\"
-                    if (!File(localFolderTarget).mkdirs() || !saveFolder(File(localFolderTarget), remoteTarget))
+                    if (target.endsWith("/")) {
+                        val localFolderTarget = "$folder\\$target\\"
+                        if (!File(localFolderTarget).mkdirs() || !saveFolder(File(localFolderTarget), remoteTarget))
+                            failed = true
+                    } else if (!saveFile(File("$folder\\$target".replace("%20", " ")), remoteTarget)) {
                         failed = true
-                } else if (!saveFile(File("$folder\\$target".replace("%20", " ")), remoteTarget)) {
-                    failed = true
+                    }
                 }
-            }
 
-            return !failed
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-            return false
+                return !failed
+            } catch (ex: IOException) {
+                MinecraftModInstaller.occurredErrors.add("url/${splitTemp[splitTemp.size - 1]}")
+                CustomError(
+                    "301",
+                    "File on server (\"$urlString\") not found"
+                ).printStackTrace()
+                return false
+            }
         }
+        return false
     }
 
     /**
@@ -95,20 +109,20 @@ object InstallManager {
         if (!MinecraftModInstaller.occurredErrors.contains("url/?-version")) {
             try {
                 val versionInfo = if (EarlyAccessScreen.downloadEAP) {
-                    URL("https://cdn.icnet.dev/minecraftmod/eap-version")
+                    URL("https://cdn.icnet.dev/dragonfly/eap-version")
                 } else {
-                    URL("https://cdn.icnet.dev/minecraftmod/stable-version")
+                    URL("https://cdn.icnet.dev/dragonfly/stable-version")
                 }
 
                 val version = InputStreamReader(versionInfo.openConnection().getInputStream()).readText()
                 Logger.log("Current Version is $version")
 
-                return "https://cdn.icnet.dev/minecraftmod/$version/"
+                return "https://cdn.icnet.dev/dragonfly/$version/"
             } catch (e: Exception) {
                 MinecraftModInstaller.occurredErrors.add("url/?-version")
                 CustomError(
                     "301",
-                    "File on server (\"https://cdn.icnet.dev/minecraftmod/?-version\") not found"
+                    "File on server (\"https://cdn.icnet.dev/dragonfly/?-version\") not found"
                 ).printStackTrace()
             }
         }
