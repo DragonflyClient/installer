@@ -15,6 +15,7 @@ import java.awt.*
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.event.MouseMotionAdapter
+import java.io.File
 import javax.imageio.ImageIO
 import javax.swing.JFrame
 import javax.swing.JPanel
@@ -174,9 +175,15 @@ object MinecraftModInstaller {
         }.start()
 
         val minecraftFolder = InstallManager.MINECRAFT_PATH
+        val minecraftVersion = File("${InstallManager.MINECRAFT_PATH}/versions/1.8.8")
 
         if (!minecraftFolder.exists() && !occurredErrors.contains("fileMissing/.minecraft")) {
             occurredErrors.add("fileMissing/.minecraft")
+            CustomError("101", "File (${minecraftFolder.absolutePath}) not found").printStackTrace()
+        }
+
+        if (!minecraftVersion.exists() && !occurredErrors.contains("fileMissing/1.8-version")) {
+            occurredErrors.add("fileMissing/1.8-version")
             CustomError("101", "File (${minecraftFolder.absolutePath}) not found").printStackTrace()
         }
 
