@@ -84,7 +84,7 @@ class FinishedScreen : Screen(6) {
             graphics2D
         )
         FontManager.drawCenteredString(
-            "select the \"IC Minecraft Mod\"",
+            "select the \"Dragonfly\"",
             x + width / 2 - offset,
             y + 308,
             2,
