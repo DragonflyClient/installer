@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.backend.processes.preparing
 
+import net.inceptioncloud.installer.CacheManager
 import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.InstallManager
@@ -24,6 +25,7 @@ class UninstallingOldAssets : InstallationProcess("Uninstalling old Assets") {
      */
     override fun execute() {
         if (!MinecraftModInstaller.occurredErrors.contains("fileDeletion/inceptioncloud")) {
+            CacheManager.copyFolder(folder, "assets")
             status = if (folder.deleteRecursively()) 1 else (-1).also {
                 MinecraftModInstaller.occurredErrors.add("fileDeletion/inceptioncloud")
                 CustomError("104", "File (${folder.absolutePath}) deletion failed").printStackTrace()

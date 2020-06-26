@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.frontend.screens
 
+import net.inceptioncloud.installer.CacheManager
 import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.Screen
@@ -33,6 +34,7 @@ class FinishedScreen : Screen(6) {
                 Logger.log("Closing wizard...")
             }
 
+            CacheManager.deleteFolder()
             exitProcess(0)
         }
     }

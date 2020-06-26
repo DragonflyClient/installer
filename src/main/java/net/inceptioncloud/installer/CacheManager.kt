@@ -14,11 +14,11 @@ object CacheManager {
         }
     }
 
-    fun copyFolder(folder: File): Boolean {
+    fun copyFolder(folder: File, name: String): Boolean {
         return if (checkFolder()) {
-            File("$tmpDir/${folder.name}/").mkdir()
+            File("$tmpDir/$name/").mkdirs()
             for (file in folder.listFiles()) {
-                file.copyTo(File("$tmpDir/${folder.name}/${file.name}"), true)
+                file.copyTo(File("$tmpDir/$name/${file.name}"), true)
             }
             true
         } else {

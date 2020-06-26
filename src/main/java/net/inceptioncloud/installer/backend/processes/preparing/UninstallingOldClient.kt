@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.backend.processes.preparing
 
+import net.inceptioncloud.installer.CacheManager
 import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.InstallManager
@@ -24,6 +25,7 @@ class UninstallingOldClient : InstallationProcess("Uninstalling old Client") {
      */
     override fun execute() {
         if (!MinecraftModInstaller.occurredErrors.contains("fileDeletion/versions")) {
+            CacheManager.copyFolder(folder, "client")
             status = if (folder.deleteRecursively()) 1 else (-1).also {
                 MinecraftModInstaller.occurredErrors.add("fileDeletion/versions")
                 CustomError("104", "File (${folder.absolutePath}) deletion failed").printStackTrace()

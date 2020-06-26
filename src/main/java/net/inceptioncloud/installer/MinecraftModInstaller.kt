@@ -6,6 +6,7 @@ import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.FontManager.registerFonts
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.ScreenIndexManager
+import net.inceptioncloud.installer.frontend.ShutdownHook
 import net.inceptioncloud.installer.frontend.screens.ErrorScreen
 import net.inceptioncloud.installer.frontend.screens.WelcomeScreen
 import net.inceptioncloud.installer.frontend.transition.Transition
@@ -83,7 +84,6 @@ object MinecraftModInstaller {
      * Called when starting the installer.
      */
     fun init() {
-
         Logger.createFile()
 
         screen = WelcomeScreen()
@@ -158,6 +158,8 @@ object MinecraftModInstaller {
         })
 
         container.preferredSize = Dimension(WINDOW_WIDTH, WINDOW_HEIGHT)
+
+        Runtime.getRuntime().addShutdownHook(ShutdownHook)
 
         window.add(container)
         window.pack()
