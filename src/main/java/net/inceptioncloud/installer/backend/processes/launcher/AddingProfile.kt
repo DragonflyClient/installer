@@ -35,7 +35,7 @@ class AddingProfile : InstallationProcess("Adding Profile") {
                     SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(System.currentTimeMillis())
                 )
                 customProfile.addProperty("lastVersionId", "Dragonfly")
-                customProfile.addProperty("name", "IC Minecraft Mod")
+                customProfile.addProperty("name", "Dragonfly")
                 customProfile.addProperty("type", "custom")
                 customProfile.addProperty("javaArgs", LauncherProfile.jvmArguments)
                 customProfile.addProperty("icon", LauncherProfile.imageBase64)

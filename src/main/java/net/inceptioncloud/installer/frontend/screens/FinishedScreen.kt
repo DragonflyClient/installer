@@ -30,8 +30,6 @@ class FinishedScreen : Screen(6) {
             if (this.text == "Play now!") {
                 ProcessBuilder(launcher.absolutePath).start()
                 Logger.log("Closing wizard and starting minecraft launcher...")
-            } else {
-                Logger.log("Closing wizard...")
             }
 
             CacheManager.deleteFolder()

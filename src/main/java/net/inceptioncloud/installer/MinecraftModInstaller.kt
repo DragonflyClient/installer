@@ -158,7 +158,6 @@ object MinecraftModInstaller {
         })
 
         container.preferredSize = Dimension(WINDOW_WIDTH, WINDOW_HEIGHT)
-
         Runtime.getRuntime().addShutdownHook(ShutdownHook)
 
         window.add(container)
