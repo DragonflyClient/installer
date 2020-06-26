@@ -32,7 +32,7 @@ class DownloadingJSON : InstallationProcess("Downloading JSON") {
                     MinecraftModInstaller.occurredErrors.add("url/json")
                     CustomError(
                         "301",
-                        "File on server (\"https://cdn.icnet.dev/dragonfly/${InstallManager.getVersionURL()}Dragonfly.json\") not found"
+                        "File on server (\"${InstallManager.getVersionURL()}Dragonfly.json\") not found"
                     ).printStackTrace()
                 }
         }

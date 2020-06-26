@@ -32,7 +32,7 @@ class DownloadingJAR : InstallationProcess("Downloading JAR") {
                 MinecraftModInstaller.occurredErrors.add("url/jar")
                 CustomError(
                     "301",
-                    "File on server (\"https://cdn.icnet.dev/dragonfly/${InstallManager.getVersionURL()}Dragonfly.jar\") not found"
+                    "File on server (\"${InstallManager.getVersionURL()}Dragonfly.jar\") not found"
                 ).printStackTrace()
             }
         }
