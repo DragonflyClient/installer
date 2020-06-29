@@ -34,7 +34,7 @@ class AddingProfile : InstallationProcess("Adding Profile") {
                     "lastUsed",
                     SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(System.currentTimeMillis())
                 )
-                customProfile.addProperty("lastVersionId", "Dragonfly")
+                customProfile.addProperty("lastVersionId", "Dragonfly-1.8.8")
                 customProfile.addProperty("name", "Dragonfly")
                 customProfile.addProperty("type", "custom")
                 customProfile.addProperty("javaArgs", LauncherProfile.jvmArguments)

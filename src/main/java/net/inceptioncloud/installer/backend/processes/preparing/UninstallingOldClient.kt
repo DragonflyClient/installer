@@ -11,7 +11,7 @@ class UninstallingOldClient : InstallationProcess("Uninstalling old Client") {
     /**
      * Folder in which an old client would be installed.
      */
-    private val folder = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly\\")
+    private val folder = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly-1.8.8\\")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.
