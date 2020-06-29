@@ -52,9 +52,11 @@ object MinecraftModInstaller {
     var screen: Screen? = null
         set(value) {
             if (value is ErrorScreen) {
-                field = value
+                if (occurredErrors.size == 1) {
+                    field = value
+                }
             } else {
-                if (occurredErrors.size < 1) {
+                if (occurredErrors.size == 0) {
                     field = value
                 }
             }
@@ -84,6 +86,16 @@ object MinecraftModInstaller {
      * Boolean to store if an delay occurs before the switching to the error screen
      */
     var delayBeforeErrorScreen = false
+
+    /**
+     * Boolean to store if the old client version needs to be restored
+     */
+    var restoreOldVersion = true
+
+    /**
+     * Boolean to store if the fix tab is already open in the browser
+     */
+    var tabOpen = false
 
     /**
      * Called when starting the installer.

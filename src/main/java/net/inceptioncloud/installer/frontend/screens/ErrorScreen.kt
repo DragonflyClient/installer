@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.frontend.screens
 
+import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.objects.UIButton
@@ -27,12 +28,15 @@ class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
     init {
         childs.add(button)
 
-        Timer().schedule(object : TimerTask() {
-            override fun run() {
-                Desktop.getDesktop()
-                    .browse(URI("https://inceptioncloud.net/dragonfly/installer/errors#$currentErrorCode"))
-            }
-        }, 1000)
+        if (!MinecraftModInstaller.tabOpen) {
+            Timer().schedule(object : TimerTask() {
+                override fun run() {
+                    MinecraftModInstaller.tabOpen = true
+                    Desktop.getDesktop()
+                        .browse(URI("https://inceptioncloud.net/dragonfly/installer/errors#$currentErrorCode"))
+                }
+            }, 1000)
+        }
     }
 
     override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int) {

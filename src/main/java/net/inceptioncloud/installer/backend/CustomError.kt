@@ -1,8 +1,10 @@
 package net.inceptioncloud.installer.backend
 
+import net.inceptioncloud.installer.CacheManager
 import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.frontend.screens.ErrorScreen
+import java.io.File
 import java.util.*
 
 /**
@@ -31,6 +33,24 @@ class CustomError(private val errorCode: String, private val errorString: String
         Logger.log(spacer)
 
         if (!errorCode.startsWith("0")) {
+
+            /* Version restoring */
+            if (MinecraftModInstaller.restoreOldVersion) {
+                Logger.log("Started version restoring!")
+                Logger.log("Restoring version...")
+                CacheManager.copyBack(
+                    "client",
+                    File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly-1.8.8\\")
+                )
+                Logger.log("Restoring assets...")
+                CacheManager.copyBack(
+                    "assets",
+                    File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly\\")
+                )
+                Logger.log("Version restoring successfull!")
+            }
+
+            /* Screen switching */
             if (MinecraftModInstaller.delayBeforeErrorScreen) {
                 Timer().schedule(object : TimerTask() {
                     override fun run() {
