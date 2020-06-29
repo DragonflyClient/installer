@@ -3,6 +3,7 @@ package net.inceptioncloud.installer.backend
 import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.frontend.screens.ErrorScreen
+import java.util.*
 
 /**
  *
@@ -29,10 +30,13 @@ class CustomError(private val errorCode: String, private val errorString: String
         Logger.log(" $errorString")
         Logger.log(spacer)
 
-        if (!errorCode.startsWith("0")) {
-            MinecraftModInstaller.screen = ErrorScreen(errorCode.toInt())
-        }
-
+        Timer().schedule(object : TimerTask() {
+            override fun run() {
+                if (!errorCode.startsWith("0")) {
+                    MinecraftModInstaller.screen = ErrorScreen(errorCode.toInt())
+                }
+            }
+        }, 0)
     }
 
 }

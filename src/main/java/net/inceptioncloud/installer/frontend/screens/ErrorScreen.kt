@@ -9,9 +9,10 @@ import java.awt.Desktop
 import java.awt.Graphics2D
 import java.awt.event.MouseEvent
 import java.net.URI
+import java.util.*
 import kotlin.system.exitProcess
 
-class ErrorScreen(val currentErrorCode: Int) : Screen(7) {
+class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
 
     /**
      * Button that is clicked to start the setup for the stable version.
@@ -27,6 +28,14 @@ class ErrorScreen(val currentErrorCode: Int) : Screen(7) {
 
     init {
         childs.add(button)
+
+        Timer().schedule(object : TimerTask() {
+            override fun run() {
+                Desktop.getDesktop()
+                    .browse(URI("https://inceptioncloud.net/dragonfly/installer/errors#$currentErrorCode"))
+            }
+        }, 1000)
+
     }
 
     override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int) {
