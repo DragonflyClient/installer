@@ -48,6 +48,7 @@ class CustomError(private val errorCode: String, private val errorString: String
                     File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly\\")
                 )
                 Logger.log("Version restoring successfull!")
+                MinecraftModInstaller.restoredOldVersion = true
             }
 
             /* Screen switching */

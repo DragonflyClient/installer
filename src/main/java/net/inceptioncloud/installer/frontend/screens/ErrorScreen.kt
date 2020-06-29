@@ -5,6 +5,7 @@ import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.objects.UIButton
 import java.awt.Color
+import java.awt.Cursor
 import java.awt.Desktop
 import java.awt.Graphics2D
 import java.awt.event.MouseEvent
@@ -43,12 +44,12 @@ class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
         val offset = 4
 
         graphics2D.color = Color(50, 50, 50)
-        FontManager.drawCenteredString("Installation failed", x + width / 2, y + 214, 1, 36, graphics2D)
+        FontManager.drawCenteredString("Installation failed", x + width / 2, y + 191, 1, 36, graphics2D)
 
         FontManager.drawCenteredString(
             "Error Code $currentErrorCode",
             x + width / 2 - offset,
-            y + 238,
+            y + 215,
             1,
             20,
             graphics2D
@@ -56,7 +57,7 @@ class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
         FontManager.drawCenteredString(
             "An error occurred while installing",
             x + width / 2 - offset,
-            y + 300,
+            y + 257,
             2,
             22,
             graphics2D
@@ -64,7 +65,7 @@ class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
         FontManager.drawCenteredString(
             "Dragonfly please click <click>here</click> for",
             x + width / 2 - offset,
-            y + 325,
+            y + 282,
             2,
             22,
             graphics2D
@@ -72,11 +73,45 @@ class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
         FontManager.drawCenteredString(
             "more information!",
             x + width / 2 - offset,
-            y + 350,
+            y + 307,
             2,
             22,
             graphics2D
         )
+        if (MinecraftModInstaller.restoredOldVersion) {
+            FontManager.drawCenteredString(
+                "Under these circumstances,",
+                x + width / 2 - offset,
+                y + 357,
+                2,
+                22,
+                graphics2D
+            )
+            FontManager.drawCenteredString(
+                "the already installed version",
+                x + width / 2 - offset,
+                y + 382,
+                2,
+                22,
+                graphics2D
+            )
+            FontManager.drawCenteredString(
+                "of the modification was",
+                x + width / 2 - offset,
+                y + 407,
+                2,
+                22,
+                graphics2D
+            )
+            FontManager.drawCenteredString(
+                "successfully restored.",
+                x + width / 2 - offset,
+                y + 432,
+                2,
+                22,
+                graphics2D
+            )
+        }
 
         val buttonWidth = (width / 2)
         val buttonHeight = buttonWidth / 5.1
@@ -97,6 +132,20 @@ class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
     }
 
     override fun mouseMoved(event: MouseEvent?) {
+        if (event != null) {
+            if (event.y > FontManager.linkStartY && event.y < (FontManager.linkStartY + FontManager.linkHeight)) {
+                if (event.x > FontManager.linkStartX && event.x < (FontManager.linkStartX + FontManager.linkWidth)) {
+                    MinecraftModInstaller.window.cursor = Cursor(Cursor.HAND_CURSOR)
+                } else {
+                    MinecraftModInstaller.window.cursor = Cursor(Cursor.DEFAULT_CURSOR)
+                }
+            } else {
+                MinecraftModInstaller.window.cursor = Cursor(Cursor.DEFAULT_CURSOR)
+            }
+        } else {
+            MinecraftModInstaller.window.cursor = Cursor(Cursor.DEFAULT_CURSOR)
+        }
+
         childs.forEach { it.mouseMoved(event) }
     }
 }

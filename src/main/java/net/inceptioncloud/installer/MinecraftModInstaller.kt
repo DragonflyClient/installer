@@ -39,7 +39,7 @@ object MinecraftModInstaller {
     /**
      * Window in which the installer is operating.
      */
-    private lateinit var window: JFrame
+    lateinit var window: JFrame
 
     /**
      * Container in which the main content is drawn.
@@ -91,6 +91,12 @@ object MinecraftModInstaller {
      * Boolean to store if the old client version needs to be restored
      */
     var restoreOldVersion = true
+
+    /**
+     * Boolean to store if the old client version was restored
+     */
+    var restoredOldVersion = false
+
 
     /**
      * Boolean to store if the fix tab is already open in the browser
@@ -202,7 +208,7 @@ object MinecraftModInstaller {
 
         if (!minecraftVersion.exists() && !occurredErrors.contains("fileMissing/1.8-version")) {
             occurredErrors.add("fileMissing/1.8-version")
-            CustomError("101", "File (${minecraftFolder.absolutePath}) not found").printStackTrace()
+            CustomError("101", "File (${minecraftVersion.absolutePath}) not found").printStackTrace()
         }
 
     }
