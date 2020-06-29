@@ -80,7 +80,7 @@ class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
         )
         if (MinecraftModInstaller.restoredOldVersion) {
             FontManager.drawCenteredString(
-                "Under these circumstances,",
+                "The previously installed version",
                 x + width / 2 - offset,
                 y + 357,
                 2,
@@ -88,7 +88,7 @@ class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
                 graphics2D
             )
             FontManager.drawCenteredString(
-                "the already installed version",
+                "of the Dragonfly Modification",
                 x + width / 2 - offset,
                 y + 382,
                 2,
@@ -96,7 +96,7 @@ class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
                 graphics2D
             )
             FontManager.drawCenteredString(
-                "of the modification was",
+                "has been restored and you can",
                 x + width / 2 - offset,
                 y + 407,
                 2,
@@ -104,7 +104,7 @@ class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
                 graphics2D
             )
             FontManager.drawCenteredString(
-                "successfully restored.",
+                "keep playing with it.",
                 x + width / 2 - offset,
                 y + 432,
                 2,
