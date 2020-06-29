@@ -18,7 +18,14 @@ object CacheManager {
         return if (checkFolder()) {
             File("$tmpDir/$name/").mkdirs()
             for (file in folder.listFiles()) {
-                file.copyTo(File("$tmpDir/$name/${file.name}"), true)
+                if (file.isDirectory) {
+                    File("$tmpDir/$name/${file.name}")
+                    for (file2 in file.listFiles()) {
+                        file2.copyTo(File("$tmpDir/$name/${file.name}/${file2.name}"), true)
+                    }
+                } else {
+                    file.copyTo(File("$tmpDir/$name/${file.name}"), true)
+                }
             }
             true
         } else {
