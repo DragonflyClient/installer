@@ -5,17 +5,14 @@ import java.io.File
 object CacheManager {
     private val tmpDir = File("${System.getProperty("java.io.tmpdir")}\\DragonflyInstaller")
 
-    fun copyFile(file: File): Boolean {
-        return if (checkFolder()) {
+    fun copyFile(file: File) {
+        if (checkFolder()) {
             file.copyTo(File("$tmpDir\\${file.name}"), true)
-            true
-        } else {
-            false
         }
     }
 
-    fun copyFolder(folder: File, name: String): Boolean {
-        return if (checkFolder()) {
+    fun copyFolder(folder: File, name: String) {
+        if (checkFolder()) {
             File("$tmpDir\\$name\\").mkdirs()
             for (file in folder.listFiles()) {
                 if (file.isDirectory) {
@@ -26,9 +23,6 @@ object CacheManager {
                     file.copyTo(File("$tmpDir\\$name\\${file.name}"), true)
                 }
             }
-            true
-        } else {
-            false
         }
     }
 
