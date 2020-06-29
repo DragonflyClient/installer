@@ -81,6 +81,11 @@ object MinecraftModInstaller {
     var occurredErrors = arrayListOf<String>()
 
     /**
+     * Boolean to store if an delay occurs before the switching to the error screen
+     */
+    var delayBeforeErrorScreen = false
+
+    /**
      * Called when starting the installer.
      */
     fun init() {

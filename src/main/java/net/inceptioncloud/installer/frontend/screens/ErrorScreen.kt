@@ -1,6 +1,5 @@
 package net.inceptioncloud.installer.frontend.screens
 
-import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.objects.UIButton
@@ -20,7 +19,6 @@ class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
     private val button: UIButton = object : UIButton("Close") {
 
         override fun buttonClicked() {
-            Logger.log("Closing wizard...")
             exitProcess(0)
         }
 
@@ -35,7 +33,6 @@ class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
                     .browse(URI("https://inceptioncloud.net/dragonfly/installer/errors#$currentErrorCode"))
             }
         }, 1000)
-
     }
 
     override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int) {

@@ -29,6 +29,7 @@ class DownloadingJSON : InstallationProcess("Downloading JSON") {
                         "${InstallManager.getVersionURL()}Dragonfly.json"
                     )
                 ) 1 else (-1).also {
+                    MinecraftModInstaller.delayBeforeErrorScreen = true
                     MinecraftModInstaller.occurredErrors.add("url/json")
                     CustomError(
                         "301",

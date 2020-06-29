@@ -31,6 +31,7 @@ class CheckingRam : InstallationProcess("Checking RAM") {
                 1
             } catch (ex: Exception) {
                 (-1).also {
+                    MinecraftModInstaller.delayBeforeErrorScreen = true
                     MinecraftModInstaller.occurredErrors.add("systemReading/ram")
                     CustomError("105", "Systemdata (RAM) not accessible").printStackTrace()
                 }

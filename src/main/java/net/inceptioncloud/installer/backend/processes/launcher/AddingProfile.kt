@@ -57,6 +57,7 @@ class AddingProfile : InstallationProcess("Adding Profile") {
                 1
             } catch (ex: Exception) {
                 (-1).also {
+                    MinecraftModInstaller.delayBeforeErrorScreen = true
                     MinecraftModInstaller.occurredErrors.add("fileCreation/profile")
                     CustomError("102", "File (${LauncherProfile.file.absolutePath}) creation failed").printStackTrace()
                 }

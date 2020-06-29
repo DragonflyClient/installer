@@ -30,13 +30,17 @@ class CustomError(private val errorCode: String, private val errorString: String
         Logger.log(" $errorString")
         Logger.log(spacer)
 
-        Timer().schedule(object : TimerTask() {
-            override fun run() {
-                if (!errorCode.startsWith("0")) {
-                    MinecraftModInstaller.screen = ErrorScreen(errorCode.toInt())
-                }
+        if (!errorCode.startsWith("0")) {
+            if (MinecraftModInstaller.delayBeforeErrorScreen) {
+                Timer().schedule(object : TimerTask() {
+                    override fun run() {
+                        MinecraftModInstaller.screen = ErrorScreen(errorCode.toInt())
+                    }
+                }, 900)
+            } else {
+                MinecraftModInstaller.screen = ErrorScreen(errorCode.toInt())
             }
-        }, 0)
+        }
     }
 
 }

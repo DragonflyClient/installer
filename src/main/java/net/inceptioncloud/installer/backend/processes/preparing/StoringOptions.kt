@@ -36,9 +36,11 @@ class StoringOptions : InstallationProcess("Storing Options") {
                 content = target.readText(Charset.defaultCharset())
                 status = if (content != null) 1 else 0
             } catch (ex: Exception) {
-                status = -1
-                MinecraftModInstaller.occurredErrors.add("fileReading/options")
-                CustomError("103", "File (${target.absolutePath}) not accessible").printStackTrace()
+                status = (-1).also {
+                    MinecraftModInstaller.delayBeforeErrorScreen = true
+                    MinecraftModInstaller.occurredErrors.add("fileReading/options")
+                    CustomError("103", "File (${target.absolutePath}) not accessible").printStackTrace()
+                }
             }
         }
     }

@@ -23,6 +23,7 @@ class CreatingAssetsFolder : InstallationProcess("Creating Assets Folder") {
     override fun execute() {
         if (!MinecraftModInstaller.occurredErrors.contains("fileCreation/inceptioncloud")) {
             status = if (folder.mkdirs()) 1 else (-1).also {
+                MinecraftModInstaller.delayBeforeErrorScreen = true
                 MinecraftModInstaller.occurredErrors.add("fileCreation/inceptioncloud")
                 CustomError("102", "File (${folder.absolutePath}) creation failed").printStackTrace()
             }

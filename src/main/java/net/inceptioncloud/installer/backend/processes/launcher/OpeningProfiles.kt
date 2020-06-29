@@ -23,6 +23,7 @@ class OpeningProfiles : InstallationProcess("Opening Profiles") {
                 1
             } catch (ex: Exception) {
                 (-1).also {
+                    MinecraftModInstaller.delayBeforeErrorScreen = true
                     MinecraftModInstaller.occurredErrors.add("fileReading/profile")
                     CustomError("103", "File (${LauncherProfile.file.absolutePath}) not accessible").printStackTrace()
                 }

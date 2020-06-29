@@ -29,6 +29,7 @@ class DownloadingJAR : InstallationProcess("Downloading JAR") {
                     "${InstallManager.getVersionURL()}Dragonfly.jar"
                 )
             ) 1 else (-1).also {
+                MinecraftModInstaller.delayBeforeErrorScreen = true
                 MinecraftModInstaller.occurredErrors.add("url/jar")
                 CustomError(
                     "301",
