@@ -199,7 +199,7 @@ object MinecraftModInstaller {
         }.start()
 
         val minecraftFolder = InstallManager.MINECRAFT_PATH
-        val minecraftVersion = File("${InstallManager.MINECRAFT_PATH}/versions/1.8.8")
+        val minecraftVersion = File("${InstallManager.MINECRAFT_PATH}\\versions\\1.8.8\\")
 
         if (!minecraftFolder.exists() && !occurredErrors.contains("fileMissing/.minecraft")) {
             occurredErrors.add("fileMissing/.minecraft")
