@@ -35,7 +35,7 @@ class CustomError(private val errorCode: String, private val errorString: String
         if (!errorCode.startsWith("0")) {
 
             /* Version restoring */
-            if (MinecraftModInstaller.restoreOldVersion) {
+            if (doRestore()) {
                 Logger.log("Started version restoring!")
                 Logger.log("Restoring version...")
                 CacheManager.copyBack(
@@ -63,5 +63,9 @@ class CustomError(private val errorCode: String, private val errorString: String
             }
         }
     }
+
+    private fun doRestore(): Boolean = (MinecraftModInstaller.restoreOldVersion
+            && !MinecraftModInstaller.occurredErrors.contains("fileMissing/1.8-version")
+            && !MinecraftModInstaller.occurredErrors.contains("fileMissing/.minecraft"))
 
 }
