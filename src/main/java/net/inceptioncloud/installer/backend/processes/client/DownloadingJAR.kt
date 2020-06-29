@@ -12,7 +12,7 @@ class DownloadingJAR : InstallationProcess("Downloading JAR") {
      * Destination for the JAR file.
      */
     private val destination =
-        File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly\\Dragonfly.jar")
+        File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly-1.8.8\\Dragonfly.jar")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.
@@ -29,6 +29,7 @@ class DownloadingJAR : InstallationProcess("Downloading JAR") {
                     "${InstallManager.getVersionURL()}Dragonfly.jar"
                 )
             ) 1 else (-1).also {
+                MinecraftModInstaller.delayBeforeErrorScreen = true
                 MinecraftModInstaller.occurredErrors.add("url/jar")
                 CustomError(
                     "301",

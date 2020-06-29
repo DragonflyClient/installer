@@ -17,6 +17,7 @@ class ClosingLauncher : InstallationProcess("Closing Launcher") {
     override fun execute() {
         if (!MinecraftModInstaller.occurredErrors.contains("systemReading/launcher")) {
             status = if (InstallManager.killProcess("MinecraftLauncher.exe")) 1 else (-1).also {
+                MinecraftModInstaller.delayBeforeErrorScreen = true
                 MinecraftModInstaller.occurredErrors.add("systemReading/launcher")
                 CustomError("105", "Systemprocess (Minecraft Launcher) not accessible").printStackTrace()
             }

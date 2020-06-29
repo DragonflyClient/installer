@@ -27,6 +27,7 @@ class DownloadingAssets : InstallationProcess("Downloading Assets") {
                     "https://cdn.icnet.dev/dragonfly/assets/"
                 )
             ) 1 else (-1).also {
+                MinecraftModInstaller.delayBeforeErrorScreen = true
                 MinecraftModInstaller.occurredErrors.add("url/assets")
                 CustomError(
                     "301",

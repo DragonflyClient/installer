@@ -1,6 +1,6 @@
 package net.inceptioncloud.installer.frontend.screens
 
-import net.inceptioncloud.installer.Logger
+import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.objects.UIButton
@@ -9,9 +9,10 @@ import java.awt.Desktop
 import java.awt.Graphics2D
 import java.awt.event.MouseEvent
 import java.net.URI
+import java.util.*
 import kotlin.system.exitProcess
 
-class ErrorScreen(val currentErrorCode: Int) : Screen(7) {
+class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
 
     /**
      * Button that is clicked to start the setup for the stable version.
@@ -19,7 +20,6 @@ class ErrorScreen(val currentErrorCode: Int) : Screen(7) {
     private val button: UIButton = object : UIButton("Close") {
 
         override fun buttonClicked() {
-            Logger.log("Closing wizard...")
             exitProcess(0)
         }
 
@@ -27,6 +27,16 @@ class ErrorScreen(val currentErrorCode: Int) : Screen(7) {
 
     init {
         childs.add(button)
+
+        if (!MinecraftModInstaller.tabOpen) {
+            Timer().schedule(object : TimerTask() {
+                override fun run() {
+                    MinecraftModInstaller.tabOpen = true
+                    Desktop.getDesktop()
+                        .browse(URI("https://inceptioncloud.net/dragonfly/installer/errors#$currentErrorCode"))
+                }
+            }, 1000)
+        }
     }
 
     override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int) {

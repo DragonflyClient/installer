@@ -11,7 +11,7 @@ class DownloadingJSON : InstallationProcess("Downloading JSON") {
      * Destination for the JAR file.
      */
     private val destination =
-        File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly\\Dragonfly.json")
+        File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly-1.8.8\\Dragonfly.json")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.
@@ -29,6 +29,7 @@ class DownloadingJSON : InstallationProcess("Downloading JSON") {
                         "${InstallManager.getVersionURL()}Dragonfly.json"
                     )
                 ) 1 else (-1).also {
+                    MinecraftModInstaller.delayBeforeErrorScreen = true
                     MinecraftModInstaller.occurredErrors.add("url/json")
                     CustomError(
                         "301",

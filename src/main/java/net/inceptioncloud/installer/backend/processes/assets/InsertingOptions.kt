@@ -34,6 +34,7 @@ class InsertingOptions : InstallationProcess("Inserting Options") {
                 1
             } catch (ex: Exception) {
                 (-1).also {
+                    MinecraftModInstaller.delayBeforeErrorScreen = true
                     MinecraftModInstaller.occurredErrors.add("fileCreation/options")
                     CustomError("102", "File (${target.absolutePath}) creation failed").printStackTrace()
                 }
