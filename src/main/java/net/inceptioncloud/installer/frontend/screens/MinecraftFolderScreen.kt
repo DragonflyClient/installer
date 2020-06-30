@@ -16,7 +16,7 @@ import javax.swing.UIManager
 
 class MinecraftFolderScreen : Screen(2) {
 
-    private var minecraftFolder = InstallManager.MINECRAFT_PATH
+    private lateinit var minecraftFolder: File
 
     private val `continue`: UIButton = object : UIButton("Continue") {
         override fun buttonClicked() {
@@ -27,7 +27,6 @@ class MinecraftFolderScreen : Screen(2) {
 
     private val select: UIButton = object : UIButton("Select") {
         override fun buttonClicked() {
-
             val chooser = FileChooser(
                 File(System.getenv("appdata")),
                 MinecraftModInstaller.window, "Select",
@@ -35,18 +34,16 @@ class MinecraftFolderScreen : Screen(2) {
                 JFileChooser.APPROVE_OPTION,
                 UIManager.getSystemLookAndFeelClassName()
             )
-            minecraftFolder = File(chooser.start()?.absolutePath)
 
-            val minecraftVersion = File("${minecraftFolder}\\versions\\1.8.8\\")
+            try {
+                minecraftFolder = File(chooser.start()?.absolutePath!!)
+                val minecraftVersion = File("${minecraftFolder}\\versions\\1.8.8\\")
 
-            if (!minecraftFolder.exists() && !MinecraftModInstaller.occurredErrors.contains("fileMissing/.minecraft")) {
-                MinecraftModInstaller.occurredErrors.add("fileMissing/.minecraft")
-                CustomError("101", "File (${minecraftFolder.absolutePath}) not found").printStackTrace()
-            }
-
-            if (!minecraftVersion.exists() && !MinecraftModInstaller.occurredErrors.contains("fileMissing/1.8-version")) {
-                MinecraftModInstaller.occurredErrors.add("fileMissing/1.8-version")
-                CustomError("101", "File (${minecraftVersion.absolutePath}) not found").printStackTrace()
+                if (!minecraftVersion.exists() && !MinecraftModInstaller.occurredErrors.contains("fileMissing/1.8-version")) {
+                    MinecraftModInstaller.occurredErrors.add("fileMissing/1.8-version")
+                    CustomError("101", "File (${minecraftVersion.absolutePath}) not found").printStackTrace()
+                }
+            } catch (e: Exception) {
             }
         }
     }
@@ -54,6 +51,12 @@ class MinecraftFolderScreen : Screen(2) {
     init {
         childs.add(`continue`)
         childs.add(select)
+
+        minecraftFolder = if (InstallManager.MINECRAFT_PATH.exists()) {
+            InstallManager.MINECRAFT_PATH
+        } else {
+            File("NO PATH FOUND")
+        }
     }
 
     override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int) {
