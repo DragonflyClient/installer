@@ -11,7 +11,7 @@ class UninstallingOldAssets : InstallationProcess("Uninstalling old Assets") {
     /**
      * Folder in which the old assets would be installed.
      */
-    private val folder = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly\\")
+    private val folder = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly\\assets\\")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.

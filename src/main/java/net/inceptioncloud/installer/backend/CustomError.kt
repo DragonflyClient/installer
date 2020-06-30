@@ -45,7 +45,7 @@ class CustomError(private val errorCode: String, private val errorString: String
                 Logger.log("Restoring assets...")
                 CacheManager.copyBack(
                     "assets",
-                    File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly\\")
+                    File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly\\assets\\")
                 )
                 Logger.log("Version restoring successfull!")
                 MinecraftModInstaller.restoredOldVersion = true
