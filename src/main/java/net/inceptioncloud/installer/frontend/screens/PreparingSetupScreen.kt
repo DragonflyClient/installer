@@ -9,7 +9,7 @@ import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.event.MouseEvent
 
-class PreparingSetupScreen : Screen(2) {
+class PreparingSetupScreen : Screen(3) {
     /**
      * Process Renderer for the current screen.
      */

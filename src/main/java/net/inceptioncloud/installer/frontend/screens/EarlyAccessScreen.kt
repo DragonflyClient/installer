@@ -24,7 +24,7 @@ class EarlyAccessScreen : Screen(1) {
     private val stable: UIButton = object : UIButton("Stable") {
 
         override fun buttonClicked() {
-            MinecraftModInstaller.screen = PreparingSetupScreen()
+            MinecraftModInstaller.screen = MinecraftFolderScreen()
             Logger.log("User selected stable for download")
         }
 
@@ -37,7 +37,7 @@ class EarlyAccessScreen : Screen(1) {
 
         override fun buttonClicked() {
             downloadEAP = true
-            MinecraftModInstaller.screen = PreparingSetupScreen()
+            MinecraftModInstaller.screen = MinecraftFolderScreen()
             Logger.log("User selected eap for download")
         }
 

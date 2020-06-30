@@ -46,7 +46,9 @@ object ScreenIndexManager {
         SmoothDoubleTransition.builder().start(0.0).end(1.0).fadeIn(FADE_IN).stay(STAY).fadeOut(FADE_OUT)
             .autoTransformator(ForwardNothing { currentIndex == 5 }).build(),
         SmoothDoubleTransition.builder().start(0.0).end(1.0).fadeIn(FADE_IN).stay(STAY).fadeOut(FADE_OUT)
-            .autoTransformator(ForwardNothing { currentIndex == 6 }).build()
+            .autoTransformator(ForwardNothing { currentIndex == 6 }).build(),
+        SmoothDoubleTransition.builder().start(0.0).end(1.0).fadeIn(FADE_IN).stay(STAY).fadeOut(FADE_OUT)
+            .autoTransformator(ForwardNothing { currentIndex == 7 }).build()
     )
 
     /**
@@ -84,14 +86,14 @@ object ScreenIndexManager {
         }
 
         val center = WINDOW_WIDTH / 2
-        val startX = (center - OUTER_CIRCLE * 3.5 - DISTANCE * 3).toInt()
+        val startX = (center - OUTER_CIRCLE * 4 - DISTANCE * 3.5).toInt()
         val borderRadius = (OUTER_CIRCLE - INNER_CIRCLE) / 2
-        val width = OUTER_CIRCLE * 6 + DISTANCE * 5
+        val width = OUTER_CIRCLE * 7 + DISTANCE * 5
         val y = (WINDOW_HEIGHT - 40) + WelcomeScreen.buttonFlyIn.castToInt()
 
         var currentCircleX = startX
 
-        for (index in 0..6) {
+        for (index in 0..7) {
 
             graphics2D.paint = GradientPaint(
                 startX.toFloat(),

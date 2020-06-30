@@ -14,7 +14,7 @@ import kotlin.system.exitProcess
 /**
  * First Screen that is shown when opening the installer.
  */
-class FinishedScreen : Screen(6) {
+class FinishedScreen : Screen(7) {
 
     /**
      * File of the minecraft launcher

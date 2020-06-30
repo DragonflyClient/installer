@@ -9,7 +9,7 @@ import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.event.MouseEvent
 
-class CreatingLauncherProfileScreen : Screen(5) {
+class CreatingLauncherProfileScreen : Screen(6) {
     /**
      * Process Renderer for the current screen.
      */

@@ -10,7 +10,7 @@ import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.event.MouseEvent
 
-class InstallingAssetsScreen : Screen(4) {
+class InstallingAssetsScreen : Screen(5) {
     /**
      * Process Renderer for the current screen.
      */
