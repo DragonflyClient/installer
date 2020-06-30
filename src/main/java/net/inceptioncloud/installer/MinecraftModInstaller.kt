@@ -1,7 +1,6 @@
 package net.inceptioncloud.installer
 
 import net.inceptioncloud.installer.backend.CustomError
-import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.FontManager.registerFonts
 import net.inceptioncloud.installer.frontend.Screen
@@ -16,7 +15,6 @@ import java.awt.*
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.event.MouseMotionAdapter
-import java.io.File
 import javax.imageio.ImageIO
 import javax.swing.JFrame
 import javax.swing.JPanel
@@ -197,20 +195,6 @@ object MinecraftModInstaller {
                 Thread.sleep(10)
             }
         }.start()
-
-        val minecraftFolder = InstallManager.MINECRAFT_PATH
-        val minecraftVersion = File("${InstallManager.MINECRAFT_PATH}\\versions\\1.8.8\\")
-
-        if (!minecraftFolder.exists() && !occurredErrors.contains("fileMissing/.minecraft")) {
-            occurredErrors.add("fileMissing/.minecraft")
-            CustomError("101", "File (${minecraftFolder.absolutePath}) not found").printStackTrace()
-        }
-
-        if (!minecraftVersion.exists() && !occurredErrors.contains("fileMissing/1.8-version")) {
-            occurredErrors.add("fileMissing/1.8-version")
-            CustomError("101", "File (${minecraftVersion.absolutePath}) not found").printStackTrace()
-        }
-
     }
 
     /**
