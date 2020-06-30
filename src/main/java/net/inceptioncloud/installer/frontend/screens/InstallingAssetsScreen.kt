@@ -2,7 +2,6 @@ package net.inceptioncloud.installer.frontend.screens
 
 import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.backend.processes.assets.DownloadingAssets
-import net.inceptioncloud.installer.backend.processes.assets.InsertingOptions
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.ProcessRenderer
 import net.inceptioncloud.installer.frontend.Screen
@@ -19,7 +18,7 @@ class InstallingAssetsScreen : Screen(5) {
     /**
      * All processes that can potentially be executed here.
      */
-    private val potentialProcesses = listOf(InsertingOptions(), DownloadingAssets())
+    private val potentialProcesses = listOf(DownloadingAssets())
 
     /**
      * Called when switching to the screen.
