@@ -25,7 +25,7 @@ class EarlyAccessScreen : Screen(1) {
 
         override fun buttonClicked() {
             MinecraftModInstaller.screen = MinecraftFolderScreen()
-            Logger.log("User selected stable for download")
+            Logger.log("User selected \"stable\" for this preferred download channel")
         }
 
     }
@@ -38,7 +38,7 @@ class EarlyAccessScreen : Screen(1) {
         override fun buttonClicked() {
             downloadEAP = true
             MinecraftModInstaller.screen = MinecraftFolderScreen()
-            Logger.log("User selected eap for download")
+            Logger.log("User selected \"eap\" for this preferred download channel")
         }
 
     }

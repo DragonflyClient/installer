@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.frontend.screens
 
+import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.FileChooser
@@ -16,12 +17,26 @@ import javax.swing.UIManager
 
 class MinecraftFolderScreen : Screen(2) {
 
-    private lateinit var minecraftFolder: File
+    /**
+     * This variable is used to store the selected minecraft home directory
+     */
+    private var minecraftFolder: File? = null
+
+    /**
+     * This variable is used to store which text and buttons is going to be drawn
+     *
+     * 0 -> Unknown
+     * 1 -> Autom. detected
+     * 2 -> Not autom. detected
+     */
+    private var textSwitch = 0
 
     private val `continue`: UIButton = object : UIButton("Continue") {
         override fun buttonClicked() {
-            InstallManager.MINECRAFT_PATH = minecraftFolder
-            MinecraftModInstaller.screen = PreparingSetupScreen()
+            if (minecraftFolder != null) {
+                InstallManager.MINECRAFT_PATH = minecraftFolder!!
+                MinecraftModInstaller.screen = PreparingSetupScreen()
+            }
         }
     }
 
@@ -36,12 +51,19 @@ class MinecraftFolderScreen : Screen(2) {
             )
 
             try {
-                minecraftFolder = File(chooser.start()?.absolutePath!!)
+                val result = File(chooser.start()?.absolutePath!!)
+                Logger.log("User selected \"${result.absolutePath}\" as his minecraft folder")
+                minecraftFolder = result
                 val minecraftVersion = File("${minecraftFolder}\\versions\\1.8.8\\")
 
                 if (!minecraftVersion.exists() && !MinecraftModInstaller.occurredErrors.contains("fileMissing/1.8-version")) {
                     MinecraftModInstaller.occurredErrors.add("fileMissing/1.8-version")
                     CustomError("101", "File (${minecraftVersion.absolutePath}) not found").printStackTrace()
+                }
+
+                if (minecraftFolder != null) {
+                    InstallManager.MINECRAFT_PATH = minecraftFolder!!
+                    MinecraftModInstaller.screen = PreparingSetupScreen()
                 }
             } catch (e: Exception) {
             }
@@ -52,44 +74,63 @@ class MinecraftFolderScreen : Screen(2) {
         childs.add(`continue`)
         childs.add(select)
 
-        minecraftFolder = if (InstallManager.MINECRAFT_PATH.exists()) {
-            InstallManager.MINECRAFT_PATH
+        if (InstallManager.MINECRAFT_PATH.exists()) {
+            textSwitch = 1
+            select.text = "Change"
+            minecraftFolder = InstallManager.MINECRAFT_PATH
         } else {
-            File("NO PATH FOUND")
+            textSwitch = 2
         }
     }
 
     override fun paint(graphics2D: Graphics2D, x: Int, y: Int, width: Int, height: Int) {
         val offset = 4
+        val buttonWidth = (width / 2)
+        val buttonHeight = buttonWidth / 5.1
 
         graphics2D.color = Color(50, 50, 50)
         FontManager.drawCenteredString("Minecraft Folder", x + width / 2, y + 160, 0, 30, graphics2D)
 
-        FontManager.drawCenteredString(
-            "$minecraftFolder",
-            x + width / 2 - offset,
-            y + 205,
-            2,
-            16,
-            graphics2D
-        )
-
-        val buttonWidth = (width / 2)
-        val buttonHeight = buttonWidth / 5.1
-        select.paint(
-            graphics2D,
-            x + width / 2 - buttonWidth / 2,
-            y + 450 + WelcomeScreen.buttonFlyIn.castToInt(),
-            buttonWidth,
-            buttonHeight.toInt()
-        )
-        `continue`.paint(
-            graphics2D,
-            x + width / 2 - buttonWidth / 2,
-            y + 500 + WelcomeScreen.buttonFlyIn.castToInt(),
-            buttonWidth,
-            buttonHeight.toInt()
-        )
+        if (textSwitch == 1) {
+            FontManager.drawCenteredString(
+                "Detected: $minecraftFolder",
+                x + width / 2 - offset,
+                y + 205,
+                2,
+                16,
+                graphics2D
+            )
+            select.paint(
+                graphics2D,
+                x + width / 2 - buttonWidth / 2,
+                y + 450 + WelcomeScreen.buttonFlyIn.castToInt(),
+                buttonWidth,
+                buttonHeight.toInt()
+            )
+            `continue`.paint(
+                graphics2D,
+                x + width / 2 - buttonWidth / 2,
+                y + 500 + WelcomeScreen.buttonFlyIn.castToInt(),
+                buttonWidth,
+                buttonHeight.toInt()
+            )
+        } else if (textSwitch == 2) {
+            FontManager.drawCenteredString(
+                "Selected: $minecraftFolder",
+                x + width / 2 - offset,
+                y + 205,
+                2,
+                16,
+                graphics2D
+            )
+            select.paint(
+                graphics2D,
+                x + width / 2 - buttonWidth / 2,
+                y + 500 + WelcomeScreen.buttonFlyIn.castToInt(),
+                buttonWidth,
+                buttonHeight.toInt()
+            )
+        }
     }
 
     override fun mouseClicked(event: MouseEvent?) {
