@@ -93,13 +93,54 @@ class MinecraftFolderScreen : Screen(2) {
 
         if (textSwitch == 1) {
             FontManager.drawCenteredString(
-                "Detected: $minecraftFolder",
+                "A Minecraft home directory",
                 x + width / 2 - offset,
                 y + 205,
                 2,
-                16,
+                22,
                 graphics2D
             )
+            FontManager.drawCenteredString(
+                "has been detected at",
+                x + width / 2 - offset,
+                y + 230,
+                2,
+                22,
+                graphics2D
+            )
+            FontManager.drawCenteredString(
+                "${minecraftFolder?.absolutePath}",
+                x + width / 2 - offset,
+                y + 270,
+                2,
+                18,
+                graphics2D
+            )
+            FontManager.drawCenteredString(
+                "If you wish to change this",
+                x + width / 2 - offset,
+                y + 335,
+                2,
+                22,
+                graphics2D
+            )
+            FontManager.drawCenteredString(
+                "directory press the button below",
+                x + width / 2 - offset,
+                y + 360,
+                2,
+                22,
+                graphics2D
+            )
+            FontManager.drawCenteredString(
+                "to open the file browser.",
+                x + width / 2 - offset,
+                y + 385,
+                2,
+                22,
+                graphics2D
+            )
+
             select.paint(
                 graphics2D,
                 x + width / 2 - buttonWidth / 2,
@@ -116,13 +157,46 @@ class MinecraftFolderScreen : Screen(2) {
             )
         } else if (textSwitch == 2) {
             FontManager.drawCenteredString(
-                "Selected: $minecraftFolder",
+                "No Minecraft home directory found!",
                 x + width / 2 - offset,
                 y + 205,
                 2,
-                16,
+                22,
                 graphics2D
             )
+            FontManager.drawCenteredString(
+                "Please select the path",
+                x + width / 2 - offset,
+                y + 270,
+                2,
+                22,
+                graphics2D
+            )
+            FontManager.drawCenteredString(
+                "of your Minecraft installation",
+                x + width / 2 - offset,
+                y + 295,
+                2,
+                22,
+                graphics2D
+            )
+            FontManager.drawCenteredString(
+                "(.minecraft) by clicking the",
+                x + width / 2 - offset,
+                y + 320,
+                2,
+                22,
+                graphics2D
+            )
+            FontManager.drawCenteredString(
+                "select button below.",
+                x + width / 2 - offset,
+                y + 345,
+                2,
+                22,
+                graphics2D
+            )
+
             select.paint(
                 graphics2D,
                 x + width / 2 - buttonWidth / 2,
