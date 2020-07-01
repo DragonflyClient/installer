@@ -12,7 +12,7 @@ class DownloadingJAR : InstallationProcess("Downloading JAR") {
      * Destination for the JAR file.
      */
     private val destination =
-        File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly-1.8.8\\Dragonfly.jar")
+        File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly-1.8.8\\Dragonfly-1.8.8.jar")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.
@@ -26,14 +26,14 @@ class DownloadingJAR : InstallationProcess("Downloading JAR") {
         if (!MinecraftModInstaller.occurredErrors.contains("url/jar")) {
             status = if (InstallManager.saveFile(
                     destination,
-                    "${InstallManager.getVersionURL()}Dragonfly.jar"
+                    "${InstallManager.getVersionURL()}Dragonfly-1.8.8.jar"
                 )
             ) 1 else (-1).also {
                 MinecraftModInstaller.delayBeforeErrorScreen = true
                 MinecraftModInstaller.occurredErrors.add("url/jar")
                 CustomError(
                     "301",
-                    "File on server (\"${InstallManager.getVersionURL()}Dragonfly.jar\") not found"
+                    "File on server (\"${InstallManager.getVersionURL()}Dragonfly-1.8.8.jar\") not found"
                 ).printStackTrace()
             }
         }
