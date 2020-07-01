@@ -11,7 +11,7 @@ class CreatingClientFolder : InstallationProcess("Creating Client Folder")
     /**
      * Folder in which an old client would be installed.
      */
-    private val folder = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly\\")
+    private val folder = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly-1.8.8\\")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.
@@ -24,6 +24,7 @@ class CreatingClientFolder : InstallationProcess("Creating Client Folder")
     override fun execute() {
         if (!MinecraftModInstaller.occurredErrors.contains("fileCreation/versions")) {
             status = if (folder.mkdirs()) 1 else (-1).also {
+                MinecraftModInstaller.delayBeforeErrorScreen = true
                 MinecraftModInstaller.occurredErrors.add("fileCreation/versions")
                 CustomError("102", "File (${folder.absolutePath}) creation failed").printStackTrace()
             }

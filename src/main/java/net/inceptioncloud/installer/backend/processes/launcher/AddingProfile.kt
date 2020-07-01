@@ -34,8 +34,8 @@ class AddingProfile : InstallationProcess("Adding Profile") {
                     "lastUsed",
                     SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(System.currentTimeMillis())
                 )
-                customProfile.addProperty("lastVersionId", "Dragonfly")
-                customProfile.addProperty("name", "IC Minecraft Mod")
+                customProfile.addProperty("lastVersionId", "Dragonfly-1.8.8")
+                customProfile.addProperty("name", "Dragonfly")
                 customProfile.addProperty("type", "custom")
                 customProfile.addProperty("javaArgs", LauncherProfile.jvmArguments)
                 customProfile.addProperty("icon", LauncherProfile.imageBase64)
@@ -57,6 +57,7 @@ class AddingProfile : InstallationProcess("Adding Profile") {
                 1
             } catch (ex: Exception) {
                 (-1).also {
+                    MinecraftModInstaller.delayBeforeErrorScreen = true
                     MinecraftModInstaller.occurredErrors.add("fileCreation/profile")
                     CustomError("102", "File (${LauncherProfile.file.absolutePath}) creation failed").printStackTrace()
                 }

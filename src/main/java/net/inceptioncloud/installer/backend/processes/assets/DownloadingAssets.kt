@@ -10,7 +10,7 @@ class DownloadingAssets : InstallationProcess("Downloading Assets") {
     /**
      * Destination for the assets folder.
      */
-    private val destination = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly\\")
+    private val destination = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly\\assets\\")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.
@@ -27,6 +27,7 @@ class DownloadingAssets : InstallationProcess("Downloading Assets") {
                     "https://cdn.icnet.dev/dragonfly/assets/"
                 )
             ) 1 else (-1).also {
+                MinecraftModInstaller.delayBeforeErrorScreen = true
                 MinecraftModInstaller.occurredErrors.add("url/assets")
                 CustomError(
                     "301",

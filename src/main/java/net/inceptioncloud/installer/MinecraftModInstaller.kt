@@ -1,11 +1,11 @@
 package net.inceptioncloud.installer
 
 import net.inceptioncloud.installer.backend.CustomError
-import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.FontManager.registerFonts
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.ScreenIndexManager
+import net.inceptioncloud.installer.frontend.ShutdownHook
 import net.inceptioncloud.installer.frontend.screens.ErrorScreen
 import net.inceptioncloud.installer.frontend.screens.WelcomeScreen
 import net.inceptioncloud.installer.frontend.transition.Transition
@@ -37,7 +37,7 @@ object MinecraftModInstaller {
     /**
      * Window in which the installer is operating.
      */
-    private lateinit var window: JFrame
+    lateinit var window: JFrame
 
     /**
      * Container in which the main content is drawn.
@@ -50,9 +50,11 @@ object MinecraftModInstaller {
     var screen: Screen? = null
         set(value) {
             if (value is ErrorScreen) {
-                field = value
+                if (occurredErrors.size == 1) {
+                    field = value
+                }
             } else {
-                if (occurredErrors.size < 1) {
+                if (occurredErrors.size == 0) {
                     field = value
                 }
             }
@@ -79,10 +81,30 @@ object MinecraftModInstaller {
     var occurredErrors = arrayListOf<String>()
 
     /**
+     * Boolean to store if an delay occurs before the switching to the error screen
+     */
+    var delayBeforeErrorScreen = false
+
+    /**
+     * Boolean to store if the old client version needs to be restored
+     */
+    var restoreOldVersion = true
+
+    /**
+     * Boolean to store if the old client version was restored
+     */
+    var restoredOldVersion = false
+
+
+    /**
+     * Boolean to store if the fix tab is already open in the browser
+     */
+    var tabOpen = false
+
+    /**
      * Called when starting the installer.
      */
     fun init() {
-
         Logger.createFile()
 
         screen = WelcomeScreen()
@@ -157,6 +179,7 @@ object MinecraftModInstaller {
         })
 
         container.preferredSize = Dimension(WINDOW_WIDTH, WINDOW_HEIGHT)
+        Runtime.getRuntime().addShutdownHook(ShutdownHook)
 
         window.add(container)
         window.pack()
@@ -172,14 +195,6 @@ object MinecraftModInstaller {
                 Thread.sleep(10)
             }
         }.start()
-
-        val minecraftFolder = InstallManager.MINECRAFT_PATH
-
-        if (!minecraftFolder.exists() && !occurredErrors.contains("fileMissing/.minecraft")) {
-            occurredErrors.add("fileMissing/.minecraft")
-            CustomError("101", "File (${minecraftFolder.absolutePath}) not found").printStackTrace()
-        }
-
     }
 
     /**

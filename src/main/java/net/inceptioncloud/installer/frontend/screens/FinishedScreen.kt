@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.frontend.screens
 
+import net.inceptioncloud.installer.CacheManager
 import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.Screen
@@ -13,7 +14,7 @@ import kotlin.system.exitProcess
 /**
  * First Screen that is shown when opening the installer.
  */
-class FinishedScreen : Screen(6) {
+class FinishedScreen : Screen(7) {
 
     /**
      * File of the minecraft launcher
@@ -29,10 +30,9 @@ class FinishedScreen : Screen(6) {
             if (this.text == "Play now!") {
                 ProcessBuilder(launcher.absolutePath).start()
                 Logger.log("Closing wizard and starting minecraft launcher...")
-            } else {
-                Logger.log("Closing wizard...")
             }
 
+            CacheManager.deleteFolder()
             exitProcess(0)
         }
     }
@@ -59,7 +59,7 @@ class FinishedScreen : Screen(6) {
         FontManager.drawCenteredString("Finished", x + width / 2 - offset, y + 160, 0, 30, graphics2D)
 
         FontManager.drawCenteredString(
-            "The Inception Cloud Minecraft Mod",
+            "The Inception Cloud Dragonfly Mod",
             x + width / 2 - offset,
             y + 205,
             2,
@@ -84,7 +84,7 @@ class FinishedScreen : Screen(6) {
             graphics2D
         )
         FontManager.drawCenteredString(
-            "select the \"IC Minecraft Mod\"",
+            "select the \"Dragonfly\"",
             x + width / 2 - offset,
             y + 308,
             2,

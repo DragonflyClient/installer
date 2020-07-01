@@ -161,7 +161,7 @@ class WelcomeScreen : Screen(0) {
             graphics2D
         )
         FontManager.drawCenteredString(
-            "Minecraft Mod.",
+            "Modification.",
             x + width / 2 + contentFlyIn.castToInt(),
             y + 330,
             2,

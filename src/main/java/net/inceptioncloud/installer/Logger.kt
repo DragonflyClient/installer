@@ -35,7 +35,19 @@ object Logger {
      * It is used to create the .log file of the current logger session
      */
     fun createFile() {
-        val fileName = "${SimpleDateFormat("HH_mm_ss-dd_MM_yyyy").format(System.currentTimeMillis())}.log"
+        val folder = File("dragonfly-installer-logs\\")
+
+        try {
+            if (!folder.exists()) {
+                folder.mkdir()
+            }
+        } catch (e: Exception) {
+            fileCreationFailed = true
+            CustomError("001", "Creation of log folder (${folder.absolutePath}) failed").printStackTrace()
+        }
+
+        val fileName =
+            "dragonfly-installer-logs\\${SimpleDateFormat("HH_mm_ss-dd_MM_yyyy").format(System.currentTimeMillis())}.log"
         file = File(fileName)
 
         if (!file.createNewFile()) {

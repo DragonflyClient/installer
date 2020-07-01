@@ -17,7 +17,7 @@ object InstallManager {
     /**
      * Path to the .minecraft/ folder.
      */
-    val MINECRAFT_PATH = File("${System.getenv("APPDATA")}\\.minecraft\\")
+    var MINECRAFT_PATH = File("${System.getenv("APPDATA")}\\.minecraft\\")
 
     /**
      * Saves a file from a web server to the local machine.

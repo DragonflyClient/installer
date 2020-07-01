@@ -10,7 +10,7 @@ class CreatingAssetsFolder : InstallationProcess("Creating Assets Folder") {
     /**
      * Folder in which the old assets would be installed.
      */
-    private val folder = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly\\")
+    private val folder = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly\\assets\\")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.
@@ -23,6 +23,7 @@ class CreatingAssetsFolder : InstallationProcess("Creating Assets Folder") {
     override fun execute() {
         if (!MinecraftModInstaller.occurredErrors.contains("fileCreation/inceptioncloud")) {
             status = if (folder.mkdirs()) 1 else (-1).also {
+                MinecraftModInstaller.delayBeforeErrorScreen = true
                 MinecraftModInstaller.occurredErrors.add("fileCreation/inceptioncloud")
                 CustomError("102", "File (${folder.absolutePath}) creation failed").printStackTrace()
             }

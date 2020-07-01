@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.backend.processes.preparing
 
+import net.inceptioncloud.installer.CacheManager
 import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.InstallManager
@@ -10,7 +11,7 @@ class UninstallingOldClient : InstallationProcess("Uninstalling old Client") {
     /**
      * Folder in which an old client would be installed.
      */
-    private val folder = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly\\")
+    private val folder = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly-1.8.8\\")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.
@@ -24,7 +25,9 @@ class UninstallingOldClient : InstallationProcess("Uninstalling old Client") {
      */
     override fun execute() {
         if (!MinecraftModInstaller.occurredErrors.contains("fileDeletion/versions")) {
+            CacheManager.copyFolder(folder, "client")
             status = if (folder.deleteRecursively()) 1 else (-1).also {
+                MinecraftModInstaller.delayBeforeErrorScreen = true
                 MinecraftModInstaller.occurredErrors.add("fileDeletion/versions")
                 CustomError("104", "File (${folder.absolutePath}) deletion failed").printStackTrace()
             }

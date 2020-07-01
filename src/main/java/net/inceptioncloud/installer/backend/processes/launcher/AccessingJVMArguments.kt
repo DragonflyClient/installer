@@ -25,6 +25,7 @@ class AccessingJVMArguments : InstallationProcess("Accessing JVM Arguments") {
                 1
             } catch (ex: Exception) {
                 (-1).also {
+                    MinecraftModInstaller.delayBeforeErrorScreen = true
                     MinecraftModInstaller.occurredErrors.add("fileReading/jvm")
                     CustomError("103", "File (${getArgumentsFile().absolutePath}) not accessible").printStackTrace()
                 }
@@ -45,6 +46,6 @@ class AccessingJVMArguments : InstallationProcess("Accessing JVM Arguments") {
             LauncherProfile.ram >= 0 -> i = 2
         }
 
-        return File("${InstallManager.MINECRAFT_PATH}\\dragonfly\\jvm\\${i}_gb.jvm")
+        return File("${InstallManager.MINECRAFT_PATH}\\dragonfly\\assets\\jvm\\${i}_gb.jvm")
     }
 }
