@@ -1,26 +1,15 @@
 package net.inceptioncloud.installer.frontend.screens
 
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.MinecraftModInstaller
-import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.objects.UIButton
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.event.MouseEvent
-import java.io.File
 
 class EarlyAccessScreen : Screen(1) {
-
-    /**
-     * Object with boolean which is used to store if the user has selected the eap-version for the downloads
-     */
-    companion object {
-        var downloadEAP = false
-    }
 
     /**
      * Button that is clicked to start the setup for the stable version.
@@ -29,7 +18,6 @@ class EarlyAccessScreen : Screen(1) {
 
         override fun buttonClicked() {
             MinecraftModInstaller.screen = MinecraftFolderScreen()
-            createPropertiesFile("stable")
             Logger.log("User selected \"stable\" for his preferred download channel")
         }
 
@@ -41,9 +29,8 @@ class EarlyAccessScreen : Screen(1) {
     private val earlyAccess: UIButton = object : UIButton("Early Access") {
 
         override fun buttonClicked() {
-            downloadEAP = true
+            MinecraftModInstaller.downloadEAP = true
             MinecraftModInstaller.screen = MinecraftFolderScreen()
-            createPropertiesFile("earlyaccess")
             Logger.log("User selected \"eap\" for his preferred download channel")
         }
 
@@ -138,12 +125,4 @@ class EarlyAccessScreen : Screen(1) {
     override fun mouseMoved(event: MouseEvent?) {
         childs.forEach { it.mouseMoved(event) }
     }
-
-    fun createPropertiesFile(channel: String) {
-        val file = File("${InstallManager.MINECRAFT_PATH}\\dragonfly\\installation_properties.json")
-        val json = JsonObject()
-        json.addProperty("channel", channel)
-        file.writer().use { Gson().toJson(json, it) }
-    }
-
 }

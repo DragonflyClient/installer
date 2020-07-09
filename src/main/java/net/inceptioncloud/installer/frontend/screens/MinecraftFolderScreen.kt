@@ -1,5 +1,7 @@
 package net.inceptioncloud.installer.frontend.screens
 
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.backend.CustomError
@@ -36,6 +38,7 @@ class MinecraftFolderScreen : Screen(2) {
             if (minecraftFolder != null) {
                 InstallManager.MINECRAFT_PATH = minecraftFolder!!
                 MinecraftModInstaller.screen = PreparingSetupScreen()
+                createPropertiesFile()
             }
         }
     }
@@ -64,6 +67,7 @@ class MinecraftFolderScreen : Screen(2) {
                 if (minecraftFolder != null) {
                     InstallManager.MINECRAFT_PATH = minecraftFolder!!
                     MinecraftModInstaller.screen = PreparingSetupScreen()
+                    createPropertiesFile()
                 }
             } catch (e: Exception) {
             }
@@ -214,6 +218,27 @@ class MinecraftFolderScreen : Screen(2) {
 
     override fun mouseMoved(event: MouseEvent?) {
         childs.forEach { it.mouseMoved(event) }
+    }
+
+    fun createPropertiesFile() {
+        val folder = File("${System.getenv("appdata")}\\Dragonfly")
+
+        if (!folder.exists()) {
+            folder.mkdir()
+        }
+
+        val file = File("${System.getenv("appdata")}\\Dragonfly\\installation_properties.json")
+        val json = JsonObject()
+
+        if (!MinecraftModInstaller.downloadEAP) {
+            json.addProperty("channel", "stable")
+        } else {
+            json.addProperty("channel", "eap")
+        }
+
+        json.addProperty("minecraftHome", "${InstallManager.MINECRAFT_PATH}\\")
+
+        file.writer().use { Gson().toJson(json, it) }
     }
 
 }

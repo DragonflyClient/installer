@@ -2,7 +2,6 @@ package net.inceptioncloud.installer.backend
 
 import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.MinecraftModInstaller
-import net.inceptioncloud.installer.frontend.screens.EarlyAccessScreen
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
@@ -108,7 +107,7 @@ object InstallManager {
 
         if (!MinecraftModInstaller.occurredErrors.contains("url/?-version")) {
             try {
-                val versionInfo = if (EarlyAccessScreen.downloadEAP) {
+                val versionInfo = if (MinecraftModInstaller.downloadEAP) {
                     URL("https://cdn.icnet.dev/dragonfly/eap-version")
                 } else {
                     URL("https://cdn.icnet.dev/dragonfly/stable-version")

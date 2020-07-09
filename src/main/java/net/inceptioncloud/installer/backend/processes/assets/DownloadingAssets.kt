@@ -10,7 +10,7 @@ class DownloadingAssets : InstallationProcess("Downloading Assets") {
     /**
      * Destination for the assets folder.
      */
-    private val destination = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly\\assets\\")
+    private val destination = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.
@@ -21,17 +21,21 @@ class DownloadingAssets : InstallationProcess("Downloading Assets") {
      * Executes the download / installation that the process is responsible for.
      */
     override fun execute() {
+        if (!destination.exists()) {
+            destination.mkdir()
+        }
+
         if (!MinecraftModInstaller.occurredErrors.contains("url/assets")) {
-            status = if (InstallManager.saveFolder(
-                    destination,
-                    "https://cdn.icnet.dev/dragonfly/assets/"
+            status = if (InstallManager.saveFile(
+                    File("$destination\\assets.zip"),
+                    "https://cdn.icnet.dev/dragonfly/assets.zip"
                 )
             ) 1 else (-1).also {
                 MinecraftModInstaller.delayBeforeErrorScreen = true
                 MinecraftModInstaller.occurredErrors.add("url/assets")
                 CustomError(
                     "301",
-                    "File on server (\"https://cdn.icnet.dev/assets/\") not found"
+                    "File on server (\"https://cdn.icnet.dev/dragonfly/assets.zip\") not found"
                 ).printStackTrace()
             }
         }

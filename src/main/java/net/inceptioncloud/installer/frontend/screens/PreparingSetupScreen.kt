@@ -1,7 +1,6 @@
 package net.inceptioncloud.installer.frontend.screens
 
 import net.inceptioncloud.installer.MinecraftModInstaller
-import net.inceptioncloud.installer.backend.processes.preparing.CreatingAssetsFolder
 import net.inceptioncloud.installer.backend.processes.preparing.CreatingClientFolder
 import net.inceptioncloud.installer.backend.processes.preparing.UninstallingOldAssets
 import net.inceptioncloud.installer.backend.processes.preparing.UninstallingOldClient
@@ -24,8 +23,7 @@ class PreparingSetupScreen : Screen(3) {
     private val potentialProcesses = listOf(
         UninstallingOldClient(),
         UninstallingOldAssets(),
-        CreatingClientFolder(),
-        CreatingAssetsFolder()
+        CreatingClientFolder()
     )
 
     /**

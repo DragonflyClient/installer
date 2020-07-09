@@ -198,6 +198,11 @@ object MinecraftModInstaller {
     }
 
     /**
+     * Var with boolean which is used to store if the user has selected the eap-version for the downloads
+     */
+    var downloadEAP = false
+
+    /**
      * Calls the paint method on the current screen.
      */
     fun callPaint(graphics: Graphics) {
