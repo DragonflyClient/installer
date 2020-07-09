@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.backend.processes.assets
 
+import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.InstallManager
@@ -32,11 +33,19 @@ class UnzippingAssets : InstallationProcess("Unzipping Assets") {
     }
 
     fun unzip(file: File): Boolean {
-        val zipFile = ZipFile(file)
-        zipFile.extractAll(destination.absolutePath)
+        try {
+            Logger.log("Unzipping assets...")
 
-        file.deleteRecursively()
+            val zipFile = ZipFile(file)
+            zipFile.extractAll(destination.absolutePath)
 
+            Logger.log("Deleting assets-zip...")
+            file.deleteRecursively()
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
         return true
     }
 

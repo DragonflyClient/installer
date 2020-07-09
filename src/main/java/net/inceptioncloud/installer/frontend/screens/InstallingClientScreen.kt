@@ -3,6 +3,7 @@ package net.inceptioncloud.installer.frontend.screens
 import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.backend.processes.client.DownloadingJAR
 import net.inceptioncloud.installer.backend.processes.client.DownloadingJSON
+import net.inceptioncloud.installer.backend.processes.client.DownloadingUpdater
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.ProcessRenderer
 import net.inceptioncloud.installer.frontend.Screen
@@ -19,7 +20,7 @@ class InstallingClientScreen : Screen(4) {
     /**
      * All processes that can potentially be executed here.
      */
-    private val potentialProcesses = listOf(DownloadingJSON(), DownloadingJAR())
+    private val potentialProcesses = listOf(DownloadingJSON(), DownloadingJAR(), DownloadingUpdater())
 
     /**
      * Called when switching to the screen.
