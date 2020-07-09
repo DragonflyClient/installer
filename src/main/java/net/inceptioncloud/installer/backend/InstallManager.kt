@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.backend
 
+
 import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.MinecraftModInstaller
 import org.jsoup.Jsoup
@@ -100,32 +101,30 @@ object InstallManager {
         return false
     }
 
-    /**
-     * Requests the version info to generate an URL to the folder with the current version files.
-     */
     fun getVersionURL(): String {
+        var result = "https://cdn.icnet.dev/dragonfly/"
 
         if (!MinecraftModInstaller.occurredErrors.contains("url/?-version")) {
             try {
-                val versionInfo = if (MinecraftModInstaller.downloadEAP) {
-                    URL("https://cdn.icnet.dev/dragonfly/eap-version")
+                result += if (MinecraftModInstaller.downloadEAP) {
+                    khttp.get(
+                        url = "https://api.inceptioncloud.net/version?channel=stable"
+                    ).jsonObject.get("version").toString()
                 } else {
-                    URL("https://cdn.icnet.dev/dragonfly/stable-version")
+                    khttp.get(
+                        url = "https://api.inceptioncloud.net/version?channel=stable"
+                    ).jsonObject.get("version").toString()
                 }
-
-                val version = InputStreamReader(versionInfo.openConnection().getInputStream()).readText()
-                Logger.log("Current Version is $version")
-
-                return "https://cdn.icnet.dev/dragonfly/$version/"
             } catch (e: Exception) {
                 MinecraftModInstaller.occurredErrors.add("url/?-version")
                 CustomError(
                     "301",
-                    "File on server (\"https://cdn.icnet.dev/dragonfly/?-version\") not found"
+                    "File on server (\"$result\") not found"
                 ).printStackTrace()
             }
         }
-        return ""
+
+        return "$result/"
     }
 
     /**

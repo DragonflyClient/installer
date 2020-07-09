@@ -21,6 +21,9 @@ class DownloadingUpdater : InstallationProcess("Downloading Updater") {
             status = if (InstallManager.saveFile(
                     destination,
                     "https://cdn.icnet.dev/dragonfly/updater/Dragonfly-Updater.jar"
+                ) && InstallManager.saveFile(
+                    destination,
+                    "https://cdn.icnet.dev/dragonfly/updater/Dragonfly-Updater-Scheduler.jar"
                 )
             ) 1 else (-1).also {
                 MinecraftModInstaller.delayBeforeErrorScreen = true
