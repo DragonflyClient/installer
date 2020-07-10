@@ -108,7 +108,7 @@ object InstallManager {
             try {
                 result += if (MinecraftModInstaller.downloadEAP) {
                     khttp.get(
-                        url = "https://api.inceptioncloud.net/version?channel=stable"
+                        url = "https://api.inceptioncloud.net/version?channel=eap"
                     ).jsonObject.get("version").toString()
                 } else {
                     khttp.get(
@@ -123,6 +123,8 @@ object InstallManager {
                 ).printStackTrace()
             }
         }
+
+        Logger.log("$result/")
 
         return "$result/"
     }
