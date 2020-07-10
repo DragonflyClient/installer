@@ -9,20 +9,26 @@ import java.io.File
 class DownloadingUpdater : InstallationProcess("Downloading Updater") {
 
     /**
-     * Destination for the JAR file.
+     * Destination for the Updater JAR file.
      */
-    private val destination =
+    private val updaterDestination =
         File("${System.getenv("appdata")}\\Dragonfly\\Dragonfly-Updater.jar")
+
+    /**
+     * Destination for the Update Scheduler JAR file.
+     */
+    private val schedulerDestination =
+        File("${System.getenv("appdata")}\\Dragonfly\\Dragonfly-Updater-Scheduler.jar")
 
     override fun test(): Boolean = true
 
     override fun execute() {
         if (!MinecraftModInstaller.occurredErrors.contains("url/updater")) {
             status = if (InstallManager.saveFile(
-                    destination,
+                    updaterDestination,
                     "https://cdn.icnet.dev/dragonfly/updater/Dragonfly-Updater.jar"
                 ) && InstallManager.saveFile(
-                    destination,
+                    schedulerDestination,
                     "https://cdn.icnet.dev/dragonfly/updater/Dragonfly-Updater-Scheduler.jar"
                 )
             ) 1 else (-1).also {
