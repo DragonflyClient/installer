@@ -106,15 +106,15 @@ object InstallManager {
 
         if (!MinecraftModInstaller.occurredErrors.contains("url/?-version")) {
             try {
-                result += if (MinecraftModInstaller.downloadEAP) {
-                    khttp.get(
-                        url = "https://api.inceptioncloud.net/version?channel=eap"
-                    ).jsonObject.get("version").toString()
-                } else {
-                    khttp.get(
-                        url = "https://api.inceptioncloud.net/version?channel=stable"
-                    ).jsonObject.get("version").toString()
-                }
+                result += khttp.get(
+                    "https://api.inceptioncloud.net/updates?channel=${
+                    if (MinecraftModInstaller.downloadEAP) {
+                        "eap"
+                    } else {
+                        "stable"
+                    }
+                    }&since=0.0.0.0"
+                ).jsonObject.get("version").toString()
             } catch (e: Exception) {
                 MinecraftModInstaller.occurredErrors.add("url/?-version")
                 CustomError(
