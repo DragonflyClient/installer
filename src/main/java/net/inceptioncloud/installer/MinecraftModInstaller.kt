@@ -53,10 +53,8 @@ object MinecraftModInstaller {
                 if (occurredErrors.size == 1) {
                     field = value
                 }
-            } else {
-                if (occurredErrors.size == 0) {
-                    field = value
-                }
+            } else if (occurredErrors.size == 0) {
+                field = value
             }
         }
 
