@@ -24,13 +24,10 @@ class UninstallingOldClient : InstallationProcess("Uninstalling old Client") {
      * Executes the download / installation that the process is responsible for.
      */
     override fun execute() {
-        if (!MinecraftModInstaller.occurredErrors.contains("fileDeletion/versions")) {
-            CacheManager.copyFolder(folder, "client")
-            status = if (folder.deleteRecursively()) 1 else (-1).also {
-                MinecraftModInstaller.delayBeforeErrorScreen = true
-                MinecraftModInstaller.occurredErrors.add("fileDeletion/versions")
-                CustomError("104", "File (${folder.absolutePath}) deletion failed").printStackTrace()
-            }
+        CacheManager.copyFolder(folder, "client")
+        status = if (folder.deleteRecursively()) 1 else (-1).also {
+            MinecraftModInstaller.delayBeforeErrorScreen = true
+            CustomError("104", "File (${folder.absolutePath}) deletion failed").printStackTrace()
         }
     }
 }

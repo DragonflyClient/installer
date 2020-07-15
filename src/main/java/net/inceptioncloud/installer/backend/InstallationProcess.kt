@@ -1,6 +1,5 @@
 package net.inceptioncloud.installer.backend
 
-import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.transition.color.ColorTransition
 import net.inceptioncloud.installer.frontend.transition.number.DoubleTransition
@@ -140,38 +139,26 @@ abstract class InstallationProcess(private val name: String) {
         val centerY = y - 8
         val size = (iconTransition.get() * 16).toInt()
 
-        if (!MinecraftModInstaller.occurredErrors.contains("imageMissing/finish.png") && !MinecraftModInstaller.occurredErrors.contains(
-                "imageMissing/error.png"
-            )
-        ) {
-
-            if (!MinecraftModInstaller.occurredErrors.contains("imageMissing/finish.png")) {
-                try {
-                    finishIcon = ImageIO.read(javaClass.getResourceAsStream("/status/finish.png"))
-                } catch (e: Exception) {
-                    MinecraftModInstaller.occurredErrors.add("imageMissing/finish.png")
-                    CustomError("201", "Image (resources/finish.png) not found").printStackTrace()
-                }
-            }
-
-            if (!MinecraftModInstaller.occurredErrors.contains("imageMissing/finish.png")) {
-                try {
-                    errorIcon = ImageIO.read(javaClass.getResourceAsStream("/status/error.png"))
-                } catch (e: Exception) {
-                    MinecraftModInstaller.occurredErrors.add("imageMissing/error.png")
-                    CustomError("201", "Image (resources/error.png) not found").printStackTrace()
-                }
-            }
-
-            graphics2D.drawImage(
-                if (status == -1) errorIcon else finishIcon,
-                centerX - size / 2,
-                centerY - size / 2,
-                size,
-                size,
-                null
-            )
+        try {
+            finishIcon = ImageIO.read(javaClass.getResourceAsStream("/status/finish.png"))
+        } catch (e: Exception) {
+            CustomError("201", "Image (resources/finish.png) not found").printStackTrace()
         }
+
+        try {
+            errorIcon = ImageIO.read(javaClass.getResourceAsStream("/status/error.png"))
+        } catch (e: Exception) {
+            CustomError("201", "Image (resources/error.png) not found").printStackTrace()
+        }
+
+        graphics2D.drawImage(
+            if (status == -1) errorIcon else finishIcon,
+            centerX - size / 2,
+            centerY - size / 2,
+            size,
+            size,
+            null
+        )
 
         if (loadingTransition.isAtEnd) {
             loadingTransition = DoubleTransition.builder()

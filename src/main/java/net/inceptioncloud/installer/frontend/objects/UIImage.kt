@@ -1,6 +1,5 @@
 package net.inceptioncloud.installer.frontend.objects
 
-import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition
@@ -42,14 +41,11 @@ open class UIImage(val pathInResources: String) : Screen() {
         this.height = height
 
         val sizeMod = sizeTransition.castToInt()
-        if (!MinecraftModInstaller.occurredErrors.contains("imageMissing${pathInResources}")) {
-            try {
-                val image = ImageIO.read(javaClass.getResourceAsStream(pathInResources))
-                graphics2D.drawImage(image, x + sizeMod, y + sizeMod, width - sizeMod * 2, height - sizeMod * 2, null)
-            } catch (e: Exception) {
-                MinecraftModInstaller.occurredErrors.add("imageMissing${pathInResources}")
-                CustomError("201", "Image (resources$pathInResources) not found").printStackTrace()
-            }
+        try {
+            val image = ImageIO.read(javaClass.getResourceAsStream(pathInResources))
+            graphics2D.drawImage(image, x + sizeMod, y + sizeMod, width - sizeMod * 2, height - sizeMod * 2, null)
+        } catch (e: Exception) {
+            CustomError("201", "Image (resources$pathInResources) not found").printStackTrace()
         }
     }
 

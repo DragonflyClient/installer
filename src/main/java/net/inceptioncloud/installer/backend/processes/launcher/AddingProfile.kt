@@ -18,49 +18,46 @@ class AddingProfile : InstallationProcess("Adding Profile") {
      * Executes the download / installation that the process is responsible for.
      */
     override fun execute() {
-        if (!MinecraftModInstaller.occurredErrors.contains("fileCreation/profile")) {
-            status = try {
-                val jsonObject = LauncherProfile.jsonObject
-                val profiles = jsonObject["profiles"].asJsonObject
-                val entries = HashSet(profiles.entrySet())
-                profiles.entrySet().clear()
+        status = try {
+            val jsonObject = LauncherProfile.jsonObject
+            val profiles = jsonObject["profiles"].asJsonObject
+            val entries = HashSet(profiles.entrySet())
+            profiles.entrySet().clear()
 
-                val customProfile = JsonObject()
-                customProfile.addProperty(
-                    "created",
-                    SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(System.currentTimeMillis())
-                )
-                customProfile.addProperty(
-                    "lastUsed",
-                    SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(System.currentTimeMillis())
-                )
-                customProfile.addProperty("lastVersionId", "Dragonfly-1.8.8")
-                customProfile.addProperty("name", "Dragonfly")
-                customProfile.addProperty("type", "custom")
-                customProfile.addProperty("javaArgs", LauncherProfile.jvmArguments)
-                customProfile.addProperty("icon", LauncherProfile.imageBase64)
+            val customProfile = JsonObject()
+            customProfile.addProperty(
+                "created",
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(System.currentTimeMillis())
+            )
+            customProfile.addProperty(
+                "lastUsed",
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(System.currentTimeMillis())
+            )
+            customProfile.addProperty("lastVersionId", "Dragonfly-1.8.8")
+            customProfile.addProperty("name", "Dragonfly")
+            customProfile.addProperty("type", "custom")
+            customProfile.addProperty("javaArgs", LauncherProfile.jvmArguments)
+            customProfile.addProperty("icon", LauncherProfile.imageBase64)
 
-                profiles.add("Dragonfly", customProfile)
+            profiles.add("Dragonfly", customProfile)
 
-                entries.filter { it.key != "Dragonfly" }
-                    .forEach {
-                        profiles.add(it.key, it.value)
-                    }
-
-                val gson = GsonBuilder().setPrettyPrinting().create()
-                val fileWriter = FileWriter(LauncherProfile.file)
-
-                fileWriter.write(gson.toJson(jsonObject))
-                fileWriter.flush()
-                fileWriter.close()
-
-                1
-            } catch (ex: Exception) {
-                (-1).also {
-                    MinecraftModInstaller.delayBeforeErrorScreen = true
-                    MinecraftModInstaller.occurredErrors.add("fileCreation/profile")
-                    CustomError("102", "File (${LauncherProfile.file.absolutePath}) creation failed").printStackTrace()
+            entries.filter { it.key != "Dragonfly" }
+                .forEach {
+                    profiles.add(it.key, it.value)
                 }
+
+            val gson = GsonBuilder().setPrettyPrinting().create()
+            val fileWriter = FileWriter(LauncherProfile.file)
+
+            fileWriter.write(gson.toJson(jsonObject))
+            fileWriter.flush()
+            fileWriter.close()
+
+            1
+        } catch (ex: Exception) {
+            (-1).also {
+                MinecraftModInstaller.delayBeforeErrorScreen = true
+                CustomError("102", "File (${LauncherProfile.file.absolutePath}) creation failed").printStackTrace()
             }
         }
     }

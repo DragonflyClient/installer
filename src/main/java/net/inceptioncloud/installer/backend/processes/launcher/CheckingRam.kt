@@ -18,23 +18,20 @@ class CheckingRam : InstallationProcess("Checking RAM") {
      * Executes the download / installation that the process is responsible for.
      */
     override fun execute() {
-        if (!MinecraftModInstaller.occurredErrors.contains("systemReading/ram")) {
-            status = try {
+        status = try {
 
-                val memorySize =
-                    (ManagementFactory.getOperatingSystemMXBean() as OperatingSystemMXBean).totalPhysicalMemorySize
-                val gbytes = (memorySize / (1024 * 1024 * 1024F)).roundToInt()
+            val memorySize =
+                (ManagementFactory.getOperatingSystemMXBean() as OperatingSystemMXBean).totalPhysicalMemorySize
+            val gbytes = (memorySize / (1024 * 1024 * 1024F)).roundToInt()
 
-                Logger.log("System has ${gbytes}gb of RAM")
-                LauncherProfile.ram = gbytes
+            Logger.log("System has ${gbytes}gb of RAM")
+            LauncherProfile.ram = gbytes
 
-                1
-            } catch (ex: Exception) {
-                (-1).also {
-                    MinecraftModInstaller.delayBeforeErrorScreen = true
-                    MinecraftModInstaller.occurredErrors.add("systemReading/ram")
-                    CustomError("105", "Systemdata (RAM) not accessible").printStackTrace()
-                }
+            1
+        } catch (ex: Exception) {
+            (-1).also {
+                MinecraftModInstaller.delayBeforeErrorScreen = true
+                CustomError("105", "Systemdata (RAM) not accessible").printStackTrace()
             }
         }
     }

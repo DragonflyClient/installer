@@ -1,6 +1,5 @@
 package net.inceptioncloud.installer.frontend
 
-import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.backend.CustomError
 import java.awt.Color
 import java.awt.Font
@@ -47,15 +46,11 @@ object FontManager {
         fonts.forEach {
             val resourceName = "/$it.ttf"
 
-
-            if (!MinecraftModInstaller.occurredErrors.contains("fontMissing/$it.ttf")) {
-                try {
-                    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, javaClass.getResourceAsStream(resourceName)))
-                } catch (e: Exception) {
-                    MinecraftModInstaller.occurredErrors.add("fontMissing/$it.ttf")
-                    CustomError("202", "Font (resources/$it.ttf) not found").printStackTrace()
-                    exitProcess(202)
-                }
+            try {
+                ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, javaClass.getResourceAsStream(resourceName)))
+            } catch (e: Exception) {
+                CustomError("202", "Font (resources/$it.ttf) not found").printStackTrace()
+                exitProcess(202)
             }
         }
     }
@@ -68,8 +63,7 @@ object FontManager {
      *  1 - Medium <br>
      *  2 - Light <br>
      */
-    fun loadFont(style: Int, size: Int): Font
-    {
+    fun loadFont(style: Int, size: Int): Font {
         val font = Font("Rubik" + (if (style == 1) " Medium" else if (style == 2) " Light" else ""), 0, size)
         val attributes: MutableMap<TextAttribute, Any?> = HashMap()
         attributes[TextAttribute.TRACKING] = if (style == 1) -0.04 else if (style == 2) -0.008 else 0.0
@@ -79,8 +73,7 @@ object FontManager {
     /**
      * Draws a centered string.
      */
-    fun drawCenteredString(str: String, x: Int, y: Int, style: Int, size: Int, graphics2D: Graphics2D)
-    {
+    fun drawCenteredString(str: String, x: Int, y: Int, style: Int, size: Int, graphics2D: Graphics2D) {
         val font = loadFont(style, size)
         graphics2D.font = font
 

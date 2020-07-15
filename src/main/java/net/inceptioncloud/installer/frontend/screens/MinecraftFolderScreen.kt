@@ -59,8 +59,7 @@ class MinecraftFolderScreen : Screen(2) {
                 minecraftFolder = result
                 val minecraftVersion = File("${minecraftFolder}\\versions\\1.8.8\\")
 
-                if (!minecraftVersion.exists() && !MinecraftModInstaller.occurredErrors.contains("fileMissing/1.8-version")) {
-                    MinecraftModInstaller.occurredErrors.add("fileMissing/1.8-version")
+                if (!minecraftVersion.exists()) {
                     CustomError("101", "File (${minecraftVersion.absolutePath}) not found").printStackTrace()
                 }
 

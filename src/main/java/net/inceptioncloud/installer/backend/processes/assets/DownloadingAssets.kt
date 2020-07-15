@@ -25,19 +25,16 @@ class DownloadingAssets : InstallationProcess("Downloading Assets") {
             destination.mkdir()
         }
 
-        if (!MinecraftModInstaller.occurredErrors.contains("url/assets")) {
-            status = if (InstallManager.saveFile(
-                    File("$destination\\assets.zip"),
-                    "https://cdn.icnet.dev/dragonfly/assets.zip"
-                )
-            ) 1 else (-1).also {
-                MinecraftModInstaller.delayBeforeErrorScreen = true
-                MinecraftModInstaller.occurredErrors.add("url/assets")
-                CustomError(
-                    "301",
-                    "File on server (\"https://cdn.icnet.dev/dragonfly/assets.zip\") not found"
-                ).printStackTrace()
-            }
+        status = if (InstallManager.saveFile(
+                File("$destination\\assets.zip"),
+                "https://cdn.icnet.dev/dragonfly/assets.zip"
+            )
+        ) 1 else (-1).also {
+            MinecraftModInstaller.delayBeforeErrorScreen = true
+            CustomError(
+                "301",
+                "File on server (\"https://cdn.icnet.dev/dragonfly/assets.zip\") not found"
+            ).printStackTrace()
         }
     }
 }

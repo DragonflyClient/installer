@@ -18,17 +18,14 @@ class AccessingJVMArguments : InstallationProcess("Accessing JVM Arguments") {
      * Executes the download / installation that the process is responsible for.
      */
     override fun execute() {
-        if (!MinecraftModInstaller.occurredErrors.contains("fileReading/jvm")) {
-            status = try {
-                LauncherProfile.jvmArguments = FileReader(getArgumentsFile()).readText()
-                Logger.log(LauncherProfile.jvmArguments)
-                1
-            } catch (ex: Exception) {
-                (-1).also {
-                    MinecraftModInstaller.delayBeforeErrorScreen = true
-                    MinecraftModInstaller.occurredErrors.add("fileReading/jvm")
-                    CustomError("103", "File (${getArgumentsFile().absolutePath}) not accessible").printStackTrace()
-                }
+        status = try {
+            LauncherProfile.jvmArguments = FileReader(getArgumentsFile()).readText()
+            Logger.log(LauncherProfile.jvmArguments)
+            1
+        } catch (ex: Exception) {
+            (-1).also {
+                MinecraftModInstaller.delayBeforeErrorScreen = true
+                CustomError("103", "File (${getArgumentsFile().absolutePath}) not accessible").printStackTrace()
             }
         }
     }

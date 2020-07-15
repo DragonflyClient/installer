@@ -22,20 +22,17 @@ class DownloadingJSON : InstallationProcess("Downloading JSON") {
      * Executes the download / installation that the process is responsible for.
      */
     override fun execute() {
-        if (!MinecraftModInstaller.occurredErrors.contains("url/json")) {
-            status =
-                if (InstallManager.saveFile(
-                        destination,
-                        "${InstallManager.getVersionURL()}Dragonfly-1.8.8.json"
-                    )
-                ) 1 else (-1).also {
-                    MinecraftModInstaller.delayBeforeErrorScreen = true
-                    MinecraftModInstaller.occurredErrors.add("url/json")
-                    CustomError(
-                        "301",
-                        "File on server (\"${InstallManager.getVersionURL()}Dragonfly-1.8.8.json\") not found"
-                    ).printStackTrace()
-                }
-        }
+        status =
+            if (InstallManager.saveFile(
+                    destination,
+                    "${InstallManager.getVersionURL()}Dragonfly-1.8.8.json"
+                )
+            ) 1 else (-1).also {
+                MinecraftModInstaller.delayBeforeErrorScreen = true
+                CustomError(
+                    "301",
+                    "File on server (\"${InstallManager.getVersionURL()}Dragonfly-1.8.8.json\") not found"
+                ).printStackTrace()
+            }
     }
 }

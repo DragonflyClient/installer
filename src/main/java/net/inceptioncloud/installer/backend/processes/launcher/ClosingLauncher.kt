@@ -15,12 +15,9 @@ class ClosingLauncher : InstallationProcess("Closing Launcher") {
      * Executes the download / installation that the process is responsible for.
      */
     override fun execute() {
-        if (!MinecraftModInstaller.occurredErrors.contains("systemReading/launcher")) {
-            status = if (InstallManager.killProcess("MinecraftLauncher.exe")) 1 else (-1).also {
-                MinecraftModInstaller.delayBeforeErrorScreen = true
-                MinecraftModInstaller.occurredErrors.add("systemReading/launcher")
-                CustomError("105", "Systemprocess (Minecraft Launcher) not accessible").printStackTrace()
-            }
+        status = if (InstallManager.killProcess("MinecraftLauncher.exe")) 1 else (-1).also {
+            MinecraftModInstaller.delayBeforeErrorScreen = true
+            CustomError("105", "Systemprocess (Minecraft Launcher) not accessible").printStackTrace()
         }
     }
 }

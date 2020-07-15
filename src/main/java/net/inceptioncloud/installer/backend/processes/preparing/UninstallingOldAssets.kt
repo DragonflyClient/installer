@@ -24,13 +24,10 @@ class UninstallingOldAssets : InstallationProcess("Uninstalling old Assets") {
      * Executes the download / installation that the process is responsible for.
      */
     override fun execute() {
-        if (!MinecraftModInstaller.occurredErrors.contains("fileDeletion/inceptioncloud")) {
-            CacheManager.copyFolder(folder, "assets")
-            status = if (folder.deleteRecursively()) 1 else (-1).also {
-                MinecraftModInstaller.delayBeforeErrorScreen = true
-                MinecraftModInstaller.occurredErrors.add("fileDeletion/inceptioncloud")
-                CustomError("104", "File (${folder.absolutePath}) deletion failed").printStackTrace()
-            }
+        CacheManager.copyFolder(folder, "assets")
+        status = if (folder.deleteRecursively()) 1 else (-1).also {
+            MinecraftModInstaller.delayBeforeErrorScreen = true
+            CustomError("104", "File (${folder.absolutePath}) deletion failed").printStackTrace()
         }
     }
 }

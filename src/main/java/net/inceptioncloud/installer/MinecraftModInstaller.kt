@@ -50,13 +50,15 @@ object MinecraftModInstaller {
     var screen: Screen? = null
         set(value) {
             if (value is ErrorScreen) {
-                if (occurredErrors.size == 1) {
+                if (occurredErrors == 1) {
                     field = value
                 }
-            } else if (occurredErrors.size == 0) {
+            } else if (occurredErrors == 0) {
                 field = value
             }
         }
+
+    var occurredErrors = 0
 
     /**
      * A list with all transitions.
@@ -72,11 +74,6 @@ object MinecraftModInstaller {
      * Transition that switches to the next screen.
      */
     lateinit var screenSwitch: SmoothDoubleTransition
-
-    /**
-     * String to store the type of an error
-     */
-    var occurredErrors = arrayListOf<String>()
 
     /**
      * Boolean to store if an delay occurs before the switching to the error screen
@@ -118,14 +115,11 @@ object MinecraftModInstaller {
         window.isResizable = false
         window.title = "Dragonfly Mod Installer"
 
-        if (!occurredErrors.contains("imageMissing/icon_32x.png")) {
             try {
                 window.iconImage = ImageIO.read(javaClass.getResourceAsStream("/icon_32x.png"))
             } catch (e: Exception) {
-                occurredErrors.add("imageMissing/icon_32x.png")
                 CustomError("201", "Image (resources/icon32x.png) not found").printStackTrace()
             }
-        }
 
         window.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
@@ -218,7 +212,6 @@ object MinecraftModInstaller {
 
         if (!(screen!!.stepIndex == 0 && !WelcomeScreen.titleFlyIn.isAtEnd)) {
 
-            if (!occurredErrors.contains("imageMissing/background.png")) {
                 try {
                     // Background
                     graphics2D.drawImage(
@@ -230,10 +223,8 @@ object MinecraftModInstaller {
                         null
                     )
                 } catch (e: Exception) {
-                    occurredErrors.add("imageMissing/background.png")
                     CustomError("201", "Image (resources/background.png) not found").printStackTrace()
                 }
-            }
 
             // Title
             FontManager.drawCenteredString("Installation Wizard", WINDOW_WIDTH / 2, 55, 1, 36, graphics2D)

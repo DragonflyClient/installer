@@ -16,17 +16,14 @@ class OpeningProfiles : InstallationProcess("Opening Profiles") {
      * Executes the download / installation that the process is responsible for.
      */
     override fun execute() {
-        if (!MinecraftModInstaller.occurredErrors.contains("fileReading/profile")) {
-            status = try {
-                val jsonObject = JsonParser().parse(FileReader(LauncherProfile.file)).asJsonObject
-                LauncherProfile.jsonObject = jsonObject
-                1
-            } catch (ex: Exception) {
-                (-1).also {
-                    MinecraftModInstaller.delayBeforeErrorScreen = true
-                    MinecraftModInstaller.occurredErrors.add("fileReading/profile")
-                    CustomError("103", "File (${LauncherProfile.file.absolutePath}) not accessible").printStackTrace()
-                }
+        status = try {
+            val jsonObject = JsonParser().parse(FileReader(LauncherProfile.file)).asJsonObject
+            LauncherProfile.jsonObject = jsonObject
+            1
+        } catch (ex: Exception) {
+            (-1).also {
+                MinecraftModInstaller.delayBeforeErrorScreen = true
+                CustomError("103", "File (${LauncherProfile.file.absolutePath}) not accessible").printStackTrace()
             }
         }
     }

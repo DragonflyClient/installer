@@ -22,13 +22,10 @@ class UnzippingAssets : InstallationProcess("Unzipping Assets") {
     override fun test(): Boolean = true
 
     override fun execute() {
-        if (!MinecraftModInstaller.occurredErrors.contains("fileCreation/unzip")) {
-            status = if (unzip(File("${destination}\\assets.zip"))
-            ) 1 else (-1).also {
-                MinecraftModInstaller.delayBeforeErrorScreen = true
-                MinecraftModInstaller.occurredErrors.add("fileCreation/unzip")
-                CustomError("102", "File (${LauncherProfile.file.absolutePath}) creation failed").printStackTrace()
-            }
+        status = if (unzip(File("${destination}\\assets.zip"))
+        ) 1 else (-1).also {
+            MinecraftModInstaller.delayBeforeErrorScreen = true
+            CustomError("102", "File (${LauncherProfile.file.absolutePath}) creation failed").printStackTrace()
         }
     }
 

@@ -23,22 +23,19 @@ class DownloadingUpdater : InstallationProcess("Downloading Updater") {
     override fun test(): Boolean = true
 
     override fun execute() {
-        if (!MinecraftModInstaller.occurredErrors.contains("url/updater")) {
-            status = if (InstallManager.saveFile(
-                    updaterDestination,
-                    "https://cdn.icnet.dev/dragonfly/updater/Dragonfly-Updater.jar"
-                ) && InstallManager.saveFile(
-                    schedulerDestination,
-                    "https://cdn.icnet.dev/dragonfly/updater/Dragonfly-Updater-Scheduler.jar"
-                )
-            ) 1 else (-1).also {
-                MinecraftModInstaller.delayBeforeErrorScreen = true
-                MinecraftModInstaller.occurredErrors.add("url/updater")
-                CustomError(
-                    "301",
-                    "File on server (\"https://cdn.icnet.dev/dragonfly/updater/Dragonfly-Updater.jar\") not found"
-                ).printStackTrace()
-            }
+        status = if (InstallManager.saveFile(
+                updaterDestination,
+                "https://cdn.icnet.dev/dragonfly/updater/Dragonfly-Updater.jar"
+            ) && InstallManager.saveFile(
+                schedulerDestination,
+                "https://cdn.icnet.dev/dragonfly/updater/Dragonfly-Updater-Scheduler.jar"
+            )
+        ) 1 else (-1).also {
+            MinecraftModInstaller.delayBeforeErrorScreen = true
+            CustomError(
+                "301",
+                "File on server (\"https://cdn.icnet.dev/dragonfly/updater/Dragonfly-Updater.jar\") not found"
+            ).printStackTrace()
         }
     }
 
