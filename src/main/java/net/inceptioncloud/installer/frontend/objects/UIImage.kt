@@ -1,6 +1,6 @@
 package net.inceptioncloud.installer.frontend.objects
 
-import net.inceptioncloud.installer.backend.CustomError
+import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition
 import net.inceptioncloud.installer.frontend.transition.supplier.ForwardBackward
@@ -45,7 +45,7 @@ open class UIImage(val pathInResources: String) : Screen() {
             val image = ImageIO.read(javaClass.getResourceAsStream(pathInResources))
             graphics2D.drawImage(image, x + sizeMod, y + sizeMod, width - sizeMod * 2, height - sizeMod * 2, null)
         } catch (e: Exception) {
-            CustomError("201", "Image (resources$pathInResources) not found").printStackTrace()
+            MinecraftModInstaller.reportError("201", "Image (resources$pathInResources) not found")
         }
     }
 

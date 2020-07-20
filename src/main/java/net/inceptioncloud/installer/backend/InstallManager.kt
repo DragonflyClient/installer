@@ -41,10 +41,7 @@ object InstallManager {
 
             return true
         } catch (e: Exception) {
-            CustomError(
-                "301",
-                "File on server (\"$urlString\") not found"
-            ).printStackTrace()
+            MinecraftModInstaller.reportError("301", "File on server (\"$urlString\") not found")
             return false
         } finally {
             `in`?.close()
@@ -84,10 +81,7 @@ object InstallManager {
 
             return !failed
         } catch (ex: IOException) {
-            CustomError(
-                "301",
-                "File on server (\"$urlString\") not found"
-            ).printStackTrace()
+            MinecraftModInstaller.reportError("301", "File on server (\"$urlString\") not found")
             return false
         }
         return false
@@ -107,10 +101,7 @@ object InstallManager {
                 }&since=0.0.0.0"
             ).jsonObject.get("version").toString()
         } catch (e: Exception) {
-            CustomError(
-                "301",
-                "File on server (\"$result\") not found"
-            ).printStackTrace()
+            MinecraftModInstaller.reportError("301", "File on server (\"$result\") not found")
         }
 
         Logger.log("$result/")

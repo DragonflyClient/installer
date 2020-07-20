@@ -2,7 +2,6 @@ package net.inceptioncloud.installer.backend.processes.launcher
 
 import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.MinecraftModInstaller
-import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.backend.InstallationProcess
 import java.io.File
@@ -25,7 +24,7 @@ class AccessingJVMArguments : InstallationProcess("Accessing JVM Arguments") {
         } catch (ex: Exception) {
             (-1).also {
                 MinecraftModInstaller.delayBeforeErrorScreen = true
-                CustomError("103", "File (${getArgumentsFile().absolutePath}) not accessible").printStackTrace()
+                MinecraftModInstaller.reportError("103", "File (${getArgumentsFile().absolutePath}) not accessible")
             }
         }
     }

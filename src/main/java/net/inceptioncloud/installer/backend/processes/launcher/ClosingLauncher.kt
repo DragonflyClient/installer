@@ -1,7 +1,6 @@
 package net.inceptioncloud.installer.backend.processes.launcher
 
 import net.inceptioncloud.installer.MinecraftModInstaller
-import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.backend.InstallationProcess
 
@@ -17,7 +16,7 @@ class ClosingLauncher : InstallationProcess("Closing Launcher") {
     override fun execute() {
         status = if (InstallManager.killProcess("MinecraftLauncher.exe")) 1 else (-1).also {
             MinecraftModInstaller.delayBeforeErrorScreen = true
-            CustomError("105", "Systemprocess (Minecraft Launcher) not accessible").printStackTrace()
+            MinecraftModInstaller.reportError("105", "Systemprocess (Minecraft Launcher) not accessible")
         }
     }
 }

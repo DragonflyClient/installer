@@ -1,6 +1,5 @@
 package net.inceptioncloud.installer
 
-import net.inceptioncloud.installer.backend.CustomError
 import java.io.File
 import java.text.SimpleDateFormat
 
@@ -43,7 +42,7 @@ object Logger {
             }
         } catch (e: Exception) {
             fileCreationFailed = true
-            CustomError("001", "Creation of log folder (${folder.absolutePath}) failed").printStackTrace()
+            MinecraftModInstaller.reportError("001", "Creation of log folder (${folder.absolutePath}) failed")
         }
 
         val fileName =
@@ -52,7 +51,7 @@ object Logger {
 
         if (!file.createNewFile()) {
             fileCreationFailed = true
-            CustomError("001", "Creation of log file (${file.absolutePath}) failed").printStackTrace()
+            MinecraftModInstaller.reportError("001", "Creation of log file (${file.absolutePath}) failed")
         } else {
             file.appendText("This is log started at: ${SimpleDateFormat("HH:mm:ss dd.MM.yyyy").format(System.currentTimeMillis())}\n")
         }

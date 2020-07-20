@@ -34,8 +34,6 @@ class CustomError(private val errorCode: String, private val errorString: String
 
         if (!errorCode.startsWith("0")) {
 
-            MinecraftModInstaller.occurredErrors++
-
             /* Version restoring */
             if (MinecraftModInstaller.restoreOldVersion) {
                 Logger.log("Started version restoring!")
@@ -64,6 +62,9 @@ class CustomError(private val errorCode: String, private val errorString: String
                 MinecraftModInstaller.screen = ErrorScreen(errorCode.toInt())
             }
         }
+
+
+        throw Exception("An custom error occurred!")
     }
 
 }

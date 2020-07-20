@@ -1,7 +1,6 @@
 package net.inceptioncloud.installer.backend.processes.preparing
 
 import net.inceptioncloud.installer.MinecraftModInstaller
-import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.backend.InstallationProcess
 import java.io.File
@@ -23,7 +22,7 @@ class CreatingClientFolder : InstallationProcess("Creating Client Folder") {
     override fun execute() {
         status = if (folder.mkdirs()) 1 else (-1).also {
             MinecraftModInstaller.delayBeforeErrorScreen = true
-            CustomError("102", "File (${folder.absolutePath}) creation failed").printStackTrace()
+            MinecraftModInstaller.reportError("102", "File (${folder.absolutePath}) creation failed")
         }
     }
 }

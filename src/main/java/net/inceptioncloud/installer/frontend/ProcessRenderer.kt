@@ -81,7 +81,7 @@ class ProcessRenderer : ArrayList<InstallationProcess>() {
         }
 
         if (!finished) {
-            if (MinecraftModInstaller.occurredErrors == 0) {
+            if (MinecraftModInstaller.occurredErrors.size == 0) {
                 throw IllegalStateException("Each process should either end with status code -1 or 1!")
             } else {
                 throw InterruptedException("An custom error occurred!")

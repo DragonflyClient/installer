@@ -50,15 +50,16 @@ object MinecraftModInstaller {
     var screen: Screen? = null
         set(value) {
             if (value is ErrorScreen) {
-                if (occurredErrors == 1) {
+                println("${occurredErrors.size} : $value")
+                if (occurredErrors.size == 1) {
                     field = value
                 }
-            } else if (occurredErrors == 0) {
+            } else if (occurredErrors.size == 0) {
                 field = value
             }
         }
 
-    var occurredErrors = 0
+    var occurredErrors = mutableListOf<String>()
 
     /**
      * A list with all transitions.
@@ -118,7 +119,7 @@ object MinecraftModInstaller {
             try {
                 window.iconImage = ImageIO.read(javaClass.getResourceAsStream("/icon_32x.png"))
             } catch (e: Exception) {
-                CustomError("201", "Image (resources/icon32x.png) not found").printStackTrace()
+                reportError("201", "Image (resources/icon32x.png) not found")
             }
 
         window.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
@@ -223,7 +224,7 @@ object MinecraftModInstaller {
                         null
                     )
                 } catch (e: Exception) {
-                    CustomError("201", "Image (resources/background.png) not found").printStackTrace()
+                    reportError("201", "Image (resources/background.png) not found")
                 }
 
             // Title
@@ -251,4 +252,12 @@ object MinecraftModInstaller {
         ScreenIndexManager.drawStepIndex(graphics2D)
 
     }
+
+    fun reportError(errorCode: String, errorString: String) {
+        if (!occurredErrors.contains(errorCode)) {
+            occurredErrors.add(errorCode)
+            CustomError(errorCode, errorString).printStackTrace()
+        }
+    }
+
 }

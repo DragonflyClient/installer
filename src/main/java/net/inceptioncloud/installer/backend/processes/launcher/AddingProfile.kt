@@ -3,7 +3,6 @@ package net.inceptioncloud.installer.backend.processes.launcher
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import net.inceptioncloud.installer.MinecraftModInstaller
-import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.InstallationProcess
 import java.io.FileWriter
 import java.text.SimpleDateFormat
@@ -57,7 +56,7 @@ class AddingProfile : InstallationProcess("Adding Profile") {
         } catch (ex: Exception) {
             (-1).also {
                 MinecraftModInstaller.delayBeforeErrorScreen = true
-                CustomError("102", "File (${LauncherProfile.file.absolutePath}) creation failed").printStackTrace()
+                MinecraftModInstaller.reportError("102", "File (${LauncherProfile.file.absolutePath}) creation failed")
             }
         }
     }

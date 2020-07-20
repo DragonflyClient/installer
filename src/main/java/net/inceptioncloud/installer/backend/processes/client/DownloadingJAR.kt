@@ -1,7 +1,6 @@
 package net.inceptioncloud.installer.backend.processes.client
 
 import net.inceptioncloud.installer.MinecraftModInstaller
-import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.backend.InstallationProcess
 import java.io.File
@@ -29,10 +28,10 @@ class DownloadingJAR : InstallationProcess("Downloading JAR") {
             )
         ) 1 else (-1).also {
             MinecraftModInstaller.delayBeforeErrorScreen = true
-            CustomError(
+            MinecraftModInstaller.reportError(
                 "301",
                 "File on server (\"${InstallManager.getVersionURL()}Dragonfly-1.8.8.jar\") not found"
-            ).printStackTrace()
+            )
         }
     }
 }

@@ -4,7 +4,6 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.MinecraftModInstaller
-import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.FileChooser
 import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.frontend.FontManager
@@ -60,7 +59,7 @@ class MinecraftFolderScreen : Screen(2) {
                 val minecraftVersion = File("${minecraftFolder}\\versions\\1.8.8\\")
 
                 if (!minecraftVersion.exists()) {
-                    CustomError("101", "File (${minecraftVersion.absolutePath}) not found").printStackTrace()
+                    MinecraftModInstaller.reportError("101", "File (${minecraftVersion.absolutePath}) not found")
                 }
 
                 if (minecraftFolder != null) {

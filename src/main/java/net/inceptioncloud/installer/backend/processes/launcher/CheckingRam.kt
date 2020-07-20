@@ -3,7 +3,6 @@ package net.inceptioncloud.installer.backend.processes.launcher
 import com.sun.management.OperatingSystemMXBean
 import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.MinecraftModInstaller
-import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.InstallationProcess
 import java.lang.management.ManagementFactory
 import kotlin.math.roundToInt
@@ -31,7 +30,7 @@ class CheckingRam : InstallationProcess("Checking RAM") {
         } catch (ex: Exception) {
             (-1).also {
                 MinecraftModInstaller.delayBeforeErrorScreen = true
-                CustomError("105", "Systemdata (RAM) not accessible").printStackTrace()
+                MinecraftModInstaller.reportError("105", "Systemdata (RAM) not accessible")
             }
         }
     }

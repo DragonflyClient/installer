@@ -2,7 +2,6 @@ package net.inceptioncloud.installer.backend.processes.assets
 
 import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.MinecraftModInstaller
-import net.inceptioncloud.installer.backend.CustomError
 import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.backend.InstallationProcess
 import net.inceptioncloud.installer.backend.processes.launcher.LauncherProfile
@@ -25,7 +24,7 @@ class UnzippingAssets : InstallationProcess("Unzipping Assets") {
         status = if (unzip(File("${destination}\\assets.zip"))
         ) 1 else (-1).also {
             MinecraftModInstaller.delayBeforeErrorScreen = true
-            CustomError("102", "File (${LauncherProfile.file.absolutePath}) creation failed").printStackTrace()
+            MinecraftModInstaller.reportError("102", "File (${LauncherProfile.file.absolutePath}) creation failed")
         }
     }
 

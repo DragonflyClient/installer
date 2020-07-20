@@ -1,5 +1,6 @@
 package net.inceptioncloud.installer.backend
 
+import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.transition.color.ColorTransition
 import net.inceptioncloud.installer.frontend.transition.number.DoubleTransition
@@ -142,13 +143,13 @@ abstract class InstallationProcess(private val name: String) {
         try {
             finishIcon = ImageIO.read(javaClass.getResourceAsStream("/status/finish.png"))
         } catch (e: Exception) {
-            CustomError("201", "Image (resources/finish.png) not found").printStackTrace()
+            MinecraftModInstaller.reportError("201", "Image (resources/finish.png) not found")
         }
 
         try {
             errorIcon = ImageIO.read(javaClass.getResourceAsStream("/status/error.png"))
         } catch (e: Exception) {
-            CustomError("201", "Image (resources/error.png) not found").printStackTrace()
+            MinecraftModInstaller.reportError("201", "Image (resources/error.png) not found")
         }
 
         graphics2D.drawImage(
