@@ -61,6 +61,8 @@ object MinecraftModInstaller {
 
     var occurredErrors = mutableListOf<String>()
 
+    var version = "1.2.1"
+
     /**
      * A list with all transitions.
      */
@@ -102,7 +104,7 @@ object MinecraftModInstaller {
     fun init() {
         Logger.createFile()
 
-        screen = UpdateScreen("1.2.3")
+        screen = WelcomeScreen()
         previousScreen = screen!!
 
         screenSwitch = SmoothDoubleTransition.builder()
@@ -187,6 +189,9 @@ object MinecraftModInstaller {
                 Thread.sleep(10)
             }
         }.start()
+
+        checkNewestVersion()
+
     }
 
     /**
@@ -256,6 +261,17 @@ object MinecraftModInstaller {
         if (!occurredErrors.contains(errorCode)) {
             occurredErrors.add(errorCode)
             CustomError(errorCode, errorString).printStackTrace()
+        }
+    }
+
+    private fun checkNewestVersion() {
+        val newest = "1.2.2"
+
+        if (version != newest) {
+            Logger.log("Installer version is outdated. Update required! ($version -> $newest)")
+            screen = UpdateScreen(newest)
+        } else {
+            Logger.log("Installer is up to date!")
         }
     }
 

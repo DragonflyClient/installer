@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent
 import java.net.URI
 import kotlin.system.exitProcess
 
-class UpdateScreen(private val newVersion: String) : Screen(8) {
+class UpdateScreen(private val newest: String) : Screen(8) {
 
     /**
      * Button that is clicked to start the setup for the stable version.
@@ -36,7 +36,7 @@ class UpdateScreen(private val newVersion: String) : Screen(8) {
         FontManager.drawCenteredString("Update available", x + width / 2, y + 191, 1, 36, graphics2D)
 
         FontManager.drawCenteredString(
-            "v$newVersion",
+            "v$newest",
             x + width / 2 - offset,
             y + 215,
             1,
