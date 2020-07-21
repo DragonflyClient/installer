@@ -7,6 +7,7 @@ import net.inceptioncloud.installer.frontend.Screen
 import net.inceptioncloud.installer.frontend.ScreenIndexManager
 import net.inceptioncloud.installer.frontend.ShutdownHook
 import net.inceptioncloud.installer.frontend.screens.ErrorScreen
+import net.inceptioncloud.installer.frontend.screens.UpdateScreen
 import net.inceptioncloud.installer.frontend.screens.WelcomeScreen
 import net.inceptioncloud.installer.frontend.transition.Transition
 import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition
@@ -50,7 +51,6 @@ object MinecraftModInstaller {
     var screen: Screen? = null
         set(value) {
             if (value is ErrorScreen) {
-                println("${occurredErrors.size} : $value")
                 if (occurredErrors.size == 1) {
                     field = value
                 }
@@ -91,7 +91,6 @@ object MinecraftModInstaller {
      */
     var restoredOldVersion = false
 
-
     /**
      * Boolean to store if the fix tab is already open in the browser
      */
@@ -103,7 +102,7 @@ object MinecraftModInstaller {
     fun init() {
         Logger.createFile()
 
-        screen = WelcomeScreen()
+        screen = UpdateScreen("1.2.3")
         previousScreen = screen!!
 
         screenSwitch = SmoothDoubleTransition.builder()

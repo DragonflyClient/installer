@@ -4,6 +4,7 @@ import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.MinecraftModInstaller.WINDOW_HEIGHT
 import net.inceptioncloud.installer.MinecraftModInstaller.WINDOW_WIDTH
 import net.inceptioncloud.installer.frontend.screens.ErrorScreen
+import net.inceptioncloud.installer.frontend.screens.UpdateScreen
 import net.inceptioncloud.installer.frontend.screens.WelcomeScreen
 import net.inceptioncloud.installer.frontend.transition.number.SmoothDoubleTransition
 import net.inceptioncloud.installer.frontend.transition.supplier.ForwardNothing
@@ -78,7 +79,7 @@ object ScreenIndexManager {
         val transition = MinecraftModInstaller.screenSwitch.get()
         var currentFloat = (transition / 400).toFloat()
 
-        if (MinecraftModInstaller.screen is ErrorScreen) {
+        if (MinecraftModInstaller.screen is ErrorScreen || MinecraftModInstaller.screen is UpdateScreen) {
             if (transition == 400.0) {
                 currentFloat = 0.0F
             }

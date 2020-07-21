@@ -32,7 +32,6 @@ object CacheManager {
         } else {
             Logger.log("Folder caching failed! (${folder.absolutePath})")
         }
-
     }
 
     fun copyBack(target: String, folder: File) {
@@ -62,4 +61,5 @@ object CacheManager {
             return true
         }
     }
+
 }
