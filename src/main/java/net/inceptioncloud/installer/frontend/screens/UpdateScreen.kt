@@ -44,7 +44,7 @@ class UpdateScreen(private val newest: String) : Screen(8) {
             graphics2D
         )
         FontManager.drawCenteredString(
-            "To use the installer, you need to",
+            "Please download the latest",
             x + width / 2 - offset,
             y + 277,
             2,
@@ -52,7 +52,7 @@ class UpdateScreen(private val newest: String) : Screen(8) {
             graphics2D
         )
         FontManager.drawCenteredString(
-            "download the latest version.",
+            "version of the dragonfly installer",
             x + width / 2 - offset,
             y + 302,
             2,
@@ -60,25 +60,25 @@ class UpdateScreen(private val newest: String) : Screen(8) {
             graphics2D
         )
         FontManager.drawCenteredString(
-            "Since the installation may not be",
+            "in order to keep up to date with",
             x + width / 2 - offset,
-            y + 362,
+            y + 327,
             2,
             22,
             graphics2D
         )
         FontManager.drawCenteredString(
-            "carried out correctly with this",
+            "new features, hotfixes and other",
             x + width / 2 - offset,
-            y + 388,
+            y + 352,
             2,
             22,
             graphics2D
         )
         FontManager.drawCenteredString(
-            "version.",
+            "updates.",
             x + width / 2 - offset,
-            y + 412,
+            y + 377,
             2,
             22,
             graphics2D
