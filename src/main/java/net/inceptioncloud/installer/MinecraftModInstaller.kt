@@ -61,7 +61,7 @@ object MinecraftModInstaller {
 
     var occurredErrors = mutableListOf<String>()
 
-    var version = "1.2.1"
+    var version = "1.2.2"
 
     /**
      * A list with all transitions.
@@ -117,11 +117,11 @@ object MinecraftModInstaller {
         window.isResizable = false
         window.title = "Dragonfly Mod Installer"
 
-            try {
-                window.iconImage = ImageIO.read(javaClass.getResourceAsStream("/icon_32x.png"))
-            } catch (e: Exception) {
-                reportError("201", "Image (resources/icon32x.png) not found")
-            }
+        try {
+            window.iconImage = ImageIO.read(javaClass.getResourceAsStream("/icon_32x.png"))
+        } catch (e: Exception) {
+            reportError("201", "Image (resources/icon32x.png) not found")
+        }
 
         window.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
@@ -217,19 +217,19 @@ object MinecraftModInstaller {
 
         if (!(screen!!.stepIndex == 0 && !WelcomeScreen.titleFlyIn.isAtEnd)) {
 
-                try {
-                    // Background
-                    graphics2D.drawImage(
-                        ImageIO.read(javaClass.getResource("/background.png")),
-                        0,
-                        0,
-                        WINDOW_WIDTH,
-                        WINDOW_HEIGHT,
-                        null
-                    )
-                } catch (e: Exception) {
-                    reportError("201", "Image (resources/background.png) not found")
-                }
+            try {
+                // Background
+                graphics2D.drawImage(
+                    ImageIO.read(javaClass.getResource("/background.png")),
+                    0,
+                    0,
+                    WINDOW_WIDTH,
+                    WINDOW_HEIGHT,
+                    null
+                )
+            } catch (e: Exception) {
+                reportError("201", "Image (resources/background.png) not found")
+            }
 
             // Title
             FontManager.drawCenteredString("Installation Wizard", WINDOW_WIDTH / 2, 55, 1, 36, graphics2D)
@@ -269,12 +269,25 @@ object MinecraftModInstaller {
             "https://api.inceptioncloud.net/version/installer"
         ).jsonObject.get("version").toString()
 
-        if (version != newest) {
+        val versionI = version.replace(".", "").toInt().addZerosTo(3)
+        val newestI = newest.replace(".", "").toInt().addZerosTo(3)
+
+        if (versionI < newestI) {
             Logger.log("Installer version is outdated. Update required! ($version -> $newest)")
             screen = UpdateScreen(newest)
         } else {
-            Logger.log("Installer is up to date. ($version -> $newest)")
+            Logger.log("Installer is up to date. ($version - $newest)")
         }
+    }
+
+    private fun Int.addZerosTo(amount: Int): Int {
+        var string = this.toString()
+
+        while (string.length != amount) {
+            string += "0"
+        }
+
+        return string.toInt()
     }
 
 }
