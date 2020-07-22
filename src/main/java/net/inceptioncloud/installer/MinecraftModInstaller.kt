@@ -265,13 +265,15 @@ object MinecraftModInstaller {
     }
 
     private fun checkNewestVersion() {
-        val newest = "1.2.2"
+        val newest = khttp.get(
+            "https://api.inceptioncloud.net/version/installer"
+        ).jsonObject.get("version").toString()
 
         if (version != newest) {
             Logger.log("Installer version is outdated. Update required! ($version -> $newest)")
             screen = UpdateScreen(newest)
         } else {
-            Logger.log("Installer is up to date!")
+            Logger.log("Installer is up to date. ($version -> $newest)")
         }
     }
 
