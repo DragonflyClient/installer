@@ -1,0 +1,10 @@
+package net.inceptioncloud.installer.backend.hardware.components
+
+object CPU {
+
+    /**
+     * @return Count of all physical- and logicalcores
+     */
+    fun getCoresCount(): Int = Runtime.getRuntime().availableProcessors()
+
+}
