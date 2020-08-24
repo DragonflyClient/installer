@@ -98,11 +98,15 @@ object MinecraftModInstaller {
      */
     var tabOpen = false
 
+    lateinit var OS: String
+
     /**
      * Called when starting the installer.
      */
     fun init() {
         Logger.createFile()
+
+        OS = System.getProperty("os.name")
 
         screen = WelcomeScreen()
         previousScreen = screen!!
