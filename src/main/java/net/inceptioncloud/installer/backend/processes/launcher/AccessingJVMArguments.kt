@@ -4,6 +4,7 @@ import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.MinecraftModInstaller
 import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.backend.InstallationProcess
+import net.inceptioncloud.installer.backend.hardware.HardwareScore
 import java.io.File
 import java.io.FileReader
 
@@ -35,12 +36,28 @@ class AccessingJVMArguments : InstallationProcess("Accessing JVM Arguments") {
     private fun getArgumentsFile(): File {
         var i = 2
 
+        LauncherProfile.score = HardwareScore.runTest()
+
         when {
-            LauncherProfile.ram >= 16 -> i = 16
-            LauncherProfile.ram >= 8 -> i = 8
-            LauncherProfile.ram >= 4 -> i = 4
-            LauncherProfile.ram >= 0 -> i = 2
+            LauncherProfile.score <= 30000 -> {
+                when {
+                    LauncherProfile.ram >= 16 -> i = 16
+                    LauncherProfile.ram >= 8 -> i = 6
+                    LauncherProfile.ram >= 4 -> i = 3
+                    LauncherProfile.ram >= 0 -> i = 2
+                }
+            }
+            LauncherProfile.score > 30000 -> {
+                when {
+                    LauncherProfile.ram >= 16 -> i = 16
+                    LauncherProfile.ram >= 8 -> i = 8
+                    LauncherProfile.ram >= 4 -> i = 4
+                    LauncherProfile.ram >= 0 -> i = 2
+                }
+            }
         }
+
+        Logger.log("Using '${i}_gb.jvm' as jvm-preset file!")
 
         return File("${InstallManager.MINECRAFT_PATH}\\dragonfly\\assets\\jvm\\${i}_gb.jvm")
     }
