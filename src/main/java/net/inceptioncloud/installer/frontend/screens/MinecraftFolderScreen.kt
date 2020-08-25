@@ -90,7 +90,22 @@ class MinecraftFolderScreen : Screen(2) {
         childs.add(`continue`)
         childs.add(select)
 
-        if (InstallManager.MINECRAFT_PATH.exists()) {
+        var checkPath = File("")
+
+        when {
+            MinecraftModInstaller.OS.toLowerCase().contains("windows") -> {
+                checkPath = InstallManager.MINECRAFT_PATH
+            }
+            MinecraftModInstaller.OS.toLowerCase().contains("linux") -> {
+                checkPath = File("${System.getProperty("user.home")}\\.minecraft\\")
+            }
+            MinecraftModInstaller.OS.toLowerCase().contains("os") -> {
+                checkPath =
+                    File("\\Users\\" + System.getProperty("user.name") + "\\Library\\Application Support\\.minecraft\\")
+            }
+        }
+
+        if (checkPath.exists()) {
             textSwitch = 1
             select.text = "Change"
             minecraftFolder = InstallManager.MINECRAFT_PATH
