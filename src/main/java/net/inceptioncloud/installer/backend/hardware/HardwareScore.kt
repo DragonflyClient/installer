@@ -1,57 +1,57 @@
 package net.inceptioncloud.installer.backend.hardware
 
+import net.inceptioncloud.installer.Logger
 import net.inceptioncloud.installer.backend.hardware.components.CPU
 import net.inceptioncloud.installer.backend.hardware.components.RAM
 import oshi.SystemInfo
 import oshi.hardware.CentralProcessor
 
-private var calcTime = 0L
+object HardwareScore {
+    private var calcTime = 0L
 
-fun runTest() {
+    fun runTest(): Long {
+        calcTime = System.currentTimeMillis()
+        Logger.log("Calculating hardware score...")
 
-    val systemInfo = SystemInfo()
-    val hardware = systemInfo.hardware
-    val cpu = hardware.processor
+        val systemInfo = SystemInfo()
+        val hardware = systemInfo.hardware
+        val cpu = hardware.processor
 
-    val coresCount = CPU.getCoresCount()
-    val maxClock = (cpu.maxFreq / 1000000).toInt()
-    val ramSize = RAM.getSize()
+        val coresCount = CPU.getCoresCount()
+        val maxClock = (cpu.maxFreq / 1000000).toInt()
+        val ramSize = RAM.getSize()
 
-    println()
-    println("CPU Cores: ${coresCount}x")
-    println("CPU max Clock: ${maxClock}MHz")
-    println("RAM Size: ${ramSize}MB")
-
-    println("--------------------------------------------")
-    println("Calculating hardware score...").also { calcTime = System.currentTimeMillis() }
-    calculateScore(coresCount, maxClock, ramSize)
-
-}
-
-private fun calculateScore(coresCount: Int, maxClock: Int, ramSize: Int) {
-    var score = 0
-
-    for (clock in 1..coresCount) {
-        score += maxClock
+        return calculateScore(coresCount, maxClock, ramSize)
     }
 
-    for (mb in 1..ramSize) {
-        score++
+    private fun calculateScore(coresCount: Int, maxClock: Int, ramSize: Int): Long {
+        var score = 0L
+
+        for (clock in 1..coresCount) {
+            score += maxClock
+        }
+
+        for (mb in 1..ramSize) {
+            score++
+        }
+
+
+        Logger.log("Calculation finished in ${System.currentTimeMillis() - calcTime}ms!")
+        Logger.log("Reached score: $score")
+
+        return score
     }
 
-    println("")
-    println("Calculation finished in ${System.currentTimeMillis() - calcTime}ms!")
-    println("Reached score: $score")
-}
+    private fun getAverageCpuClock(cpu: CentralProcessor): Int {
+        var values = 0L
+        var size = 0
 
-private fun getAverageCpuClock(cpu: CentralProcessor): Int {
-    var values = 0L
-    var size = 0
+        for (coreClock in cpu.currentFreq) {
+            values += coreClock
+            size++
+        }
 
-    for (coreClock in cpu.currentFreq) {
-        values += coreClock
-        size++
+        return ((values / size) / 1000000).toInt()
     }
 
-    return ((values / size) / 1000000).toInt()
 }

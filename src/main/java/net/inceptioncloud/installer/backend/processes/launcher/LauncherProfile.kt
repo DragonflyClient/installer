@@ -7,7 +7,12 @@ import java.io.File
 object LauncherProfile
 {
     /**
-     * Amount of Random Access Memory in
+     * Reached hardware score (see HardwareScore.kt)
+     */
+    var score: Long = 0L
+
+    /**
+     * Random Access Memory size
      */
     var ram: Int = 0
 
