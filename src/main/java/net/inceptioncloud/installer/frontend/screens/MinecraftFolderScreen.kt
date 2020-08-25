@@ -44,12 +44,18 @@ class MinecraftFolderScreen : Screen(2) {
 
     private val select: UIButton = object : UIButton("Select") {
         override fun buttonClicked() {
-            var openDir: File = File("")
+            var openDir = File("")
 
-            if (MinecraftModInstaller.OS.toLowerCase().contains("windows")) {
-                openDir = File(System.getenv("appdata"))
-            } else if (MinecraftModInstaller.OS.toLowerCase().contains("linux")) {
-                openDir = File("/home")
+            when {
+                MinecraftModInstaller.OS.toLowerCase().contains("windows") -> {
+                    openDir = File(System.getenv("appdata"))
+                }
+                MinecraftModInstaller.OS.toLowerCase().contains("linux") -> {
+                    openDir = File("/home")
+                }
+                MinecraftModInstaller.OS.toLowerCase().contains("os") -> {
+                    openDir = File("/Users/" + System.getProperty("user.name") + "/Library/Application Support/")
+                }
             }
 
             val chooser = FileChooser(
