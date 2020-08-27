@@ -196,7 +196,7 @@ object MinecraftModInstaller {
         }.start()
 
         if (!InstallManager.hasInternetConnection()) {
-            reportError("106", "No internet connection available")
+            reportError("106", "No internet connection")
         }
 
         checkNewestVersion()
