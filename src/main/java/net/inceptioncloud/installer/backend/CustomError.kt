@@ -40,12 +40,12 @@ class CustomError(private val errorCode: String, private val errorString: String
                 Logger.log("Restoring version...")
                 CacheManager.copyBack(
                     "client",
-                    File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly-1.8.8\\")
+                    File("${InstallManager.MINECRAFT_PATH.absolutePath}${File.separator}versions${File.separator}Dragonfly-1.8.8${File.separator}")
                 )
                 Logger.log("Restoring assets...")
                 CacheManager.copyBack(
                     "assets",
-                    File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly\\assets\\")
+                    File("${InstallManager.MINECRAFT_PATH.absolutePath}${File.separator}dragonfly${File.separator}assets${File.separator}")
                 )
                 Logger.log("Version restoring successfull!")
                 MinecraftModInstaller.restoredOldVersion = true

@@ -34,7 +34,7 @@ class ErrorScreen(private val currentErrorCode: Int) : Screen(7) {
                 override fun run() {
                     MinecraftModInstaller.tabOpen = true
                     Desktop.getDesktop()
-                        .browse(URI("https://inceptioncloud.net/dragonfly/installer/errors#$currentErrorCode"))
+                        .browse(URI("https://playdragonfly.net/installer/errors#$currentErrorCode"))
                 }
             }, 1000)
         }

@@ -1,6 +1,7 @@
 package net.inceptioncloud.installer
 
 import net.inceptioncloud.installer.backend.CustomError
+import net.inceptioncloud.installer.backend.InstallManager
 import net.inceptioncloud.installer.frontend.FontManager
 import net.inceptioncloud.installer.frontend.FontManager.registerFonts
 import net.inceptioncloud.installer.frontend.Screen
@@ -193,6 +194,10 @@ object MinecraftModInstaller {
                 Thread.sleep(10)
             }
         }.start()
+
+        if (!InstallManager.hasInternetConnection()) {
+            reportError("106", "No internet connection available")
+        }
 
         checkNewestVersion()
 

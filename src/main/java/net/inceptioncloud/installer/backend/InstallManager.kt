@@ -8,6 +8,7 @@ import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import java.io.*
 import java.net.HttpURLConnection
+import java.net.MalformedURLException
 import java.net.URL
 
 /**
@@ -145,4 +146,20 @@ object InstallManager {
         }
         return false
     }
+
+    fun hasInternetConnection(): Boolean = try {
+        Logger.log("Testing internet connection... (Server: Google)")
+        val url = URL("http://www.google.com")
+        val connection = url.openConnection()
+        connection.connect()
+        Logger.log("Internet is connected!")
+        true
+    } catch (e: MalformedURLException) {
+        Logger.log("Internet is not connected!")
+        false
+    } catch (e: IOException) {
+        Logger.log("Internet is not connected!")
+        false
+    }
+
 }
