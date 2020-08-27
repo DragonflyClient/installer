@@ -34,7 +34,7 @@ object Logger {
      * It is used to create the .log file of the current logger session
      */
     fun createFile() {
-        val folder = File("dragonfly-installer-logs\\")
+        val folder = File("dragonfly-installer-logs${File.separator}")
 
         try {
             if (!folder.exists()) {
@@ -46,7 +46,7 @@ object Logger {
         }
 
         val fileName =
-            "dragonfly-installer-logs\\${SimpleDateFormat("HH_mm_ss-dd_MM_yyyy").format(System.currentTimeMillis())}.log"
+            "dragonfly-installer-logs${File.separator}${SimpleDateFormat("HH_mm_ss-dd_MM_yyyy").format(System.currentTimeMillis())}.log"
         file = File(fileName)
 
         if (!file.createNewFile()) {

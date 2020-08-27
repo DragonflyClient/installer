@@ -97,7 +97,7 @@ class MinecraftFolderScreen : Screen(2) {
                 checkPath = InstallManager.MINECRAFT_PATH
             }
             MinecraftModInstaller.OS.toLowerCase().contains("linux") -> {
-                checkPath = File("${System.getProperty("user.home")}\\.minecraft\\")
+                checkPath = File("${System.getProperty("user.home")}/.minecraft/")
             }
             MinecraftModInstaller.OS.toLowerCase().contains("os") -> {
                 checkPath =
@@ -108,7 +108,7 @@ class MinecraftFolderScreen : Screen(2) {
         if (checkPath.exists()) {
             textSwitch = 1
             select.text = "Change"
-            minecraftFolder = InstallManager.MINECRAFT_PATH
+            minecraftFolder = checkPath
         } else {
             textSwitch = 2
         }
@@ -248,13 +248,13 @@ class MinecraftFolderScreen : Screen(2) {
     }
 
     fun createPropertiesFile() {
-        val folder = File("${System.getenv("appdata")}\\Dragonfly")
+        val folder = File("${getFolder()}${File.separator}Dragonfly")
 
         if (!folder.exists()) {
             folder.mkdir()
         }
 
-        val file = File("${System.getenv("appdata")}\\Dragonfly\\installation_properties.json")
+        val file = File("${getFolder()}Dragonfly${File.separator}installation_properties.json")
         val json = JsonObject()
 
         if (!MinecraftModInstaller.downloadEAP) {
@@ -265,7 +265,24 @@ class MinecraftFolderScreen : Screen(2) {
 
         json.addProperty("minecraftHome", "${InstallManager.MINECRAFT_PATH}\\")
 
+        File("${getFolder()}${File.separator}Dragonfly${File.separator}").mkdir()
+
         file.writer().use { Gson().toJson(json, it) }
+    }
+
+    private fun getFolder(): String {
+        when {
+            MinecraftModInstaller.OS.toLowerCase().contains("windows") -> {
+                return System.getenv("appdata")
+            }
+            MinecraftModInstaller.OS.toLowerCase().contains("linux") -> {
+                return System.getProperty("user.home") + File.separator
+            }
+            MinecraftModInstaller.OS.toLowerCase().contains("os") -> {
+                return "/Users/" + System.getProperty("user.name") + "/Library/Application Support/"
+            }
+        }
+        return "ERROR"
     }
 
 }

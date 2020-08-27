@@ -113,30 +113,36 @@ object InstallManager {
      * Checks if a certain process is running on the windows machine.
      */
     fun isProcessRunning(processName: String): Boolean {
-        var line = ""
-        var pidInfo = ""
-        val process = Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\" + "tasklist.exe")
-        val input = BufferedReader(InputStreamReader(process.inputStream))
+        if (!MinecraftModInstaller.OS.toLowerCase().contains("linux")) {
+            var line = ""
+            var pidInfo = ""
+            val process = Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\" + "tasklist.exe")
+            val input = BufferedReader(InputStreamReader(process.inputStream))
 
-        while (input.readLine().also { if (it != null) line = it } != null) {
-            pidInfo += line
+            while (input.readLine().also { if (it != null) line = it } != null) {
+                pidInfo += line
+            }
+
+            input.close()
+
+            return pidInfo.contains(processName)
         }
-
-        input.close()
-
-        return pidInfo.contains(processName)
+        return false
     }
 
     /**
      * Kills a certain process on the window.
      */
     fun killProcess(processName: String): Boolean {
-        return try {
-            Runtime.getRuntime().exec("taskkill /F /IM $processName")
-            true
-        } catch (ex: java.lang.Exception) {
-            ex.printStackTrace()
-            false
+        if (!MinecraftModInstaller.OS.toLowerCase().contains("linux")) {
+            return try {
+                Runtime.getRuntime().exec("taskkill /F /IM $processName")
+                true
+            } catch (ex: java.lang.Exception) {
+                ex.printStackTrace()
+                false
+            }
         }
+        return false
     }
 }

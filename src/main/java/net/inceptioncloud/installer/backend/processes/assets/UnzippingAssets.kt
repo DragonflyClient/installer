@@ -13,7 +13,8 @@ class UnzippingAssets : InstallationProcess("Unzipping Assets") {
     /**
      * Destination for the assets folder.
      */
-    private val destination = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\dragonfly\\")
+    private val destination =
+        File("${InstallManager.MINECRAFT_PATH.absolutePath}${File.separator}dragonfly${File.separator}")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.
@@ -21,7 +22,7 @@ class UnzippingAssets : InstallationProcess("Unzipping Assets") {
     override fun test(): Boolean = true
 
     override fun execute() {
-        status = if (unzip(File("${destination}\\assets.zip"))
+        status = if (unzip(File("${destination}${File.separator}assets.zip"))
         ) 1 else (-1).also {
             MinecraftModInstaller.delayBeforeErrorScreen = true
             MinecraftModInstaller.reportError("102", "File (${LauncherProfile.file.absolutePath}) creation failed")

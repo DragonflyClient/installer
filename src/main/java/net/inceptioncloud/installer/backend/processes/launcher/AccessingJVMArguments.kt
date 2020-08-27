@@ -59,6 +59,6 @@ class AccessingJVMArguments : InstallationProcess("Accessing JVM Arguments") {
 
         Logger.log("Using '${i}_gb.jvm' as jvm-preset file!")
 
-        return File("${InstallManager.MINECRAFT_PATH}\\dragonfly\\assets\\jvm\\${i}_gb.jvm")
+        return File("${InstallManager.MINECRAFT_PATH}${File.separator}dragonfly${File.separator}assets${File.separator}jvm${File.separator}${i}_gb.jvm")
     }
 }

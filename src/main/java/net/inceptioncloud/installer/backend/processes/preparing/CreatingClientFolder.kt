@@ -9,7 +9,8 @@ class CreatingClientFolder : InstallationProcess("Creating Client Folder") {
     /**
      * Folder in which an old client would be installed.
      */
-    private val folder = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\versions\\Dragonfly-1.8.8\\")
+    private val folder =
+        File("${InstallManager.MINECRAFT_PATH.absolutePath}${File.separator}versions${File.separator}Dragonfly-1.8.8${File.separator}")
 
     /**
      * Called when showing the corresponding screen in order to check if the process is required.

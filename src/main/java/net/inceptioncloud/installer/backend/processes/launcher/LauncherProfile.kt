@@ -29,7 +29,7 @@ object LauncherProfile
     /**
      * Destination for the JAR file.
      */
-    val file = File("${InstallManager.MINECRAFT_PATH.absolutePath}\\launcher_profiles.json")
+    val file = File("${InstallManager.MINECRAFT_PATH.absolutePath}${File.separator}launcher_profiles.json")
 
     //<editor-fold desc="Base-64 Image">
     const val imageBase64 =
