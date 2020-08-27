@@ -273,7 +273,7 @@ class MinecraftFolderScreen : Screen(2) {
     private fun getFolder(): String {
         when {
             MinecraftModInstaller.OS.toLowerCase().contains("windows") -> {
-                return System.getenv("appdata")
+                return System.getenv("appdata") + File.separator
             }
             MinecraftModInstaller.OS.toLowerCase().contains("linux") -> {
                 return System.getProperty("user.home") + File.separator
