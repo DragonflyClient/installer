@@ -62,7 +62,7 @@ object MinecraftModInstaller {
 
     var occurredErrors = mutableListOf<String>()
 
-    var version = "1.2.2"
+    var version = "1.2.3"
 
     /**
      * A list with all transitions.
